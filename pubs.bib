@@ -22,12 +22,14 @@
 	Year = {2016},
 	Bdsk-Url-1 = {http://eprint.iacr.org/2016/889}}
 
-@misc{praos,
-	Author = {Bernardo David and Peter Ga{\v z}i and Aggelos Kiayias and Alexander Russell},
-	Howpublished = {Cryptology ePrint Archive, Report 2017/573},
-	Note = {\url{http://eprint.iacr.org/2017/573}. To appear at EUROCRYPT 2018.},
-	Title = {Ouroboros Praos: An adaptively-secure, semi-synchronous proof-of-stake protocol},
-	Year = 2017}
+@inproceedings{praos,
+  title={{Ouroboros praos: An adaptively-secure, semi-synchronous proof-of-stake blockchain}},
+  author={David, Bernardo and Ga{\v{z}}i, Peter and Kiayias, Aggelos and Russell, Alexander},
+  booktitle={Annual International Conference on the Theory and Applications of Cryptographic Techniques},
+  pages={66--98},
+  year={2018},
+  organization={Springer}
+}
 
 @inproceedings{DBLP:conf/ccs/LuuNZBGS16,
 	Author = {Loi Luu and Viswesh Narayanan and Chaodong Zheng and Kunal Baweja and Seth Gilbert and Prateek Saxena},
@@ -109,17 +111,13 @@
 	Title = {A next-generation smart contract and decentralized application platform},
 	Year = {2014}}
 
-@article{algorand,
-	Author = {Silvio Micali},
-	Bibsource = {dblp computer science bibliography, http://dblp.org},
-	Biburl = {http://dblp.uni-trier.de/rec/bib/journals/corr/Micali16},
-	Journal = {CoRR},
-	Timestamp = {Tue, 02 Aug 2016 12:59:27 +0200},
-	Title = {{ALGORAND:} The Efficient and Democratic Ledger},
-	Url = {http://arxiv.org/abs/1607.01341},
-	Volume = {abs/1607.01341},
-	Year = {2016},
-	Bdsk-Url-1 = {http://arxiv.org/abs/1607.01341}}
+@inproceedings{algorand,
+  title={{Algorand: Scaling byzantine agreements for cryptocurrencies}},
+  author={Gilad, Yossi and Hemo, Rotem and Micali, Silvio and Vlachos, Georgios and Zeldovich, Nickolai},
+  booktitle={Proceedings of the 26th symposium on operating systems principles},
+  pages={51--68},
+  year={2017}
+}
 
 @inproceedings{miller2014authenticated,
   title={Authenticated data structures, generically},
@@ -157,7 +155,8 @@
 @phdthesis{buchman2016tendermint,
   title={Tendermint: Byzantine fault tolerance in the age of blockchains},
   author={Buchman, Ethan},
-  year={2016}
+  year={2016},
+  school={University of Guelph}
 }
 
 @article{herlihy2018atomic,
@@ -912,17 +911,12 @@ Transaction network},
   organization={IEEE}
 }
 
-
-
-
 @article{2018tendermint,
   title={{The latest gossip on BFT consensus}},
   author={Buchman, Ethan and Kwon, Jae and Milosevic, Zarko},
-  journal={},
   year={2018},
-	Url = {https://arxiv.org/pdf/1807.04938.pdf},
-	Volume = {},
-	Bdsk-Url-1 = {https://arxiv.org/pdf/1807.04938.pdf}
+  journal={arXiv preprint arXiv:1807.04938},
+	url={https://arxiv.org/pdf/1807.04938.pdf},
 }
 
 @article{cosmossdk,
@@ -969,4 +963,36 @@ Transaction network},
   url={https://persistence.one},
   howpublished={Available at: \url{https://persistence.one}},
   urldate={2022-12-07}
+}
+
+@article{casper,
+  title={Casper the friendly finality gadget},
+  author={Buterin, Vitalik and Griffith, Virgil},
+  journal={arXiv preprint arXiv:1710.09437},
+  year={2017}
+}
+
+@article{buterin2020combining,
+  title={Combining GHOST and casper},
+  author={Buterin, Vitalik and Hernandez, Diego and Kamphefner, Thor and Pham, Khiem and Qiao, Zhi and Ryan, Danny and Sin, Juhyeok and Wang, Ying and Zhang, Yan X},
+  journal={arXiv preprint arXiv:2003.03052},
+  year={2020}
+}
+
+@inproceedings{sompolinsky2015secure,
+  title={Secure high-rate transaction processing in bitcoin},
+  author={Sompolinsky, Yonatan and Zohar, Aviv},
+  booktitle={International conference on financial cryptography and data security},
+  pages={507--527},
+  year={2015},
+  organization={Springer}
+}
+
+@inproceedings{kiayias2017trees,
+  title={On trees, chains and fast transactions in the blockchain},
+  author={Kiayias, Aggelos and Panagiotakos, Giorgos},
+  booktitle={International Conference on Cryptology and Information Security in Latin America},
+  pages={327--351},
+  year={2017},
+  organization={Springer}
 }
