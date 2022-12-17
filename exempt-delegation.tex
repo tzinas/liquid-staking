@@ -1,6 +1,54 @@
-\section{Exempt Delegation}
+\section{Exempt Delegations}
 
-What is Exempt Delegation? Exempt Delegation factor.
-What is the principle behind Exempt Delegation?
+Exempt delegations where introduced by the Liquidity Staking Module
+(LSM)~\cite{liquidity-staking-module} as a mechanism to solve the Principal--Agent problem in liquid
+staking.
+Delegators can choose to make an exempt delegation to a
+validator instead of a regular delegation.
+These exempt delegations act as a meter of the
+validator's trustworthiness, since a large portion of them
+will be slashed in case of validator misbehavior.
+The amount of liquid staking tokens that can be
+minted for a specific validator is limited by the amount of
+exempt delegations made to that validator and the \emph{Exempt Delegation Factor}
+that is set by the protocol's governance.
+Therefore, in order for a shorting attack on the liquid staking
+token to be profitable for the adversary, the shorting profit would
+have to be greater than the exempt delegations that were slashed.
 
-Calculate the correct Exempt Delegation amounts
+A precise formula for calculating the exempt delegation factor can be
+created by formalizing the above attack.
+
+\subsection{Attack}
+
+Before the attack is initiated, there are $s_0$ RTS tokens and $b_0$
+staked ATOM reserves in the protocol.
+
+The adversary would start of by creating a validator and making an
+exempt delegating of $c$ ATOM to it.
+Then make a regular delegation of $b$ ATOM to the validator and
+immediately convers all the regular delegation shares to $b$ liquid
+staking tokens.
+Let $\varphi$ be the exempt delegation factor of the protocol
+that determines the amount $b$ as follows: $b \leq \varphi c$.
+
+Then, the adversary would convert all the $b$ liquid staking tokens into
+$s$ RTS tokens, $s = b \frac{s_0}{b_0}$, and immediately sell them for
+$b^{'}$ ATOM: $b^{'} \leq s \frac{b_0}{s_0}$.
+
+Finally, the adversary shorts the liquid staking token, equivocates
+and closes the short position.
+
+Let $q$ be the percentage of exempt delegations that will be slashed after
+the equivocation. The adversary has lost $qc$ ATOM, however the price of RTS
+tokens has droped.
+
+Before the equivocation, the price of RTS tokens was $s_0/b_0$ but
+after, it is:
+\[
+\frac{s_0 + s}{b_0} =
+\frac{s_0 + s_0\frac{b}{b_0}}{b_0} =
+\frac{s_0}{b_0} (1 + \frac{b}{b_0})
+\]
+
+The fraction $\frac{b}{b_0}$ is the slashing slippage.
