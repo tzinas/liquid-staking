@@ -1,12 +1,77 @@
-\section{Preliminaries}
+\section{Preliminaries}\label{sec:preliminaries}
+
+% TODO: citations
+
+\noindent
+\textbf{Proof-of-Stake.} In Proof-of-Stake (PoS) systems, ledgers are secured
+by \emph{validators} who participate in the protocol by proposing and voting
+on blocks. To become a validator, a stakeholder must \emph{bond} their stake
+which locks it up for a particular period of time. Validators promise they will
+not \emph{equivocate} by signing conflicting blocks.
+In case of equivocation, a percentage $0 < p \leq 1$ of the locked stake is
+\emph{slashed} and the validator is permanently deactivated. In the cryptographic
+model, validators can be \emph{honest} or \emph{adversarial}. The honest validators
+run the prescribed protocol, and hence never equivocate, whereas the adversarial
+validators can deviate from the protocol arbitrarily.
+
+% TODO: accountable/slashable safety
+
+\noindent
+\textbf{Delegation.} Since not everyone has the capacity to become a validator,
+a stakeholder can \emph{delegate} their stake to a validator to participate in
+the staking process in their stead. The voting power of the validator accounts
+for the delegated stake, and delegated stake is also slashed in case of validator
+misbehavior. The stake bonded by a validator themselves and not delegated from
+others is known as \emph{self-delegation}. Self-delegations as
+well as stake delegated from others is known as \emph{delegated stake},
+and the capital holder of delegated stake is known as the \emph{delegator}.
+A delegator can \emph{undelegate} at any time, but must wait for an
+\emph{unbonding period}.
+
+\noindent
+\textbf{Liquid Staking.} Delegated stake earns rewards, but remains locked and
+is illiquid. Delegators often wish to use their delegated stake as collateral,
+for example to take loans~\cite{gudgeon2020defi} or to, more broadly, participate in the
+DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
+\emph{liquid staking protocols}~\cite{liquid-staking-report}.
+Some such protocols~\cite{lido,stride} operate
+in the form of smart contracts (in Ethereum) or separate appchains (in Cosmos).
+Stakeholders deposit their funds into the liquid staking \emph{pool} maintained
+by the liquid staking protocol. Upon deposit, these contracts act as
+delegators and delegate the incoming funds to their choice of validators, holding
+onto the delegated stake. During the deposit, a new derivative asset is minted,
+which is given to the depositor as a claim to the delegated stake held by the
+liquid staking contract. Such derivative tokens, when issued from the same liquid
+staking contract, are fungible with one another (\eg \textsf{stATOM} in Stride).
+
+% TODO: how does the governance process for validator choice work in Stride, Lido, Persistence?
+
+The choice of which validator the liquid staking protocol's assets are delegated to
+depends on the particularities of the protocol, but, broadly speaking
+is either centralized, or decided through a voting process among a governance board.
+Typically, this governance board consists of governors who are determined by the holdings
+of a governance token. This governance token is rewarded to liquid stake holders and accumulated
+on a continuous basis proportionally to the size of their deposits into the pool.
+In the voting process, anyone can propose for a proportion of the pool's assets
+to be delegated to a validator of their choosing.
+Each governor can then vote \emph{yes} or \emph{no}
+to a proposal, and decisions are taken by weighted majority
+Details of the governance process
+that vary per protocol include the threshold to achieve majority, and the threshold to
+veto. It is possible that a particular governor is a past, but not current, protocol user.
+
+\noindent
+\textbf{Loans.} For the attack we will describe in this paper, some upfront
+capital is required. A portion of this capital is needed only throughout \emph{one}
+transaction. Towards this purpose, a \emph{flash loan}~\cite{gudgeon2020defi} can
+be obtained, in which the loan provided does not risk any funds. We assume that
+a loan of duration $\Delta$ for capital $c$ has an \emph{upfront} cost $\beta$
+and an \emph{interest rate} $r$ for a total cost of
+$(1 + r)^\Delta c - 1 + \beta$ (the term $\beta$ models the cost of a flash loan,
+which has duration $\Delta = 0$).
 
 \begin{itemize}
-  \item PoS
-  \item Delegation
-  \item Slashing / Equivocation
-  \item Liquid Staking (decentralization, fungibility)
-  \item LSM (shares, tokens)
+  \item LSM (tokens)
   \item Quicksilver (refungibilization)
   \item Exempt Delegations
-  \item Flash loans
 \end{itemize}
