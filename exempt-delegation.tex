@@ -21,18 +21,22 @@ into fungible tokens.
 
 \section{Exempt Delegations}
 
-Exempt delegations where introduced by the Liquidity Staking Module
-(LSM)~\cite{liquidity-staking-module} as a mechanism to solve the Principal--Agent problem in liquid
-staking.
-Delegators can choose to make an exempt delegation to a
-validator instead of a regular delegation.
-These exempt delegations act as a meter of the
-validator's trustworthiness, since a large portion of them
-will be slashed in case of validator misbehavior.
+Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
+are a mechanism to alleviate
+the Principal--Agent problem in liquid staking.
+Delegators can choose to make an \emph{exempt delegation},
+instead of a regular delegation, to a validator.
+These exempt delegations, as their name suggests,
+are \emph{exempt} from tokenization,
+and are akin to self-delegation of older systems.
+In case of validator misbehavior, exempt delegations
+are slashed at a larger proportion $0 < q \leq 1$ than regular delegations.
+Therefore, exempt delegations act as a meter of the
+validator's trustworthiness.
+
 The amount of liquid staking tokens that can be
 minted for a specific validator is limited by the amount of
-exempt delegations made to that validator and the \emph{Exempt Delegation Factor}
-that is set by the protocol's governance.
+exempt delegations made to that validator and the \emph{Exempt Delegation Factor}.
 Therefore, in order for a shorting attack on the liquid staking
 token to be profitable for the adversary, the shorting profit would
 have to be greater than the exempt delegations that were slashed.
