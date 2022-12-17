@@ -1,7 +1,7 @@
 
 # Exclude compiled output file
-popos.pdf
-popos.synctex.gz
+liquid-staking.pdf
+liquid-staking.synctex.gz
 
 ## Core latex/pdflatex/latexmk auxiliary files:
 *.aux
