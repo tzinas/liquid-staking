@@ -6,7 +6,8 @@
 \textbf{Proof-of-Stake.} In Proof-of-Stake (PoS) systems, ledgers are secured
 by \emph{validators} who participate in the protocol by proposing and voting
 on blocks. To become a validator, a stakeholder must \emph{bond} their stake
-which locks it up for a particular period of time. Validators promise they will
+which locks it up for a particular period of time in return for rewards.
+Validators promise they will
 not \emph{equivocate} by signing conflicting blocks.
 In case of equivocation, a percentage $0 < p \leq 1$ of the locked stake is
 \emph{slashed} and the validator is permanently deactivated. In the cryptographic
@@ -35,30 +36,63 @@ for example to take loans~\cite{gudgeon2020defi} or to, more broadly, participat
 DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
 \emph{liquid staking protocols}~\cite{liquid-staking-report}.
 Some such protocols~\cite{lido,stride} operate
-in the form of smart contracts (in Ethereum) or separate appchains (in Cosmos).
-Stakeholders deposit their funds into the liquid staking \emph{pool} maintained
+in the form of smart contracts (\eg Lido in Ethereum) or separate appchains
+(\eg Stride, Persistence, and Quicksilver in Cosmos).
+Stakeholders \emph{deposit} their funds into the liquid staking \emph{pool} maintained
 by the liquid staking protocol. Upon deposit, these contracts act as
 delegators and delegate the incoming funds to their choice of validators, holding
-onto the delegated stake. During the deposit, a new derivative asset is minted,
+onto the delegated stake and receiving rewards.
+During the deposit, a new derivative asset is minted,
 which is given to the depositor as a claim to the delegated stake held by the
 liquid staking contract. Such derivative tokens, when issued from the same liquid
-staking contract, are fungible with one another (\eg \textsf{stATOM} in Stride).
+staking contract, are fungible with one another (\eg \textsf{stATOM} in Stride~\cite{stride}
+and \textsf{stETH} in Lido~\cite{lido}). We are only concerned with liquid
+staking protocols that are fully fungible. At any time, the derivative asset holder
+can \emph{redeem} their derivative asset.
+% TODO: assets are not directly returned to the user -- LSM shares are. Explain here or later?
+During redemption, the contract burns
+the holder's derivative assets and returns the respective assets to the holder.
+In our treatment, we consider a generic asset that we denominate in \asset
+and the respective derivative token, that we denominate in \stasset,
+issued by an arbitrary liquid staking protocol.
 
-% TODO: how does the governance process for validator choice work in Stride, Lido, Persistence?
+% TODO: exchange rates between dAsset/Asset 1:1? slashing, rewards
+\noindent
+\textbf{Exchange rates.} Initially, \asset and \stasset are priced at a 1:1 exchange rate,
+as one can be exchanged for the other by redeeming or withdrawing. However, the balance
+of the liquid staking protocol in \asset holdings can change with time due to two reasons.
+Firstly, it continuously receives rewards for staking the \asset (these rewards are
+auto-compounded). Secondly, if a validator it delegates to misbehaves, a portion of its
+\asset can get slashed. These events do not change the supply of \stasset in the market.
+Therefore, the deposit and redemption operations of the liquid staking protocol use
+the ratio. Let $b_0 \asset$ denote the amount of \asset holdings of the liquid staking
+protocol, and $s_0 \stasset$ denote the total market supply of \stasset that the protocol
+has issued. When the user deposits $b \asset$, the protocol mints $s = b \frac{s_0}{b_0} \stasset$.
+On the other hand, when the user burns $s \asset$, the protocol returns $b = s \frac{b_0}{s_0} \asset$
+to the user.
 
+% TODO: mention in a remark (maybe later) that exchange rates between asset/stAsset may not
+% be 1:1 because slashing risk and unbonding time must be factored in, and cite
+% the economist's paper on liquid staking:
+% https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4180341
+
+% TODO: Study a few of the big Liquid Staking protocols (https://defillama.com/protocols/Liquid%20Staking)
+% top 13 e.g., Marinade, Algo Liquid, Benqi, Stader, Ankr
+
+\noindent
+\textbf{Governance.}
 The choice of which validator the liquid staking protocol's assets are delegated to
 depends on the particularities of the protocol, but, broadly speaking
-is either centralized, or decided through a voting process among a governance board.
-Typically, this governance board consists of governors who are determined by the holdings
-of a governance token. This governance token is rewarded to liquid stake holders and accumulated
-on a continuous basis proportionally to the size of their deposits into the pool.
+is either centralized, or decided through a voting process among
+liquid stake holders\footnote{Stride currently have
+taken a centralized decision, but plan to make future decisions by voting
+among liquid stake holders~\cite{stride-validators}. Lido and Persistence
+use a separate governance token~\cite{lido-validators,persistence-validators} for
+such decision making in place of stakeholders.}.
 In the voting process, anyone can propose for a proportion of the pool's assets
 to be delegated to a validator of their choosing.
-Each governor can then vote \emph{yes} or \emph{no}
-to a proposal, and decisions are taken by weighted majority
-Details of the governance process
-that vary per protocol include the threshold to achieve majority, and the threshold to
-veto. It is possible that a particular governor is a past, but not current, protocol user.
+Each stakeholder can then vote \emph{yes} or \emph{no}
+to a proposal, and decisions are taken by weighted majority.
 
 \noindent
 \textbf{Loans.} For the attack we will describe in this paper, some upfront
