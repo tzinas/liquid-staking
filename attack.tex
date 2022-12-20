@@ -1,0 +1,74 @@
+\subsection{Attack}
+
+We now describe an attack an adversary can conduct which leverages the
+Principal--Agent problem of liquid staking.
+
+\noindent
+\textbf{Attack overview.}
+The core idea is that the adversary can create her own validator
+which she will collude with.
+Even though no one else will choose to delegate to
+this validator, the adversary can delegate to this validator herself.
+The adversary begins the attack with some initial capital of \asset, which
+can be her own capital or borrowed capital. The goal is to increase her
+\asset holdings. She uses a portion of this capital to meet the exempt
+delegations of her own validator. Then, she liquid stakes some other
+portion of her capital, signaling delegation intent to her own validator
+and receiving \stasset in return. She sells these tokens in the open
+market in return for \asset. Next, she shorts \stasset and equivocates
+using her own validator. This causes a slashing of parts of the \asset
+holdings of the liquid staking protocol, and therefore a drop in the
+price of \stasset as denominated in \asset. Lastly, the adversary
+closes her short position and realizes her profits.
+
+Due to the liquid staking protocol respecting proportional
+representation, any signalling of the adversary.
+
+Before the attack is initiated, there are $s_0$ RTS tokens and $b_0$
+staked ATOM reserves in the protocol.
+
+The adversary would start off by creating a validator and making an
+exempt delegating of $c$ ATOM to it.
+Then make a regular delegation of $b$ ATOM to the validator and
+immediately convert all the regular delegation shares to $b$ liquid
+staking tokens.
+Let $\varphi$ be the exempt delegation factor of the protocol
+that determines the amount $b$ as follows: $b \leq \varphi c$.
+
+Then, the adversary would convert all the $b$ liquid staking tokens into
+$s$ RTS tokens, $s = b \frac{s_0}{b_0}$, and immediately sell them for
+$b^{'}$ ATOM: $b^{'} \leq s \frac{b_0}{s_0}$.
+
+Finally, the adversary shorts the liquid staking token, equivocates
+and closes the short position.
+
+Let $q$ be the percentage of exempt delegations that will be slashed after
+the equivocation. The adversary has lost $qc$ ATOM, however the price of RTS
+tokens has dropped.
+
+Before the equivocation, the price of RTS tokens was $s_0/b_0$ but
+after, it is:
+\[
+\frac{s_0 + s}{b_0} =
+\frac{s_0 + s_0\frac{b}{b_0}}{b_0} =
+\frac{s_0}{b_0} (1 + \frac{b}{b_0})
+\]
+
+The fraction $\frac{b}{b_0}$ is the slashing slippage.
+
+\noindent
+\textbf{Realizing profits in USD.}
+If the attacker wants to do bookkeeping in a more stable reference currency,
+such as USD, the attack is still profitable. The attacker begins by buying
+\asset for USD. At the end of the attack, the attacker sells \asset for USD.
+Because the attack concerns a particular liquid staking protocol, and
+not the whole \asset network, the price of \asset will likely not
+be significantly affected by the attack at all.
+This attack decreases the market confidence in \stasset,
+but not in \asset.
+In fact, because
+the attack causes slashing of \asset, the supply of \asset is decreased
+and the price of \asset with respect to the reference currency may
+even increase. 
+Lastly, any price fluctuations of \asset with respect USD will likely be
+minor, as the attack has a short duration of a couple of seconds.
