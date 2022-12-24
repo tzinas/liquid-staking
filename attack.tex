@@ -23,50 +23,55 @@ staking protocol, and therefore a drop in the price of \stasset
 as denominated in \asset. Lastly, the adversary closes her short
 position and realizes her profits.
 
-Consider delegator $D$ and validator $V$ created by the adversary.
-The adversary uses $D$ to delegate to $V$ using the liquid staking
-protocol. Specifically, $D$ liquid stakes $b$ \asset in the protocol,
-signaling delegation intent to $V$. Hence, $b$ \asset are first
-transferred to the liquid staking protocol, which it then delegates them
-to $V$. The liquid staking protocol now holds $b$ delegated \asset in
-its \emph{delegation pool}.
+% \begin{fact} \begin{theorem}?
+% A liquid staking protocol with fair representation is attackable...
 
-As a result of this delegation, some amount
-of \stasset are minted and transferred to $D$ by the protocol,
-representing the delegated $b$ \asset.
-The amount of \stasset minted is determined by
-the total amount of delegated \asset in the delegation pool $b_0$ and
-the total amount of \stasset currently in the market
-($\mathrm{minted} - \mathrm{burned}$) $s_0$. Therefore, for a
-liquid staking delegation of $b$ \asset, $D$ receives
-$s = b \frac{s_0}{b_0}$ \stasset, since the price of 1 \stasset is
+In more detail, the attack works as follows.
+Let $b_0$ be the amount of delegated \asset in the protocol's delegation pool,
+and $s_0$ be the total amount of \stasset tokens outstanding
+before the attack commences.
+Initially,
+the adversary $\mathcal{A}$ creates a new validator $V$
+under her control. To create this validator, she uses a fresh identity
+to suppress potential suspicions. While most validators
+have a real-world presence and can be held legally
+accountable~\cite{liquid-staking-report}, this validator is pseudonymous.
+We do not require any of the existing protocol participants to delegate
+to this validator for the attack to work, i.e., we assume all participants
+are wise and all other validators are honest.
+
+At the beginning of the attack time $t_0$, the adversary obtains capital
+$b$ \asset. Then, $\mathcal{A}$
+liquid stakes $b$ \asset to the protocol
+signaling delegation intent to $V$. Because the
+protocol has Proportional Representation, it delegates $b$ \asset to $V$.
+The protocol now holds $b$ delegated \asset.
+In return, $\mathcal{A}$ receives $s = b \frac{s_0}{b_0}$ \stasset.
+At this moment, the effective price of $1$ \stasset is
 $\frac{b_0}{s_0}$ \asset.
 
-
-% TODO: compare s and b value in the market.
-% TODO: compare \asset and delegated \asset value in the market.
-
-The next step in this attack is for the adversary to sell the
-acquired \stasset for \asset in the open market, getting back part of
-her initial capital. If a loan was used to acquire her initial capital,
-% TODO: Explain how much of the initial capital she can expect to get back.
-these \asset can be used to repay it. Up to this point, the adversary
+Next, the adversary sells $s$ \stasset for $b$ \asset in the market.
+% TODO: account for discount when selling \stasset for \asset
+If a loan was used to acquire her initial capital,
+these \asset can be used to repay it.
+Up to this point, the adversary
 has managed to add in the protocol's delegation pool $b$
 \asset delegated to validator $V$ while not currently holding
-any \stasset. The price of 1 \stasset after this process
+any \stasset. The price of $1$ \stasset after this process
 is $\frac{b_0 + b}{s_0 + s}$.
 
-Before forcing the price of \stasset to drop, the adversary shorts
-\stasset by taking a loan of $z$ \stasset and immediately selling
-them for \asset in the open market.
+Before forcing the price of \stasset to drop, the adversary \emph{shorts}
+\stasset: She takes a loan of $z$ \stasset and sells them for
+$z \frac{b_0 + b}{s_0 + s}$ \asset in the market.
+% TODO: check that this price is achievable or if there is a discount
+
 % Instead of selling the \stasset in the open market, maybe the
 % adversary could use the
-% protocol's redemtion mechanism and receive delegated \asset
+% protocol's redemption mechanism and receive delegated \asset
 % instead of \asset
 % Delegated \asset can also be used to
 % continue with the attack if the protocol accepts already delegated
 % \asset in addition to \asset when liquid staking.
-
 
 Due to the liquid staking protocol respecting proportional
 representation, any signalling of the adversary.
