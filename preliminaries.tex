@@ -3,6 +3,16 @@
 % TODO: citations
 
 \noindent
+\textbf{Loans.} For the attack we will describe in this paper, some upfront
+capital is required. A portion of this capital is needed only throughout \emph{one}
+transaction. Towards this purpose, a \emph{flash loan}~\cite{gudgeon2020defi} can
+be obtained, in which the loan provided does not risk any funds. We assume that
+a loan of duration $\Delta t$ for capital $c$ has an \emph{upfront} cost $\beta$
+and an \emph{interest rate} $r$ for a total cost of
+$((1 + r)^{\Delta t} - 1 + \beta) c$. The term $\beta$ models the cost of a flash loan,
+which has duration $0$.
+
+\noindent
 \textbf{Proof-of-Stake.} In Proof-of-Stake (PoS) systems, ledgers are secured
 by \emph{validators} who participate in the protocol by proposing and voting
 on blocks. To become a validator, a stakeholder must \emph{bond} their stake
@@ -27,7 +37,7 @@ others is known as \emph{self-delegation}. Self-delegations as
 well as stake delegated from others is known as \emph{delegated stake},
 and the capital holder of delegated stake is known as the \emph{delegator}.
 A delegator can \emph{undelegate} at any time, but must wait for an
-\emph{unbonding period}.
+\emph{unbonding period} $\delta$.
 
 \noindent
 \textbf{Liquid Staking.} Delegated stake earns rewards, but remains locked and
@@ -94,20 +104,10 @@ taken a centralized decision, but plan to make future decisions by voting
 among liquid stake holders~\cite{stride-validators}. Lido and Persistence
 use a separate governance token~\cite{lido-validators,persistence-validators} for
 such decision making in place of stakeholders.}.
-In the voting process, anyone can propose for a proportion of the pool's assets
+In the voting process, anyone can propose for a proportion of the protocols's assets
 to be delegated to a validator of their choosing.
 Each stakeholder can then vote \emph{yes} or \emph{no}
 to a proposal, and decisions are taken by weighted majority.
-
-\noindent
-\textbf{Loans.} For the attack we will describe in this paper, some upfront
-capital is required. A portion of this capital is needed only throughout \emph{one}
-transaction. Towards this purpose, a \emph{flash loan}~\cite{gudgeon2020defi} can
-be obtained, in which the loan provided does not risk any funds. We assume that
-a loan of duration $\Delta$ for capital $c$ has an \emph{upfront} cost $\beta$
-and an \emph{interest rate} $r$ for a total cost of
-$(1 + r)^\Delta c - 1 + \beta$ (the term $\beta$ models the cost of a flash loan,
-which has duration $\Delta = 0$).
 
 \begin{itemize}
   \item LSM (tokens)
