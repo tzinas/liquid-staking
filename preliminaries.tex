@@ -48,10 +48,11 @@ DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
 Some such protocols~\cite{lido,stride} operate
 in the form of smart contracts (\eg Lido in Ethereum) or separate appchains
 (\eg Stride, Persistence, and Quicksilver in Cosmos).
-Stakeholders \emph{deposit} their funds into the liquid staking \emph{pool} maintained
-by the liquid staking protocol. Upon deposit, these contracts act as
-delegators and delegate the incoming funds to their choice of validators, holding
-onto the delegated stake and receiving rewards.
+Stakeholders \emph{deposit} their funds into the liquid staking protocol.
+Upon deposit, these contracts act as
+delegators and delegate the incoming funds to their choice of validators.
+They collect this delegated stake into a \emph{pool} and receive staking
+rewards from these holdings.
 During the deposit, a new derivative asset is minted,
 which is given to the depositor as a claim to the delegated stake held by the
 liquid staking contract. Such derivative tokens, when issued from the same liquid
@@ -83,8 +84,37 @@ Therefore, the deposit and redemption operations of the liquid staking protocol 
 the ratio. Let $b_0 \asset$ denote the amount of \asset holdings of the liquid staking
 protocol, and $s_0 \stasset$ denote the total market supply of \stasset that the protocol
 has issued. When the user deposits $b \asset$, the protocol mints $s = b \frac{s_0}{b_0} \stasset$.
-On the other hand, when the user burns $s \asset$, the protocol returns $b = s \frac{b_0}{s_0} \asset$
-to the user.
+On the other hand, when the user burns $s \asset$, the protocol returns $b = s \frac{b_0}{s_0}$
+delegated \asset to the user. These delegated \asset can be unbonded to convert them
+to \asset.
+
+Let us consider the price of \stasset denominated in \asset in the market.
+
+Because the option always exists to mint or redeem at a rate of $\frac{s_0}{b_0}$,
+the price of \stasset denominated in \asset in a perfectly efficient market will be $\frac{s_0}{b_0}$.
+
+% b asset -> s stasset: (buying stasset)
+%   Option 1: Trade at the market
+%     Market rate: b = (1 / α) s
+%
+%   Option 2: Deposit
+%     Immediately I get s = b \frac{s_0}{b_0}
+%     Therefore, I want: 1 / α <= \frac{b_0}{s_0}
+%
+% Trivial example: s_0 = b_0 = 1, β = 0, r = 0, \delta = 1
+% Example: s_0 = b_0 = 1, β = 0, r = 0.01, \delta = 1
+%
+% s stasset -> b asset: (selling stasset)
+%   Option 1: Trade at the market
+%     Market rate: b = s (1/α)
+%
+%   Option 2: Redeem
+%     First, withdraw delegated assets b = s \frac{b_0}{s_0}
+%     and then I have to wait \delta.
+%     To get b asset instantly, I need a loan of b asset for duration \delta.
+%     The cost of the loan is ((1 + r)^\delta - 1 + β)b
+%     b = s \frac{b_0}{s_0} * (1 - ((1 + r)^\delta - 1 + β))
+%     1/α >= \frac{b_0}{s_0} * (1 - ((1 + r)^\delta - 1 + β))
 
 % TODO: mention in a remark (maybe later) that exchange rates between asset/stAsset may not
 % be 1:1 because slashing risk and unbonding time must be factored in, and cite
