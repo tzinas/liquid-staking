@@ -20,7 +20,7 @@ validators can deviate from the protocol arbitrarily.
 \noindent
 \textbf{Delegation.} Since not everyone has the capacity to become a validator,
 a stakeholder can \emph{delegate} their stake to a validator to participate in
-the staking process in their stead. The voting power of the validator accounts
+the validation process in their stead. The voting power of the validator accounts
 for the delegated stake, and delegated stake is also slashed in case of validator
 misbehavior. The stake bonded by a validator themselves and not delegated from
 others is known as \emph{self-delegation}. Self-delegations as
@@ -45,8 +45,13 @@ onto the delegated stake and receiving rewards.
 During the deposit, a new derivative asset is minted,
 which is given to the depositor as a claim to the delegated stake held by the
 liquid staking contract. Such derivative tokens, when issued from the same liquid
-staking contract, are fungible with one another (\eg \textsf{stATOM} in Stride~\cite{stride}
-and \textsf{stETH} in Lido~\cite{lido}). We are only concerned with liquid
+staking contract, are fungible with one another\footnote{The exact fungibility
+constraints depend on the protocol. For example,
+\textsf{stATOM} in Stride~\cite{stride} and \textsf{stETH} in Lido~\cite{lido} are fully fungible.
+However, in the proposed Liquidity Staking
+Module~\cite{liquidity-staking-module} of Cosmos,
+derivative tokens are only fungible when they have been
+delegated to the same validator in the same batch.}. We are only concerned with liquid
 staking protocols that are fully fungible. At any time, the derivative asset holder
 can \emph{redeem} their derivative asset.
 % TODO: assets are not directly returned to the user -- LSM shares are. Explain here or later?
