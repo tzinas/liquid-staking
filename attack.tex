@@ -14,15 +14,59 @@ Even though no one else will choose to delegate to
 this validator, the adversary can delegate to this validator herself.
 The adversary begins the attack with some initial capital of \asset, which
 can be her own capital or borrowed capital. The goal is to increase her
-\asset holdings. She uses a portion of this capital to meet the exempt
-delegations of her own validator. Then, she liquid stakes some other
-portion of her capital, signaling delegation intent to her own validator
-and receiving \stasset in return. She sells these tokens in the open
-market in return for \asset. Next, she shorts \stasset and equivocates
-using her own validator. This causes a slashing of parts of the \asset
-holdings of the liquid staking protocol, and therefore a drop in the
-price of \stasset as denominated in \asset. Lastly, the adversary
-closes her short position and realizes her profits.
+\asset holdings. She liquid stakes her capital, signaling delegation
+intent to her own validator and receiving \stasset in return.
+She sells these tokens in the open market in return for \asset.
+Next, she shorts \stasset and equivocates using her own validator.
+This causes a slashing of parts of the \asset holdings of the liquid
+staking protocol, and therefore a drop in the price of \stasset
+as denominated in \asset. Lastly, the adversary closes her short
+position and realizes her profits.
+
+Consider delegator $D$ and validator $V$ created by the adversary.
+The adversary uses $D$ to delegate to $V$ using the liquid staking
+protocol. Specifically, $D$ liquid stakes $b$ \asset in the protocol,
+signaling delegation intent to $V$. Hence, $b$ \asset are first
+transferred to the liquid staking protocol, which it then delegates them
+to $V$. The liquid staking protocol now holds $b$ delegated \asset in
+its \emph{delegation pool}.
+
+As a result of this delegation, some amount
+of \stasset are minted and transferred to $D$ by the protocol,
+representing the delegated $b$ \asset.
+The amount of \stasset minted is determined by
+the total amount of delegated \asset in the delegation pool $b_0$ and
+the total amount of \stasset currently in the market
+($\mathrm{minted} - \mathrm{burned}$) $s_0$. Therefore, for a
+liquid staking delegation of $b$ \asset, $D$ receives
+$s = b \frac{s_0}{b_0}$ \stasset, since the price of 1 \stasset is
+$\frac{b_0}{s_0}$ \asset.
+
+
+% TODO: compare s and b value in the market.
+% TODO: compare \asset and delegated \asset value in the market.
+
+The next step in this attack is for the adversary to sell the
+acquired \stasset for \asset in the open market, getting back part of
+her initial capital. If a loan was used to acquire her initial capital,
+% TODO: Explain how much of the initial capital she can expect to get back.
+these \asset can be used to repay it. Up to this point, the adversary
+has managed to add in the protocol's delegation pool $b$
+\asset delegated to validator $V$ while not currently holding
+any \stasset. The price of 1 \stasset after this process
+is $\frac{b_0 + b}{s_0 + s}$.
+
+Before forcing the price of \stasset to drop, the adversary shorts
+\stasset by taking a loan of $z$ \stasset and immediately selling
+them for \asset in the open market.
+% Instead of selling the \stasset in the open market, maybe the
+% adversary could use the
+% protocol's redemtion mechanism and receive delegated \asset
+% instead of \asset
+% Delegated \asset can also be used to
+% continue with the attack if the protocol accepts already delegated
+% \asset in addition to \asset when liquid staking.
+
 
 Due to the liquid staking protocol respecting proportional
 representation, any signalling of the adversary.
