@@ -58,12 +58,20 @@ Up to this point, the adversary
 has managed to add in the protocol's delegation pool $b$
 \asset delegated to validator $V$ while not currently holding
 any \stasset. The price of $1$ \stasset after this process
-is $\frac{b_0 + b}{s_0 + s}$.
+is $\frac{b_0 + b}{s_0 + s}$ \asset.
 
 Before forcing the price of \stasset to drop, the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stasset and sells them for
 $z \frac{b_0 + b}{s_0 + s}$ \asset in the market.
 % TODO: check that this price is achievable or if there is a discount
+Then, the adversary equivocates using $V$. This causes the
+slashing of $qb$ \asset from the protocol's delegation pool. The new
+amount of delegated \asset in the pool drops to $b_0 + (1 - q) b$, however
+the amount of \stasset circulating in the market remains the same. Hence,
+the new price of $1$ \stasset is $\frac{b_0 + (1 - q) b}{s_0 + s}$ \asset.
+At this point, the adversary deposits part of her \asset in the protocol
+in order to get $z$ \stasset and close her short position by repaying the loan.
+The rest of the \asset holdings are her profit.
 
 % Instead of selling the \stasset in the open market, maybe the
 % adversary could use the
