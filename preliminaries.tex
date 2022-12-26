@@ -90,8 +90,21 @@ to \asset.
 
 Let us consider the price of \stasset denominated in \asset in the market.
 
-Because the option always exists to mint or redeem at a rate of $\frac{s_0}{b_0}$,
-the price of \stasset denominated in \asset in a perfectly efficient market will be $\frac{s_0}{b_0}$.
+Because the option always exists to mint at a rate of $\frac{b_0}{s_0}$ by
+depositing, the price of \stasset denominated in \asset in a perfectly
+efficient market is $\frac{b_0}{s_0}$ at the maximum. Otherwise, no
+rational buyer would use the market. Hence, the market rate is
+$\alpha \leq \frac{b_0}{s_0}$.
+
+When selling \stasset for \asset, there are two options: either sell
+at the market rate $\frac{1}{\alpha}$ or use the redemption mechanism.
+Using the redemption mechanism, the \asset become available after time $\delta$.
+Therefore, to get $b$ \asset immediately, a loan of $b$ \asset is taken and
+repayed after duration $\delta$. The total cost of the loan is
+$((1 + r)^\delta - 1 + \beta)b$ \asset.
+Consider $s$ the \stasset amount initially redeemed to $s \frac{b_0}{s_0}$
+\stasset.
+% ...
 
 % b asset -> s stasset: (buying stasset)
 %   Option 1: Trade at the market
