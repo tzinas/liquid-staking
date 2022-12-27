@@ -71,6 +71,10 @@ the holder's derivative assets and returns the respective assets to the holder.
 In our treatment, we consider a generic asset that we denominate in \asset
 and the respective derivative token, that we denominate in \stasset,
 issued by an arbitrary liquid staking protocol.
+% TODO: is the loan market infinitely deep?
+We assume a perfectly efficient market for \asset and \stasset,
+as well as a loan market with rates
+$\rasset$, $\betaasset$, $\rstasset$, $\betastasset$.
 
 % TODO: exchange rates between dAsset/Asset 1:1? slashing, rewards
 \noindent
@@ -80,30 +84,39 @@ of the liquid staking protocol in \asset holdings can change with time due to tw
 Firstly, it continuously receives rewards for staking the \asset (these rewards are
 auto-compounded). Secondly, if a validator it delegates to misbehaves, a portion of its
 \asset can get slashed. These events do not change the supply of \stasset in the market.
-Therefore, the deposit and redemption operations of the liquid staking protocol use
-the ratio. Let $b_0 \asset$ denote the amount of \asset holdings of the liquid staking
+The deposit and redemption operations must adjust their price.
+Let $b_0 \asset$ denote the amount of \asset holdings of the liquid staking
 protocol, and $s_0 \stasset$ denote the total market supply of \stasset that the protocol
 has issued. When the user deposits $b \asset$, the protocol mints $s = b \frac{s_0}{b_0} \stasset$.
 On the other hand, when the user burns $s \asset$, the protocol returns $b = s \frac{b_0}{s_0}$
 delegated \asset to the user. These delegated \asset can be unbonded to convert them
 to \asset.
 
-Let us consider the price of \stasset denominated in \asset in the market.
-
-Because the option always exists to mint at a rate of $\frac{b_0}{s_0}$ by
+Let us consider the price $\alpha$ of \stasset denominated in \asset in the market.
+Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
 depositing, the price of \stasset denominated in \asset in a perfectly
-efficient market is $\frac{b_0}{s_0}$ at the maximum. Otherwise, no
+efficient market is $\frac{b_0}{s_0}$ at maximum. Otherwise, no
 rational buyer would use the market. Hence, the market rate is
 $\alpha \leq \frac{b_0}{s_0}$.
 
-When selling \stasset for \asset, there are two options: either sell
-at the market rate $\frac{1}{\alpha}$ or use the redemption mechanism.
-Using the redemption mechanism, the \asset become available after time $\delta$.
-Therefore, to get $b$ \asset immediately, a loan of $b$ \asset is taken and
-repayed after duration $\delta$. The total cost of the loan is
-$((1 + r)^\delta - 1 + \beta)b$ \asset.
-Consider $s$ the \stasset amount initially redeemed to $s \frac{b_0}{s_0}$
-\stasset.
+There are two options to convert $s$ \stasset to \asset: either sell
+at the market rate to obtain $b = \alpha s$, or use the redemption mechanism.
+Using the redemption mechanism, the \assets become available after time $\delta$.
+Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
+delegated assets. To get $b$ \asset immediately (and avoid having to wait
+for the unbonding period), a loan of $b$ \asset is taken~\cite{liquid-staking-report} and
+repayed after duration $\delta$. The amount of \asset that needs to be paid back,
+including principal and interest, is $((1 + \rasset)^\delta + \betaasset)b$ \asset.
+We set this amount to be equal to $b'$, the amount of \assets that will be
+unbonded after $\delta$ time. Solving for $b$, we get
+$b = s \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
+Therefore, in an efficient market $\alpha \geq \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
+We deduce that the bounds for an efficient market of \asset and \stasset are
+
+\[
+  \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq \alpha \leq \frac{b_0}{s_0}\,.
+\]
+
 % ...
 
 % b asset -> s stasset: (buying stasset)
