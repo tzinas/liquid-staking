@@ -32,10 +32,10 @@ and $s_0$ be the total amount of \stasset tokens outstanding
 before the attack commences.
 Initially,
 the adversary $\mathcal{A}$ creates a new validator $V$
-under her control. To create this validator, she uses a fresh identity
+under her control\footnote{To create this validator, she uses a fresh identity
 to suppress potential suspicions. While most validators
 have a real-world presence and can be held legally
-accountable~\cite{liquid-staking-report}, this validator is pseudonymous.
+accountable~\cite{liquid-staking-report}, this validator is pseudonymous.}.
 We do not require any of the existing protocol participants to delegate
 to this validator for the attack to work, i.e., we assume all participants
 are wise and all other validators are honest.
@@ -47,7 +47,7 @@ signaling delegation intent to $V$. Because the
 protocol has Proportional Representation, it delegates $b$ \asset to $V$.
 The protocol now holds $b$ delegated \asset.
 In return, $\mathcal{A}$ receives $s = b \frac{s_0}{b_0}$ \stasset.
-At this moment, the effective price of $1$ \stasset is
+At this moment, the quoted protocol price of $1$ \stasset is
 $\frac{b_0}{s_0}$ \asset.
 
 Next, the adversary sells $s$ \stasset for $b$ \asset in the market.
@@ -57,7 +57,7 @@ these \asset can be used to repay it.
 Up to this point, the adversary
 has managed to add in the protocol's delegation pool $b$
 \asset delegated to validator $V$ while not currently holding
-any \stasset. The price of $1$ \stasset after this process
+any \stasset. The quoted protocol price of $1$ \stasset after this process
 is $\frac{b_0 + b}{s_0 + s}$ \asset.
 
 Before forcing the price of \stasset to drop, the adversary \emph{shorts}
