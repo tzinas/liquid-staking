@@ -14,6 +14,8 @@ Therefore, exempt delegations act as a meter of the
 validator's trustworthiness.
 
 % TODO: \phi
+% Let $\varphi$ be the exempt delegation factor of the protocol
+% that determines the amount $b$ as follows: $b \leq \varphi c$.
 
 The amount of liquid staking tokens that can be
 minted for a specific validator is limited by the amount of
@@ -24,3 +26,34 @@ have to be greater than the exempt delegations that were slashed.
 
 A precise formula for calculating the exempt delegation factor can be
 created by formalizing the above attack.
+
+% TODO: Clean up the extension of the attack using the c parameter below
+
+The adversary starts off by creating a validator and making an
+exempt delegating of $c$ ATOM to it.
+Then make a regular delegation of $b$ ATOM to the validator and
+immediately convert all the regular delegation shares to $b$ liquid
+staking tokens.
+
+Then, the adversary converts all the $b$ liquid staking tokens into
+$s$ RTS tokens, $s = b \frac{s_0}{b_0}$, and immediately sell them for
+$b^{'}$ ATOM: $b^{'} \leq s \frac{b_0}{s_0}$.
+
+Finally, the adversary shorts the liquid staking token, equivocates
+and closes the short position.
+
+The adversary has lost $qc$ ATOM, however the price of RTS
+tokens has dropped.
+
+Before the equivocation, the price of RTS tokens was $s_0/b_0$ but
+after, it is:
+\[
+\frac{s_0 + s}{b_0} =
+\frac{s_0 + s_0\frac{b}{b_0}}{b_0} =
+\frac{s_0}{b_0} (1 + \frac{b}{b_0})
+\]
+
+The fraction $\frac{b}{b_0}$ is the slashing slippage.
+
+% TODO: analyze rationality of the attack
+% TODO: appendix? introduce discount of stasset -> asset in the market using loans
