@@ -23,15 +23,18 @@ staking protocol, and therefore a drop in the price of \stasset
 as denominated in \asset. Lastly, the adversary closes her short
 position and realizes her profits.
 
-% \begin{fact} \begin{theorem}?
-% A liquid staking protocol with fair representation is attackable...
+% \begin{theorem}
+% Any fungible liquid staking protocol with Proportional Representation
+% deployed over any proof-of-stake consensus protocol with slashable safety
+% cannot have fair punishment.
+% \end{theorem}
 
 In more detail, the attack works as follows.
 Let $b_0$ be the amount of delegated \asset in the protocol's delegation pool,
 and $s_0$ be the total amount of \stasset tokens outstanding
 before the attack commences.
 Initially,
-the adversary $\mathcal{A}$ creates a new validator $V$
+the adversary $\mathcal{A}$ creates a new validator $\mathcal{V}$
 under her control\footnote{To create this validator, she uses a fresh identity
 to suppress potential suspicions. While most validators
 have a real-world presence and can be held legally
@@ -43,8 +46,8 @@ are wise and all other validators are honest.
 At the beginning of the attack time $t_0$, the adversary obtains capital
 $b$ \asset. Then, $\mathcal{A}$
 liquid stakes $b$ \asset to the protocol
-signaling delegation intent to $V$. Because the
-protocol has Proportional Representation, it delegates $b$ \asset to $V$.
+signaling delegation intent to $\mathcal{V}$. Because the
+protocol has Proportional Representation, it delegates $b$ \asset to $\mathcal{V}$.
 The protocol now holds $b$ delegated \asset.
 In return, $\mathcal{A}$ receives $s = b \frac{s_0}{b_0}$ \stasset.
 At this moment, the quoted protocol price of $1$ \stasset is
@@ -52,11 +55,11 @@ $\frac{b_0}{s_0}$ \asset.
 
 Next, the adversary sells $s$ \stasset for $b$ \asset in the market.
 % TODO: account for discount when selling \stasset for \asset
-If a loan was used to acquire her initial capital,
-these \asset can be used to repay it.
+% If a loan was used to acquire her initial capital,
+% these \asset can be used to repay it.
 Up to this point, the adversary
 has managed to add in the protocol's delegation pool $b$
-\asset delegated to validator $V$ while not currently holding
+\asset delegated to validator $\mathcal{V}$ while not currently holding
 any \stasset. The quoted protocol price of $1$ \stasset after this process
 is $\frac{b_0 + b}{s_0 + s}$ \asset.
 
@@ -64,7 +67,7 @@ Before forcing the price of \stasset to drop, the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stasset and sells them for
 $z \frac{b_0 + b}{s_0 + s}$ \asset in the market.
 % TODO: check that this price is achievable or if there is a discount
-Then, the adversary equivocates using $V$. This causes the
+Then, the adversary equivocates using $\mathcal{V}$. This causes the
 slashing of $qb$ \asset from the protocol's delegation pool. The new
 amount of delegated \asset in the pool drops to $b_0 + (1 - q) b$, however
 the amount of \stasset circulating in the market remains the same. Hence,
