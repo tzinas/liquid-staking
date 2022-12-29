@@ -1,0 +1,79 @@
+\usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[very thick, black]
+
+\coordinate (O) at (-1,0); % Origin
+\coordinate (P0) at (0, 0);
+\coordinate (P1) at (2, 0);
+\coordinate (P2) at (4, 0);
+\coordinate (P3) at (6, 0);
+\coordinate (P4) at (8, 0);
+\coordinate (F) at (9,0); %End
+
+
+%% Timeline
+\draw[->] (O) -- (F);
+
+%% Ticks
+\foreach \x in {0,2,...,8}
+\draw (\x cm,3pt) -- (\x cm,-3pt);
+
+
+%% t_0
+\draw (P0) node[below=3pt](T0) {$t_0$} ;
+\node[below=30pt,xshift=-10pt](D0) at (P0) {%
+	Liquid stakes};
+\draw (T0) --  (D0.north);
+
+%% t_1
+\draw (P1) node[below=3pt](T1) {$t_1$} ;
+\node[below=30pt,xshift=-10pt](D1) at (P1) {%
+	Sells};
+\draw (T1) --  (D1.north);
+
+%% t_2
+\draw (P2) node[below=3pt](T2) {$t_2$} ;
+\node[below=30pt,xshift=-10pt](D2) at (P2) {%
+	Shorts};
+\draw (T2) --  (D2.north);
+
+%% t_3
+\draw (P3) node[below=3pt](T3) {$t_3$} ;
+\node[below=30pt,xshift=-10pt](D3) at (P3) {%
+  Equivocates};
+\draw (T3) --  (D3.north);
+
+%% t_4
+\draw (P4) node[below=3pt](T4) {$t_4$} ;
+\node[below=30pt,xshift=-10pt](D4) at (P4) {%
+  Closes};
+\draw (T4) --  (D4.north);
+
+
+%% Loans
+\coordinate[above=10pt] (R0) at (P0);
+\coordinate[above=10pt] (R1) at (P1);
+\coordinate[above=10pt] (R2) at (P2);
+\coordinate[above=10pt] (R4) at (P4);
+
+\draw[color=BrickRed] ($(R0) + (0,3pt)$) -- ($(R0) + (0,-3pt)$);
+\draw[color=BrickRed] ($(R1) + (0,3pt)$) -- ($(R1) + (0,-3pt)$);
+\draw[color=BrickRed] (R0) -- (R1) node[color=black,midway, above=5pt](L1) {$b$ {\tiny \asset}};
+\node[text=BrickRed,above=15pt,xshift=20pt](LD1) at (L1) {%
+	flash loan};
+\draw (LD1) --  (L1.north);
+
+\draw[color=MidnightBlue] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
+\draw[color=MidnightBlue] ($(R4) + (0,3pt)$) -- ($(R4) + (0,-3pt)$);
+\draw[color=MidnightBlue] (R2) -- (R4) node[color=black,midway, above=5pt](L2) {$z$ {\tiny \stasset}};
+\node[text=MidnightBlue,above=15pt,xshift=-10pt](LD2) at (L2) {%
+	loan};
+\draw (LD2) --  (L2.north);
+
+\end{tikzpicture}
+
+\caption{Timeline of the attack.}
+\label{fig:timeline}
+\end{figure}
