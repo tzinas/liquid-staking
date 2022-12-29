@@ -37,8 +37,13 @@ misbehavior. The stake bonded by a validator themselves and not delegated from
 others is known as \emph{self-delegation}. Self-delegations as
 well as stake delegated from others is known as \emph{delegated stake},
 and the capital holder of delegated stake is known as the \emph{delegator}.
-A delegator can \emph{undelegate} at any time, but must wait for an
-\emph{unbonding period} $\delta$.
+A delegator can \emph{undelegate} or \emph{redelegate} at any time,
+but must wait\footnote{The waiting period may sometimes be \emph{waived} and redelegations
+allowed instantly if no other redelegations have happened within $\delta$, such as
+in Cosmos~\cite{?}. The important point for us is that, after redelegation has commenced, the
+% TODO (tzinas): Fill citation and author of https://docs.cosmos.network/main/modules/staking
+redelegated stake is still prone to slashing due to the \emph{old} validator's misbehavior
+for a period of $\delta$.} for an \emph{unbonding period} $\delta$.
 
 \noindent
 \textbf{Liquid Staking.} Delegated stake earns rewards, but remains locked and
