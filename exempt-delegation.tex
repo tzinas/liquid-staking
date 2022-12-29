@@ -13,19 +13,19 @@ are slashed at a larger proportion $0 < q \leq 1$ than regular delegations.
 Therefore, exempt delegations act as a meter of the
 validator's trustworthiness.
 
-% TODO: \phi
+% TODO: $\phi$
 % Let $\varphi$ be the exempt delegation factor of the protocol
 % that determines the amount $b$ as follows: $b \leq \varphi c$.
 
-The amount of liquid staking tokens that can be
-minted for a specific validator is limited by the amount of
-exempt delegations made to that validator and the \emph{Exempt Delegation Factor}.
-Therefore, in order for a shorting attack on the liquid staking
-token to be profitable for the adversary, the shorting profit would
-have to be greater than the exempt delegations that were slashed.
+The amount of \asset in the protocol's delegation pool that can be
+delegated to specific validator is limited by the amount of its
+exempt delegations and the protocol's \emph{Exempt Delegation Factor} $\varphi$.
+Hence, if validator $\mathcal{V}$ has $c$ \asset worth of exempt delegations,
+the amount of \asset that can be delegated to $\mathcal{V}$ by the protocol
+is $b \leq \varphi c$.
 
-A precise formula for calculating the exempt delegation factor can be
-created by formalizing the above attack.
+The attack we described in Section~\ref{sec:attack} can be modified to work
+around exempt delegations.
 
 % TODO: Clean up the extension of the attack using the c parameter below
 
