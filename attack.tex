@@ -60,7 +60,15 @@ Next, the adversary sells $s$ \stasset for $b$ \asset in the market.
 Up to this point, the adversary
 has managed to add in the protocol's delegation pool $b$
 \asset delegated to validator $\mathcal{V}$ while not currently holding
-any \stasset. The quoted protocol price of $1$ \stasset after this process
+any \stasset.
+Since the protocol has Proportional Representation, the new $s$
+\stasset holder will eventually resignal his delegation intent and the
+$b$ \asset delegated to $\mathcal{V}$ will be redelegated elsewhere.
+% Explain how redelegation works?
+However, during the unbonding period $\delta$, the redelegated \asset will
+still be bonded with $\mathcal{V}$ and therefore vulnerable to slashing
+if $\mathcal{V}$ equivocates.
+The quoted protocol price of $1$ \stasset after this process
 is $\frac{b_0 + b}{s_0 + s}$ \asset.
 
 Before forcing the price of \stasset to drop, the adversary \emph{shorts}
