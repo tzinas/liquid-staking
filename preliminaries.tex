@@ -4,13 +4,14 @@
 
 \noindent
 \textbf{Loans.} For the attack we will describe in this paper, some upfront
-capital is required. A portion of this capital is needed only throughout \emph{one}
+capital is required. Sometimes a portion of this capital is needed only throughout \emph{one}
 transaction. Towards this purpose, a \emph{flash loan}~\cite{gudgeon2020defi} can
-be obtained, in which the loan provided does not risk any funds. We assume that
+be obtained, in which the loan has zero duration and does not risk any funds. We assume that
 a loan of duration $\Delta t$ for capital $c$ has an \emph{upfront} cost $\beta$
 and an \emph{interest rate} $r$ for a total cost of
 $((1 + r)^{\Delta t} - 1 + \beta) c$. The term $\beta$ models the cost of a flash loan,
-which has duration $0$.
+which has duration $0$. Without loss of generality, we lump the capital cost of any
+collateral requirements into $r$ and $\beta$.
 
 \noindent
 \textbf{Proof-of-Stake.} In Proof-of-Stake (PoS) systems, ledgers are secured
