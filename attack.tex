@@ -1,104 +1,107 @@
-\subsection{Attack}
+\section{Attack}
+
+We now describe an attack an adversary can conduct which leverages the
+Principal--Agent problem of liquid staking. First, we observe that
+fair punishment in the class of liquid staking protocols we are concerned
+about is impossible.
+
+\begin{claim}
+Any \emph{fungible} liquid staking protocol with \emph{Proportional Representation}
+deployed over any proof-of-stake consensus protocol with \emph{unbonding period}
+$\delta > 0$ which slashes equivocating validators by a rate of $p > 0$
+cannot have \emph{fair punishment}.
+\end{claim}
+
+\noindent
+\textbf{A first attack attempt.}
+To see why the above claim holds, consider the following simplistic attack.
+Let $b_0$ be the amount of delegated \asset in the protocol's delegation pool,
+and $s_0$ be the total amount of \stasset tokens outstanding
+before the attack commences. The initial quoted price of \stasset
+is $\frac{b_0}{s_0}$.
+
+Initially,
+the adversary $\mathcal{A}$ creates\footnote{To create this validator, she uses a fresh identity
+to suppress potential suspicions. While most validators
+have a real-world presence and can be held legally
+accountable~\cite{liquid-staking-report}, this validator is pseudonymous.}
+a new validator $\mathcal{V}$ under her control.
+We do not require any of the existing protocol participants to delegate
+to this validator for the attack to work, i.e., we assume all participants
+are wise and all other validators are honest.
+At time $t_1$, the adversary delegates $b$ \asset to the protocol,
+signalling delegation intent to $\mathcal{V}$.
+Due to Proportional Representation,
+the protocol respects this intent and delegates $b$ to $\mathcal{V}$.
+The protocol now holds $b$ delegated \asset to $\mathcal{V}$.
+Through this deposit, the adversary obtains
+$s = \frac{s_0}{b_0} b$ \stasset, and the quoted price remains
+$\frac{b_0 + b}{s_0 + s} = \frac{b_0}{s_0}$.
+Lastly, at time $t_4 > t_1$, the validator
+$\mathcal{V}$ equivocates. This causes a proportion $p$ of
+the capital $b$ to be slashed.
+However the amount of \stasset circulating in the
+market remains $s_0 + s = s_0 + b\frac{s_0}{b_0}$.
+The new price is now
+$\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0 + (1 - p)b}{s_0}\frac{1}{1 + \frac{b}{b_0}} < \frac{b_0}{s_0}$,
+and every stakeholder is negatively affected. As everyone else was
+wise, this constitutes unfair punishment.
+
+The above attack requires the adversary to expend capital $b$ to cause
+harm to others, and is irrational. In the remainder of this section, we
+will explore how to make this attack profitable.
+
 % TODO: conjecture that in the adversarial setting, the three properties
 % (fungibility, proportional representation, fair punishment) are
 % not all attainable when the protocol is slashably safe.
 
-We now describe an attack an adversary can conduct which leverages the
-Principal--Agent problem of liquid staking.
-
 \noindent
-\textbf{Attack overview.}
-The core idea is that the adversary can create her own validator
-which she will collude with.
-Even though no one else will choose to delegate to
-this validator, the adversary can delegate to this validator herself.
-The adversary begins the attack with some initial capital of \asset, which
-can be her own capital or borrowed capital. The goal is to increase her
-\asset holdings. She liquid stakes her capital, signaling delegation
-intent to her own validator and receiving \stasset in return.
-She sells these tokens in the open market in return for \asset.
-Next, she shorts \stasset and equivocates using her own validator.
-This causes a slashing of parts of the \asset holdings of the liquid
-staking protocol, and therefore a drop in the price of \stasset
-as denominated in \asset. Lastly, the adversary closes her short
-position and realizes her profits.
+\textbf{Making the attack profitable.}
+The profitable version of the attack works similarly to the above
+irrational attack, but with some extra steps. As before, the adversary, initially
+holding a capital of $b$, begins by spawning the colluding validator $\mathcal{V}$,
+delegates $b$ at time $t_1$, and equivocates at time $t_4$.
 
-% \begin{theorem}
-% Any fungible liquid staking protocol with Proportional Representation
-% deployed over any proof-of-stake consensus protocol with slashable safety
-% cannot have fair punishment.
-% \end{theorem}
-
-In more detail, the attack works as follows.
-Let $b_0$ be the amount of delegated \asset in the protocol's delegation pool,
-and $s_0$ be the total amount of \stasset tokens outstanding
-before the attack commences.
-Initially,
-the adversary $\mathcal{A}$ creates a new validator $\mathcal{V}$
-under her control\footnote{To create this validator, she uses a fresh identity
-to suppress potential suspicions. While most validators
-have a real-world presence and can be held legally
-accountable~\cite{liquid-staking-report}, this validator is pseudonymous.}.
-We do not require any of the existing protocol participants to delegate
-to this validator for the attack to work, i.e., we assume all participants
-are wise and all other validators are honest.
-
-At the beginning of the attack, the adversary obtains capital
-$b$ \asset. Then, at time time $t_1$, $\mathcal{A}$
-liquid stakes $b$ \asset to the protocol
-signaling delegation intent to $\mathcal{V}$. Because the
-protocol has Proportional Representation, it delegates $b$ \asset to $\mathcal{V}$.
-The protocol now holds $b$ delegated \asset.
-In return, $\mathcal{A}$ receives $s = b \frac{s_0}{b_0}$ \stasset.
-At this moment, the quoted protocol price of $1$ \stasset is
-$\frac{b_0}{s_0}$ \asset.
-
-Next, at time $t_1$, the adversary sells the acquired $s$ \stasset for
-$b$ \asset in the market.
+During equivocation, the adversary does not want to be holding any
+\stasset of her own, as the price of \stasset is about to drop.
+Therefore, at time $t_2$, after $t_1$ but before $t_4$, the adversary sells
+the acquired $s$ \stasset for $b$ \asset in the market.
 % TODO: account for discount when selling \stasset for \asset
 % If a loan was used to acquire her initial capital,
 % these \asset can be used to repay it.
-Up to this point, the adversary
-has managed to add in the protocol's delegation pool $b$
-\asset delegated to validator $\mathcal{V}$ while not currently holding
-any \stasset.
-Since the protocol has Proportional Representation, the new $s$
-\stasset holder will eventually resignal his delegation intent and the
-$b$ \asset delegated to $\mathcal{V}$ will be redelegated elsewhere.
-% Explain how redelegation works?
-However, during the unbonding period $\delta$, the redelegated \asset will
-still be bonded with $\mathcal{V}$ and therefore vulnerable to slashing
-if $\mathcal{V}$ equivocates.
-The quoted protocol price of $1$ \stasset after this process
-is $\frac{b_0 + b}{s_0 + s}$ \asset.
+The adversary has now managed to add $b$ \asset delegated to validator $\mathcal{V}$
+to the protocol's delegation pool while not currently holding
+any \stasset. The loss has been averted.
+% TODO: move to resignalling section?
+% Since the protocol has Proportional Representation, the new $s$
+% \stasset holder can eventually resignal his delegation intent and the
+% $b$ \asset delegated to $\mathcal{V}$ will be redelegated elsewhere.
+% % Explain how redelegation works?
+% However, during the unbonding period $\delta$, the redelegated \asset will
+% still be bonded with $\mathcal{V}$ and therefore vulnerable to slashing
+% if $\mathcal{V}$ equivocates.
 
-Before forcing the price of \stasset to drop, at time $t_2$ the adversary \emph{shorts}
-\stasset: She takes a loan of $z$ \stasset and sells them for
-$z \frac{b_0 + b}{s_0 + s}$ \asset in the market.
-% TODO: check that this price is achievable or if there is a discount
-
-Then, at time $t_3$, the adversary equivocates using $\mathcal{V}$.
-This causes the slashing of $qb$ \asset from the protocol's delegation
-pool. The new amount of delegated \asset in the pool drops to
-$b_0 + (1 - q) b$, however the amount of \stasset circulating in the
-market remains the same. Hence, the new price of $1$ \stasset is
-$\frac{b_0 + (1 - q) b}{s_0 + s}$ \asset.
-
-Lastly, at time $t_4$, the adversary closes her short position by repaying the
-\stasset loan: She deposits part of her \asset in the protocol
-to get $((1 + \rstasset)^{t_4 - t_2} - 1 + \betastasset) z$ \stasset, which
-is the total loan cost. Then, she repays the loan and profits the remainder of
-her \asset holdings.
-
-% Instead of selling the \stasset in the open market, maybe the
-% adversary could use the
-% protocol's redemption mechanism and receive delegated \asset
-% instead of \asset
-% Delegated \asset can also be used to
-% continue with the attack if the protocol accepts already delegated
-% \asset in addition to \asset when liquid staking.
-
+% TODO: remove "flash loan" label?
+% TODO: mark b, s above black line and below red/blue lines
 \import{./}{attack-diagram.tex}
+
+A small extra trick will allow her to profit.
+Before forcing the price of \stasset to drop, at time $t_3 < t_4$
+the adversary \emph{shorts}
+\stasset: She takes a loan of $z$ \stassets and
+sells
+them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
+
+Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
+\stasset loan. The duration of the loan was $\Delta_z = t_5 - t_3$, so the
+total loan amount to be repaid, including the principal and interest, is
+$((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
+To recover this amount of \stasset, the adversary \emph{deposits}
+$b' = \frac{b_0 + (1 - p) b}{s_0 + s} ((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \asset
+into the protocol, which allows her to issue the exact required \stasset
+to be paid back. This concludes the attack.
+
+Her total profits from the attack are $b^* - b'$.
 
 % Maybe this should be moved to the appendix
 \noindent
@@ -117,3 +120,81 @@ and the price of \asset with respect to the reference currency may
 even increase.
 Lastly, any price fluctuations of \asset with respect USD will likely be
 minor, as the attack has a short duration of a couple of seconds.
+
+% TODO: resignalling
+
+% TODO: consider the case p < 1
+
+\subsection{The Market price of \stasset}\label{sec:stasset-price}
+% TODO: Consider moving this to appendix
+
+Let us consider the price $\alpha$ of \stasset denominated in \asset in the market.
+Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
+depositing, the price of \stasset denominated in \asset in a perfectly
+efficient market is $\frac{b_0}{s_0}$ at maximum. Otherwise, no
+rational buyer would use the market. Hence, the market rate is
+$\alpha \leq \frac{b_0}{s_0}$.
+
+There are two options to convert $s$ \stasset to \asset: either sell
+at the market rate to obtain $b = \alpha s$, or use the redemption mechanism.
+Using the redemption mechanism, the \assets become available after time $\delta$.
+Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
+delegated assets. To get $b$ \asset immediately (and avoid having to wait
+for the unbonding period), a loan of $b$ \asset is taken~\cite{liquid-staking-report} and
+repayed after duration $\delta$. The amount of \asset that needs to be paid back,
+including principal and interest, is $((1 + \rasset)^\delta + \betaasset)b$ \asset.
+We set this amount to be equal to $b'$, the amount of \assets that will be
+unbonded after $\delta$ time. Solving for $b$, we get
+$b = s \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
+Therefore, in an efficient market $\alpha \geq \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
+We deduce that the bounds for an efficient market of \asset and \stasset are
+
+\[
+  \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq \alpha \leq \frac{b_0}{s_0}\,.
+\]
+
+% ...
+
+% b asset -> s stasset: (buying stasset)
+%   Option 1: Trade at the market
+%     Market rate: b = (1 / α) s
+%
+%   Option 2: Deposit
+%     Immediately I get s = b \frac{s_0}{b_0}
+%     Therefore, I want: 1 / α <= \frac{b_0}{s_0}
+%
+% Trivial example: s_0 = b_0 = 1, β = 0, r = 0, \delta = 1
+% Example: s_0 = b_0 = 1, β = 0, r = 0.01, \delta = 1
+%
+% s stasset -> b asset: (selling stasset)
+%   Option 1: Trade at the market
+%     Market rate: b = s (1/α)
+%
+%   Option 2: Redeem
+%     First, withdraw delegated assets b = s \frac{b_0}{s_0}
+%     and then I have to wait \delta.
+%     To get b asset instantly, I need a loan of b asset for duration \delta.
+%     The cost of the loan is ((1 + r)^\delta - 1 + β)b
+%     b = s \frac{b_0}{s_0} * (1 - ((1 + r)^\delta - 1 + β))
+%     1/α >= \frac{b_0}{s_0} * (1 - ((1 + r)^\delta - 1 + β))
+
+% TODO: mention in a remark (maybe later) that exchange rates between asset/stAsset may not
+% be 1:1 because slashing risk and unbonding time must be factored in, and cite
+% the economist's paper on liquid staking:
+% https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4180341
+
+% TODO: Study a few of the big Liquid Staking protocols (https://defillama.com/protocols/Liquid%20Staking)
+% top 13 e.g., Marinade, Algo Liquid, Benqi, Stader, Ankr
+
+% TODO: Re-state the attack formulae using the corrected pricing of stasset
+
+% Instead of selling the \stasset in the open market, maybe the
+% adversary could use the
+% protocol's redemption mechanism and receive delegated \asset
+% instead of \asset
+% Delegated \asset can also be used to
+% continue with the attack if the protocol accepts already delegated
+% \asset in addition to \asset when liquid staking.
+
+% TODO: optimization problem, find optimal balance between b/c/z
+% given limited capital.
