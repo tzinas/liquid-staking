@@ -43,8 +43,8 @@ We do not require any of the existing protocol participants to delegate
 to this validator for the attack to work, i.e., we assume all participants
 are wise and all other validators are honest.
 
-At the beginning of the attack time $t_0$, the adversary obtains capital
-$b$ \asset. Then, $\mathcal{A}$
+At the beginning of the attack, the adversary obtains capital
+$b$ \asset. Then, at time time $t_1$, $\mathcal{A}$
 liquid stakes $b$ \asset to the protocol
 signaling delegation intent to $\mathcal{V}$. Because the
 protocol has Proportional Representation, it delegates $b$ \asset to $\mathcal{V}$.
@@ -53,7 +53,8 @@ In return, $\mathcal{A}$ receives $s = b \frac{s_0}{b_0}$ \stasset.
 At this moment, the quoted protocol price of $1$ \stasset is
 $\frac{b_0}{s_0}$ \asset.
 
-Next, the adversary sells $s$ \stasset for $b$ \asset in the market.
+Next, at time $t_1$, the adversary sells the acquired $s$ \stasset for
+$b$ \asset in the market.
 % TODO: account for discount when selling \stasset for \asset
 % If a loan was used to acquire her initial capital,
 % these \asset can be used to repay it.
@@ -71,18 +72,23 @@ if $\mathcal{V}$ equivocates.
 The quoted protocol price of $1$ \stasset after this process
 is $\frac{b_0 + b}{s_0 + s}$ \asset.
 
-Before forcing the price of \stasset to drop, the adversary \emph{shorts}
+Before forcing the price of \stasset to drop, at time $t_2$ the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stasset and sells them for
 $z \frac{b_0 + b}{s_0 + s}$ \asset in the market.
 % TODO: check that this price is achievable or if there is a discount
-Then, the adversary equivocates using $\mathcal{V}$. This causes the
-slashing of $qb$ \asset from the protocol's delegation pool. The new
-amount of delegated \asset in the pool drops to $b_0 + (1 - q) b$, however
-the amount of \stasset circulating in the market remains the same. Hence,
-the new price of $1$ \stasset is $\frac{b_0 + (1 - q) b}{s_0 + s}$ \asset.
-At this point, the adversary deposits part of her \asset in the protocol
-in order to get $z$ \stasset and close her short position by repaying the loan.
-The rest of the \asset holdings are her profit.
+
+Then, at time $t_3$, the adversary equivocates using $\mathcal{V}$.
+This causes the slashing of $qb$ \asset from the protocol's delegation
+pool. The new amount of delegated \asset in the pool drops to
+$b_0 + (1 - q) b$, however the amount of \stasset circulating in the
+market remains the same. Hence, the new price of $1$ \stasset is
+$\frac{b_0 + (1 - q) b}{s_0 + s}$ \asset.
+
+Lastly, at time $t_4$, the adversary closes her short position by repaying the
+\stasset loan: She deposits part of her \asset in the protocol
+to get $((1 + \rstasset)^{t_4 - t_2} - 1 + \betastasset) z$ \stasset, which
+is the total loan cost. Then, she repays the loan and profits the remainder of
+her \asset holdings.
 
 % Instead of selling the \stasset in the open market, maybe the
 % adversary could use the
@@ -94,6 +100,7 @@ The rest of the \asset holdings are her profit.
 
 \import{./}{attack-diagram.tex}
 
+% Maybe this should be moved to the appendix
 \noindent
 \textbf{Realizing profits in USD.}
 If the attacker wants to do bookkeeping in a more stable reference currency,
