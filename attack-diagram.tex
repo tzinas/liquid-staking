@@ -12,6 +12,19 @@
 \coordinate (P5) at (8, 0);
 \coordinate (F) at (9,0); %End
 
+\node[anchor=east,yshift=14pt] at (O) {\tiny \asset:};
+\node[anchor=east,yshift=6pt] at (O) {\tiny \stasset:};
+
+\node[yshift=9pt] at ($(O)!0.5!(P1)$) {\tiny $\frac{b_0}{s_0}$};
+\node[yshift=9pt] at ($(P4)!0.5!(P5)$) {\tiny $\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
+
+\coordinate[above=9pt] (M1) at (P1);
+\draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
+\draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
+\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {\tiny $\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
+\coordinate[above=9pt] (M2) at (P4);
+
+\draw [decorate,decoration={brace,amplitude=3pt}] ($(O) + (-1.2,3pt)$) -- ($(O) + (-1.2,17pt)$) node [black,midway,rotate=90,yshift=10pt] {\tiny supply};
 
 %% Timeline
 \draw[->] (O) -- (F);
@@ -53,17 +66,18 @@
 
 
 %% Loans
-\coordinate[above=10pt] (R1) at (P1);
-\coordinate[above=10pt] (R2) at (P2);
-\coordinate[above=10pt] (R3) at (P3);
-\coordinate[above=10pt] (R5) at (P5);
+\coordinate[above=25pt] (R1) at (P1);
+\coordinate[above=25pt] (R2) at (P2);
+\coordinate[above=25pt] (R3) at (P3);
+\coordinate[above=25pt] (R5) at (P5);
 
 \draw[color=BrickRed] ($(R1) + (0,3pt)$) -- ($(R1) + (0,-3pt)$);
 \draw[color=BrickRed] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
 \draw[color=BrickRed] (R1) -- (R2) node[color=black,midway, above=5pt](L1) {$b$ {\tiny \asset}};
-\node[text=BrickRed,above=15pt,xshift=20pt](LD2) at (L1) {%
-	flash loan};
-\draw (LD2) --  (L1.north);
+%% flash loan label
+%\node[text=BrickRed,above=15pt,xshift=20pt](LD2) at (L1) {%
+	%flash loan};
+%\draw (LD2) --  (L1.north);
 
 \draw[color=MidnightBlue] ($(R3) + (0,3pt)$) -- ($(R3) + (0,-3pt)$);
 \draw[color=MidnightBlue] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
