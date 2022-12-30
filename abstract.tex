@@ -1,15 +1,15 @@
 \begin{abstract}
   Proof-of-Stake systems require stakers to lock up their funds in
-  order to participate in the consensus validation process. This
-  leads to capital inefficiency, as locked capital cannot be used for
-  other Decentralized Finance (DeFi) applications.
-  Liquid staking rewards stakers with fungible
+  order to participate in consensus validation. This
+  leads to capital inefficiency, as locked capital cannot be invested in
+  Decentralized Finance (DeFi).
+  \emph{Liquid staking} rewards stakers with fungible
   tokens in return for locking up their assets, which can in turn be
   reused in the DeFi economy. However, liquid staking introduces
   unexpected risks, as all delegated stake is now fungible. This
   exacerbates the already existing Principal--Agent problem
   faced during any delegation. In this short paper, we
-  describe for the first time the Principal--Agent problem in
+  study the Principal--Agent problem in
   the context of liquid staking, and explain why many liquid staking
   protocols choose to use a centralized or federated governance
   mechanism. We highlight the dilemma
@@ -17,8 +17,11 @@
   (having one's stake delegated to the validator of choice)
   and \emph{fair punishment}
   (being economically affected only when one's choice is misinformed).
+  We put forth an attack illustrating that these two notions are
+  fundamentally incompatible in an adversarial setting.
   We then describe the mechanism of exempt delegations,
-  used by some staking systems today, and put forth a precise
+  used by some staking systems today, and devise a precise
   formula for quantifying the correct choice of exempt delegation
-  which allows balancing the two notions of fairness.
+  which allows balancing the two notions of fairness
+  in the rational model.
 \end{abstract}
