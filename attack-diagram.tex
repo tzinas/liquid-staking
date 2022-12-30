@@ -12,19 +12,24 @@
 \coordinate (P5) at (8, 0);
 \coordinate (F) at (9,0); %End
 
-\node[anchor=east,yshift=14pt] at (O) {\tiny \asset:};
-\node[anchor=east,yshift=6pt] at (O) {\tiny \stasset:};
+\node[anchor=east,yshift=14pt] at (O) {{\tiny \asset} reserves:};
+\node[anchor=east,yshift=6pt] at (O) {{\tiny \stasset} supply:};
 
-\node[yshift=9pt] at ($(O)!0.5!(P1)$) {\tiny $\frac{b_0}{s_0}$};
-\node[yshift=9pt] at ($(P4)!0.5!(P5)$) {\tiny $\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
-
+% \node[yshift=9pt] at ($(O)!0.5!(P1)$) {\tiny $\frac{b_0}{s_0}$};
+\coordinate[above=9pt] (M0) at (O);
 \coordinate[above=9pt] (M1) at (P1);
 \coordinate[above=9pt] (M2) at (P4);
+\coordinate[above=9pt] (M3) at (F);
+
+\draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white](L0) {$\frac{b_0}{s_0}$};
+\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white](L2) {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
+% \node[yshift=9pt] at ($(P4)!0.5!(P5)$) {\tiny $\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
+
 \draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
 \draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
-\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {\tiny $\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
+\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {$\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
 
-\draw [decorate,decoration={brace,amplitude=3pt}] ($(O) + (-1.2,3pt)$) -- ($(O) + (-1.2,17pt)$) node [black,midway,rotate=90,yshift=10pt] {\tiny supply};
+% \draw [decorate,decoration={brace,amplitude=3pt}] ($(O) + (-1.2,3pt)$) -- ($(O) + (-1.2,17pt)$) node [black,midway,rotate=90,yshift=10pt] {\tiny supply};
 
 %% Timeline
 \draw[->] (O) -- (F);
