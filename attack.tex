@@ -32,8 +32,9 @@ are wise and all other validators are honest.
 At time $t_1$, the adversary delegates $b$ \asset to the protocol,
 signalling delegation intent to $\mathcal{V}$.
 Due to Proportional Representation,
-the protocol respects this intent and delegates $b$ to $\mathcal{V}$.
+the protocol respects this intent and delegates $b$ \asset to $\mathcal{V}$.
 The protocol now holds $b$ delegated \asset to $\mathcal{V}$.
+% Reduntaunt? ^^
 Through this deposit, the adversary obtains
 $s = \frac{s_0}{b_0} b$ \stasset, and the quoted price remains
 $\frac{b_0 + b}{s_0 + s} = \frac{b_0}{s_0}$.
@@ -48,6 +49,7 @@ and every stakeholder is negatively affected. As everyone else was
 wise, this constitutes unfair punishment.
 
 The above attack requires the adversary to expend capital $b$ to cause
+%capital bp ?
 harm to others, and is irrational. In the remainder of this section, we
 will explore how to make this attack profitable.
 
@@ -70,7 +72,7 @@ the acquired $s$ \stasset for $b$ \asset in the market.
 % If a loan was used to acquire her initial capital,
 % these \asset can be used to repay it.
 The adversary has now managed to add $b$ \asset delegated to validator $\mathcal{V}$
-to the protocol's delegation pool while not currently holding
+in the protocol's delegation pool while not currently holding
 any \stasset. The loss has been averted.
 % TODO: move to resignalling section?
 % Since the protocol has Proportional Representation, the new $s$
