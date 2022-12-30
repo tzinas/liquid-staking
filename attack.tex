@@ -43,9 +43,21 @@ $\mathcal{V}$ equivocates. This causes a proportion $p$ of
 the capital $b$ to be slashed.
 However the amount of \stasset circulating in the
 market remains $s_0 + s = s_0 + b\frac{s_0}{b_0}$.
-The new price is now
-$\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0 + (1 - p)b}{s_0}\frac{1}{1 + \frac{b}{b_0}} < \frac{b_0}{s_0}$,
-and every stakeholder is negatively affected. As everyone else was
+The new quoted price is now
+$\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) < \frac{b_0}{s_0}$.
+
+% \begin{align*}
+%  &\frac{b_0 + (1 - p)b}{s_0 + s}\\
+% =&\frac{b_0 + (1 - p)b}{s_0}\frac{1}{1 + \frac{b}{b_0}}\\
+% =&\frac{b_0}{s_0}\frac{1 + (1 - p)\frac{b}{b_0}}{1 + \frac{b}{b_0}}\\
+% =&\frac{b_0}{s_0}\frac{1 + \frac{b}{b_0} - p\frac{b}{b_0}}{1 + \frac{b}{b_0}}\\
+% =&\frac{b_0}{s_0}(1 - p\frac{b}{b_0(1 + \frac{b}{b_0})})\\
+% =&\frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b})\\
+% \end{align*}
+
+Because \stasset is fungible, \emph{every} stakeholder is negatively affected,
+proportionally to their holdings.
+As everyone else was
 wise, this constitutes unfair punishment.
 
 The above attack requires the adversary to expend capital $b$ to cause
