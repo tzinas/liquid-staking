@@ -111,11 +111,17 @@ Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short
 total loan amount to be repaid, including the principal and interest, is
 $((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
 To recover this amount of \stasset, the adversary \emph{deposits}
-$b' = \frac{b_0 + (1 - p) b}{s_0 + s} ((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \asset
+$b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) ((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
 
-Her total profits from the attack are $b^* - b'$.
+Her total profits from the attack are
+$b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0})((1 + \rstasset)^{\Delta_z} + \betastasset))$.
+This will be profitable if $(1 - p\frac{b}{b_0})((1 + \rstasset)^{\Delta_z} + \betastasset) < 1$,
+i.e., the cost $(1 + \rstasset)^{\Delta_z} + \betastasset$ of money borrowing is
+sufficiently cheap that she can make up for it by the price movement
+$1 - p\frac{b}{b_0}$
+she has caused.
 
 % Maybe this should be moved to the appendix
 \noindent
