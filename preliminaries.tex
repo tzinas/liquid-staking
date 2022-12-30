@@ -90,10 +90,10 @@ Firstly, it continuously receives rewards for staking the \asset (these rewards 
 auto-compounded). Secondly, if a validator it delegates to misbehaves, a portion of its
 \asset can get slashed. These events do not change the supply of \stasset in the market.
 The deposit and redemption operations must adjust their price.
-Let $b_0 \asset$ denote the amount of \asset holdings of the liquid staking
-protocol, and $s_0 \stasset$ denote the total market supply of \stasset that the protocol
-has issued. When the user deposits $b \asset$, the protocol mints $s = b \frac{s_0}{b_0} \stasset$.
-On the other hand, when the user burns $s \asset$, the protocol returns $b = s \frac{b_0}{s_0}$
+Let $b_0$ \asset denote the amount of \asset holdings of the liquid staking
+protocol, and $s_0$ \stasset denote the total market supply of \stasset that the protocol
+has issued. When the user deposits $b$ \asset, the protocol mints $s = b \frac{s_0}{b_0}$ \stasset.
+On the other hand, when the user burns $s$ \asset, the protocol returns $b = s \frac{b_0}{s_0}$
 delegated \asset to the user. These delegated \asset can be unbonded to convert them
 to \asset. Because the user can always go back to the protocol and exchange $b$ for $s$ or
 vice versa, we assume that the price of \stasset denominated in \asset in the
