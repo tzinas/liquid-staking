@@ -1,8 +1,59 @@
 \section{Exempt Delegations}
 
 Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
-are a mechanism to alleviate
-the Principal--Agent problem in liquid staking.
+are a mechanism to alleviate the Principal--Agent problem in liquid staking.
+An exempt delegation amount $c$, measured in \asset, is associated
+with each validator. It is a measure of the validator's trustworthiness.
+The liquid staking protocol is now redesigned to impose restrictions
+on how much of the pooled moneys can be delegated to a particular
+validator based on their exempt delegation. The restriction is
+parameterized by a factor $\phi$ (in practice, $\phi > 1$)
+and is given by the inequality $b < \phi c$: Only up to $b$ \assets
+are allowed to be delegated by the liquid staking protocol
+to a validator with $c$ \asset in exempt delegations.
+
+A new validator begins its lifecycle with $c = 0$. They can then
+raise their own exempt delegation amount by locking aside a
+chosen amount of \asset, and marking it as \emph{exempt}. Those
+assets are delegated to the validator as usual. However,
+the \emph{exempt}
+marking means that those delegated assets cannot be part of the liquid
+staking protocol pool, but must remain locked aside. Additionally,
+these specially marked delegations are slashed\footnote{In the context
+of Cosmos, the exempt delegation mechanism is applied at the consensus
+layer by the Liquidity Staking Module (LSM)~\cite{liquidity-staking-module}.
+When this mechanism is used, \emph{assets} are first delegated to a validator by
+a delegator who obtains \emph{delegated assets}. These \emph{delegated assets} are then
+\emph{tokenized} into \emph{LSM shares}, representations of delegated assets that
+are minimally fungible (fungible among the other tokens that were delegated in the
+same batch to the same validator). These tokenized
+shares are subject the the exempt delegation constraint $b < \phi c$. The tokenized shares
+can then be \emph{deposited} into the liquid staking protocol, which issues liquid staking
+tokens (\stassets), as usual, in a process termed \emph{refungibilization}.
+The protocol does not need to delegate further, as it can readily start reaping the
+delegation rewards (as long as a relevant so-called \emph{LSM record} is also transferred
+along with the tokenized shares).
+It also does not need to perform further exempt delegation constraint checks.
+When the user \emph{redeems} \stassets, the protocol may elect to give
+back tokenized shares instead of \assets. Those can then be unwrapped into delegated assets,
+that can afterwards be undelegated into \assets after the relevant unbonding
+period expires.
+Through this mechanism, the exempt delegation $c$ of a validator is
+a \emph{shared} amount across potentially multiple liquid staking
+protocols that opt to accept tokenized shares
+instead of \assets directly. The \emph{intent} necessary for proportional
+representation can be read by the liquid staking protocol by simply
+looking at the LSM tokenized share records, and no separate voting is
+necessary when entering the protocol. The factor $\phi$ is decided not by the
+liquid staking protocols' governance, but by the governance of
+the underlying chain. The slashing factor $q$ is applied directly
+by the chain and not by the liquid staking protocol.
+If a liquid staking protocol participates in
+multiple chains, the $\phi$ factors can be different in each chain.
+In our exposition, we abstract out these implementation details to highlight
+the economic issues at hand.}
+at a potentially higher rate $q \geq p$.
+
 Delegators can choose to make an \emph{exempt delegation},
 instead of a regular delegation, to a validator.
 These exempt delegations, as their name suggests,
@@ -41,31 +92,8 @@ of $z$ \stasset at time $t_3$, equivocates using $\mathcal{V}$ at time $t_4$.
 
 % TODO: Clean up the extension of the attack using the c parameter below
 
-The adversary starts off by creating a validator and making an
-exempt delegating of $c$ ATOM to it.
-Then make a regular delegation of $b$ ATOM to the validator and
-immediately convert all the regular delegation shares to $b$ liquid
-staking tokens.
-
-Then, the adversary converts all the $b$ liquid staking tokens into
-$s$ RTS tokens, $s = b \frac{s_0}{b_0}$, and immediately sell them for
-$b^{'}$ ATOM: $b^{'} \leq s \frac{b_0}{s_0}$.
-
-Finally, the adversary shorts the liquid staking token, equivocates
-and closes the short position.
-
 The adversary has lost $qc$ ATOM, however the price of RTS
 tokens has dropped.
-
-Before the equivocation, the price of RTS tokens was $s_0/b_0$ but
-after, it is:
-\[
-\frac{s_0 + s}{b_0} =
-\frac{s_0 + s_0\frac{b}{b_0}}{b_0} =
-\frac{s_0}{b_0} (1 + \frac{b}{b_0})
-\]
-
-The fraction $\frac{b}{b_0}$ is the slashing slippage.
 
 % TODO: analyze rationality of the attack
 % TODO: appendix? introduce discount of stasset -> asset in the market using loans
