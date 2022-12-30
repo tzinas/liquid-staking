@@ -18,14 +18,26 @@ validator's trustworthiness.
 % that determines the amount $b$ as follows: $b \leq \varphi c$.
 
 The amount of \asset in the protocol's delegation pool that can be
-delegated to specific validator is limited by the amount of its
+delegated to a specific validator is limited by the amount of its
 exempt delegations and the protocol's \emph{Exempt Delegation Factor} $\varphi$.
 Hence, if validator $\mathcal{V}$ has $c$ \asset worth of exempt delegations,
 the amount of \asset that can be delegated to $\mathcal{V}$ by the protocol
 is $b \leq \varphi c$.
 
-The attack we described in Section~\ref{sec:attack} can be modified to work
+The attack described in the previous section can be modified to work
 around exempt delegations.
+
+Like before, the adversary obtains capital $b$ \asset and creates
+validator $\mathcal{V}$.
+However, $\mathcal{V}$ has no exempt delegations yet and cannot be delegated to
+by the protocol.
+Therefore, she additionally obtains capital $c = \frac{b}{\varphi}$ \asset
+and at time $t_0 < t_1$ uses it to exempt delegate to $\mathcal{V}$.
+Now, $\mathcal{V}$ has enough exempt delegations to be delegated to by the protocol.
+
+Then, once again, the adversary delegates $b$ \asset at time $t_1$,
+sells the acquired $s$ \stasset in the market at time $t_2$, shorts \stasset by taking a loan
+of $z$ \stasset at time $t_3$ and equivocates using $\mathcal{V}$ at time $t_4$.
 
 % TODO: Clean up the extension of the attack using the c parameter below
 
