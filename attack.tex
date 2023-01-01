@@ -103,7 +103,9 @@ A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_3 < t_4$
 the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stassets and
-sells
+sells\footnote{Instead of \emph{selling}, the adversary can \emph{redeem}, but
+this may incur an unbonding delay, which can be rectified by taking a loan.
+See Section~\ref{sec:stasset-price}.}
 them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
 
 Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
@@ -118,10 +120,9 @@ to be paid back. This concludes the attack.
 Her total profits from the attack are
 $b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0})((1 + \rstasset)^{\Delta_z} + \betastasset))$.
 This will be profitable if $(1 - p\frac{b}{b_0})((1 + \rstasset)^{\Delta_z} + \betastasset) < 1$,
-i.e., the cost $(1 + \rstasset)^{\Delta_z} + \betastasset$ of money borrowing is
+i.e., the cost $(1 + \rstasset)^{\Delta_z} + \betastasset$ of money borrowing (which is always $> 1$) is
 sufficiently cheap that she can make up for it by the price movement
-$1 - p\frac{b}{b_0}$
-she has caused.
+$1 - p\frac{b}{b_0}$ she has caused.
 
 % Maybe this should be moved to the appendix
 \noindent
@@ -157,7 +158,8 @@ $\alpha \leq \frac{b_0}{s_0}$.
 
 There are two options to convert $s$ \stasset to \asset: either sell
 at the market rate to obtain $b = \alpha s$, or use the redemption mechanism.
-Using the redemption mechanism, the \assets become available after time $\delta$.
+Using the redemption mechanism, the \assets become available after
+time $\delta$.
 Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
 delegated assets. To get $b$ \asset immediately (and avoid having to wait
 for the unbonding period), a loan of $b$ \asset is taken~\cite{liquid-staking-report} and
@@ -173,30 +175,13 @@ We deduce that the bounds for an efficient market of \asset and \stasset are
   \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq \alpha \leq \frac{b_0}{s_0}\,.
 \]
 
-% ...
+Some liquid staking protocols use the principle of remittances to match depositing and
+redeeming parties, so that the redeeming party does not have to incur any unbonding delay.
+If the redeemed amounts exceed the deposited amounts, some amounts will necessarily uncur
+a delay. However, the above bounds may effectively be tighter than $\delta$ due to
+a shorter effective unbonding duration.
 
-% b asset -> s stasset: (buying stasset)
-%   Option 1: Trade at the market
-%     Market rate: b = (1 / α) s
-%
-%   Option 2: Deposit
-%     Immediately I get s = b \frac{s_0}{b_0}
-%     Therefore, I want: 1 / α <= \frac{b_0}{s_0}
-%
-% Trivial example: s_0 = b_0 = 1, β = 0, r = 0, \delta = 1
-% Example: s_0 = b_0 = 1, β = 0, r = 0.01, \delta = 1
-%
-% s stasset -> b asset: (selling stasset)
-%   Option 1: Trade at the market
-%     Market rate: b = s (1/α)
-%
-%   Option 2: Redeem
-%     First, withdraw delegated assets b = s \frac{b_0}{s_0}
-%     and then I have to wait \delta.
-%     To get b asset instantly, I need a loan of b asset for duration \delta.
-%     The cost of the loan is ((1 + r)^\delta - 1 + β)b
-%     b = s \frac{b_0}{s_0} * (1 - ((1 + r)^\delta - 1 + β))
-%     1/α >= \frac{b_0}{s_0} * (1 - ((1 + r)^\delta - 1 + β))
+% TODO: explore whether the principle of remittances is actually implemented anywhere
 
 % TODO: mention in a remark (maybe later) that exchange rates between asset/stAsset may not
 % be 1:1 because slashing risk and unbonding time must be factored in, and cite
