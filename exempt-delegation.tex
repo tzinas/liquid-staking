@@ -5,12 +5,13 @@ are a mechanism to alleviate the Principal--Agent problem in liquid staking.
 An exempt delegation amount $c$, measured in \asset, is associated
 with each validator. It is a measure of the validator's trustworthiness.
 The liquid staking protocol is now redesigned to impose restrictions
-on how much of the pooled moneys can be delegated to a particular
-validator based on their exempt delegation. The restriction is
+on how much of the protocol's pooled moneys can be delegated to a particular
+validator based on the validator's exempt delegation.
+The restriction is
 parameterized by a factor $\phi$ (in practice, $\phi > 1$)
-and is given by the inequality $b < \phi c$: Only up to $b$ \assets
+and is given by the inequality $b \leq \phi c$: Only up to $b$ \assets
 are allowed to be delegated by the liquid staking protocol
-to a validator with $c$ \asset in exempt delegations.
+to a validator with $c$ \assets in exempt delegations.
 
 A new validator begins its lifecycle with $c = 0$. They can then
 raise their own exempt delegation amount by locking aside a
@@ -18,16 +19,17 @@ chosen amount of \asset, and marking it as \emph{exempt}. Those
 assets are delegated to the validator as usual. However,
 the \emph{exempt}
 marking means that those delegated assets cannot be part of the liquid
-staking protocol pool, but must remain locked aside. Additionally,
+staking protocol pool, but must remain infungibly locked aside. Additionally,
 these specially marked delegations are slashed\footnote{In the context
-of Cosmos, the exempt delegation mechanism is applied at the consensus
+of Cosmos, the exempt delegation mechanism is planned to be applied at the consensus
 layer by the Liquidity Staking Module (LSM)~\cite{liquidity-staking-module}.
 When this mechanism is used, \emph{assets} are first delegated to a validator by
-a delegator who obtains \emph{delegated assets}. These \emph{delegated assets} are then
+a delegator who obtains \emph{delegated assets}, marking them as exempt or non-exempt.
+In the case of non-exempt delegated assets, these are then
 \emph{tokenized} into \emph{LSM shares}, representations of delegated assets that
 are minimally fungible (fungible among the other tokens that were delegated in the
 same batch to the same validator). These tokenized
-shares are subject the the exempt delegation constraint $b < \phi c$. The tokenized shares
+shares are subject to the exempt delegation constraint $b \leq \phi c$. The tokenized shares
 can then be \emph{deposited} into the liquid staking protocol, which issues liquid staking
 tokens (\stassets), as usual, in a process termed \emph{refungibilization}.
 The protocol does not need to delegate further, as it can readily start reaping the
@@ -48,52 +50,41 @@ necessary when entering the protocol. The factor $\phi$ is decided not by the
 liquid staking protocols' governance, but by the governance of
 the underlying chain. The slashing factor $q$ is applied directly
 by the chain and not by the liquid staking protocol.
+In the current LSM design, $q = p$.
 If a liquid staking protocol participates in
 multiple chains, the $\phi$ factors can be different in each chain.
 In our exposition, we abstract out these implementation details to highlight
 the economic issues at hand.}
-at a potentially higher rate $q \geq p$.
+at a potentially higher rate $q \geq p$. Exempt delegated assets cannot
+be undelegated in a way that would cause a violation of the inequality
+$b \leq \phi c$.
 
-Delegators can choose to make an \emph{exempt delegation},
-instead of a regular delegation, to a validator.
-These exempt delegations, as their name suggests,
-are \emph{exempt} from tokenization,
-and are akin to self-delegation of older systems.
-In case of validator misbehavior, exempt delegations
-are slashed at a larger proportion $0 < q \leq 1$ than regular delegations.
-Therefore, exempt delegations act as a meter of the
-validator's trustworthiness.
+Delegators, whether wise or unwise, do not participate in exempt
+delegations; instead, it is the validator who exempt delegates to
+themselves (or someone who trusts the validator for extrinsic reasons).
+This means that, in case of validator misbehavior, the exempt delegation
+slashing $qc$ is a penalty that only affects the validator.
 
-% TODO: $\phi$
-% Let $\varphi$ be the exempt delegation factor of the protocol
-% that determines the amount $b$ as follows: $b \leq \varphi c$.
+This raises
+the cost of the attack described in the previous section. The
+adversary must first, at time $t_0 < t_1$, exempt delegate a sufficient amount
+$c \geq \frac{b}{\phi}$ \asset to $\mathcal{V}$ before she can liquid stake $b$ \asset.
+Whereas the \stassets
+corresponding to those $b$ \assets can be, as before, sold at $t_2$ to
+separate the Agent from the Principal, the $c$ amount remains with the
+Agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
+in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
+of the attack, the adversary undelegates the remaining $(1 - q)c$ exempt delegation.
 
-The amount of \asset in the protocol's delegation pool that can be
-delegated to a specific validator is limited by the amount of its
-exempt delegations and the protocol's \emph{Exempt Delegation Factor} $\varphi$.
-Hence, if validator $\mathcal{V}$ has $c$ \asset worth of exempt delegations,
-the amount of \asset that can be delegated to $\mathcal{V}$ by the protocol
-is $b \leq \varphi c$.
-
-The attack described in the previous section can be modified to work
-around exempt delegations.
-
-Like before, the adversary obtains capital $b$ \asset and creates
-validator $\mathcal{V}$.
-However, $\mathcal{V}$ has no exempt delegations yet and cannot be delegated to
-by the protocol.
-Therefore, she additionally obtains capital $c = \frac{b}{\varphi}$ \asset
-and at time $t_0 < t_1$ uses it to exempt delegate to $\mathcal{V}$.
-Now, $\mathcal{V}$ has enough exempt delegations to be delegated to by the protocol.
-
-Then, once again, the adversary delegates $b$ \asset at time $t_1$,
-sells the acquired $s$ \stasset in the market at time $t_2$, shorts \stasset by taking a loan
-of $z$ \stasset at time $t_3$, equivocates using $\mathcal{V}$ at time $t_4$.
-
-% TODO: Clean up the extension of the attack using the c parameter below
-
-The adversary has lost $qc$ ATOM, however the price of RTS
-tokens has dropped.
+The attack may remain profitable despite exempt delegations.
+The rational adversary should not waste any unnecessary resources on
+$c$; therefore, she can set $c = \frac{b}{\phi}$. The profit of the attack now
+becomes $b^* - b' - \frac{q}{\phi}b$.
+The intuition for why exempt delegations protect the system is that,
+for the adversary to profit from the short, she must cause a significant
+shift in the price. The shift in the price is determined by the factor
+$p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
+must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 % TODO: analyze rationality of the attack
 % TODO: appendix? introduce discount of stasset -> asset in the market using loans
