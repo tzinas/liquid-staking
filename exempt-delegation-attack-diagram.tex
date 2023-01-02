@@ -4,94 +4,104 @@
 \centering
 \begin{tikzpicture}[very thick, black]
 
-% TODO(tzinas): show t_0 marked as "Exempt delegate"
+\coordinate (distance) at (1.6,0);
+
 \coordinate (O) at (-1,0); % Origin
-\coordinate (P1) at (0, 0);
-\coordinate (P2) at (2, 0);
-\coordinate (P3) at (4, 0);
-\coordinate (P4) at (6, 0);
-\coordinate (P5) at (8, 0);
+\coordinate (P0) at (0, 0);
+\coordinate (P1) at ($(P0) + (distance)$);
+\coordinate (P2) at ($(P1) + (distance)$);
+\coordinate (P3) at ($(P2) + (distance)$);
+\coordinate (P4) at ($(P3) + (distance)$);
+\coordinate (P5) at ($(P4) + (distance)$);
 \coordinate (F) at (9,0); %End
 
-\node[anchor=east,yshift=14pt] at (O) {{\tiny \asset} reserves:};
-\node[anchor=east,yshift=6pt] at (O) {{\tiny \stasset} supply:};
+\node[anchor=east,yshift=15pt] at (O) {{\tiny \asset} reserves:};
+\node[anchor=east,yshift=7pt] at (O) {{\tiny \stasset} supply:};
 
-% \node[yshift=9pt] at ($(O)!0.5!(P1)$) {\tiny $\frac{b_0}{s_0}$};
-\coordinate[above=9pt] (M0) at (O);
-\coordinate[above=9pt] (M1) at (P1);
-\coordinate[above=9pt] (M2) at (P4);
-\coordinate[above=9pt] (M3) at (F);
+\coordinate[above=10pt] (M0) at (O);
+\coordinate[above=10pt] (M1) at (P1);
+\coordinate[above=10pt] (M2) at (P4);
+\coordinate[above=10pt] (M3) at (F);
 
 \draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white](L0) {$\frac{b_0}{s_0}$};
 \draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white](L2) {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
-% \node[yshift=9pt] at ($(P4)!0.5!(P5)$) {\tiny $\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
 
 \draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
 \draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
 \draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {$\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
 
-% \draw [decorate,decoration={brace,amplitude=3pt}] ($(O) + (-1.2,3pt)$) -- ($(O) + (-1.2,17pt)$) node [black,midway,rotate=90,yshift=10pt] {\tiny supply};
 
 %% Timeline
 \draw[->] (O) -- (F);
 
+
 %% Ticks
-\foreach \x in {0,2,...,8}
-\draw (\x cm,3pt) -- (\x cm,-3pt);
+\foreach \x in {P0,P1,P2,P3,P4,P5}
+\draw ($(\x) - (0,3pt)$) -- ($(\x) + (0,3pt)$);
 
 
 %% t_0
-\draw (P1) node[below=3pt](T1) {$t_1$} ;
-\node[below=30pt,xshift=-10pt](D1) at (P1) {%
-	Liquid stakes};
-\draw (T1) --  (D1.north);
+\draw (P0) node[below=3pt](T0) {$t_0$} ;
+\node[align=center,below=30pt,xshift=-10pt](D0) at (P0) {%
+	Exempt\\delegates};
+\draw (T0) --  (D0.north);
 
 %% t_1
+\draw (P1) node[below=3pt](T1) {$t_1$} ;
+\node[align=center,below=30pt,xshift=-10pt](D1) at (P1) {%
+	Liquid\\stakes};
+\draw (T1) --  (D1.north);
+
+%% t_2
 \draw (P2) node[below=3pt](T2) {$t_2$} ;
-\node[below=30pt,xshift=-10pt](D2) at (P2) {%
+\node[below=36pt,xshift=-12pt](D2) at (P2) {%
 	Sells};
 \draw (T2) --  (D2.north);
 
-%% t_2
+%% t_3
 \draw (P3) node[below=3pt](T3) {$t_3$} ;
-\node[below=30pt,xshift=-10pt](D3) at (P3) {%
+\node[below=36pt,xshift=-12pt](D3) at (P3) {%
 	Shorts};
 \draw (T3) --  (D3.north);
 
-%% t_3
+%% t_4
 \draw (P4) node[below=3pt](T4) {$t_4$} ;
-\node[below=30pt,xshift=-10pt](D4) at (P4) {%
+\node[below=36pt,xshift=-12pt](D4) at (P4) {%
   Equivocates};
 \draw (T4) --  (D4.north);
 
-%% t_4
+%% t_5
 \draw (P5) node[below=3pt](T5) {$t_5$} ;
-\node[below=30pt,xshift=-10pt](D5) at (P5) {%
+\node[below=36pt,xshift=-12pt](D5) at (P5) {%
   Closes};
 \draw (T5) --  (D5.north);
 
 
 %% Loans
+\coordinate[above=45pt] (RH0) at (P0);
+\coordinate[above=45pt] (RH3) at (P3);
+
 \coordinate[above=25pt] (R1) at (P1);
 \coordinate[above=25pt] (R2) at (P2);
 \coordinate[above=25pt] (R3) at (P3);
 \coordinate[above=25pt] (R5) at (P5);
 
+\draw[color=BrickRed] ($(RH0) + (0,3pt)$) -- ($(RH0) + (0,-3pt)$);
+\draw[color=BrickRed] ($(RH3) + (0,3pt)$) -- ($(RH3) + (0,-3pt)$);
+\draw[color=BrickRed] (RH0) -- (RH3) node[color=black,midway, above=3pt](L0) {$c$ {\tiny \asset}};
+
+\node[text=BrickRed,xshift=-48pt] at (L0) {flash loan};
+
 \draw[color=BrickRed] ($(R1) + (0,3pt)$) -- ($(R1) + (0,-3pt)$);
 \draw[color=BrickRed] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
-\draw[color=BrickRed] (R1) -- (R2) node[color=black,midway, above=5pt](L1) {$b$ {\tiny \asset}};
-%% flash loan label
-%\node[text=BrickRed,above=15pt,xshift=20pt](LD2) at (L1) {%
-	%flash loan};
-%\draw (LD2) --  (L1.north);
+\draw[color=BrickRed] (R1) -- (R2) node[color=black,midway, above=3pt](L1) {$b$ {\tiny \asset}};
+
+\node[text=BrickRed,xshift=-48pt,yshift=-8pt] at (L1) {flash loan};
 
 \draw[color=MidnightBlue] ($(R3) + (0,3pt)$) -- ($(R3) + (0,-3pt)$);
 \draw[color=MidnightBlue] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
-\draw[color=MidnightBlue] (R3) -- (R5) node[color=black,midway, above=5pt](L2) {$z$ {\tiny \stasset}};
-\node[text=MidnightBlue,above=15pt,xshift=-10pt](LD3) at (L2) {%
-	loan};
-\draw (LD3) --  (L2.north);
-
+\draw[color=MidnightBlue] (R3) -- (R5) node[color=black,midway, above=3pt](L2) {$z$ {\tiny \stasset}};
+\node[text=MidnightBlue,above=3pt] at (L2) {loan};
 \end{tikzpicture}
 
 \caption{Timeline of the attack.}
