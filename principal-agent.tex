@@ -10,14 +10,17 @@ However, validators (the Agent) may have extrinsic motivation to
 misbehave and plot against delegators (the Principal). This creates
 a conflict of interest that is known as the Principal--Agent problem.
 
-
-
+For example, a malicious validator can equivocate, which can cause
+the delegator's funds to be slashed. If the malicious validator has
+limited self-delegation and no reputation to lose, the validator
+may be able to profit from the delegator's loss. However, a validator
+with a larger self-delegation will be affected by the slashing themselves.
+This is why self-delegation is considered to offer a layer of protection
+against the Principal--Agent problem.
 
 \begin{itemize}
-    \item Principal--Agent Problem (example from company)
-        \begin{itemize}
-            \item More nuanced model than honest/adversarial: stakeholders are not honest or adversarial, but can make ``right'' or ``wrong'' choice; validators are honest and adversarial.
-            \item Fairness: You should not be slashed if you make the ``right'' choice.
-        \end{itemize}
+    \item More nuanced model than honest/adversarial: stakeholders are not honest or adversarial, but can make ``right'' or ``wrong'' choice; validators are honest and adversarial.
+    \item Fair punishment: You should not be slashed if you make the ``right'' choice.
     \item Wise and unwise model
+    \item Why the problem is exacerbated (with example from governance)
 \end{itemize}
