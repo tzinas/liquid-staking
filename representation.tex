@@ -20,34 +20,49 @@ staking becomes different. Each stakeholder must \emph{signal} their
 \emph{intent}~\cite{quicksilver} indicating which validator they wish
 the pool to delegate to.
 
-First, the stakeholder delegates their stake
-directly to the validator of their choice. They are now holders of \emph{delegated
-stake}, which is non-fungible and illiquid. They then
-transfer\footnote{In some Cosmos implementations, illiquid delegated stake requires an intermediate
-step before it can transferred: making the delegated stake \emph{minimally fungible}.
-This is done by first converting the delegated stake into minimally fungible
-\emph{liquid staking tokens} using the Liquidity Staking Module (LSM)~\cite{liquidity-staking-module}.
-These tokens are then transfered to the liquid staking protocol for refungibilization.}
-this delegated stake to the liquid staking protocol, which issues derivative
-tokens to the stakeholder. These tokens are fully fungible. We call this
-process \emph{refungibilization}, because the user starts with fungible assets,
-which we denote \textsf{Asset}, converts them to non-fungible delegated stake,
-which we denote \textsf{dAsset}, and, finally, deposites these into the liquid
-staking protocol to receive a fully fungible derivative token, which we denote
-\textsf{stAsset}.
+First, the stakeholder deposits \asset into the protocol and signals
+delegation intent to the validator of their choice. Then, the protocol
+delegates the deposited \asset to that validator. The stakeholder is
+now a holder of tradable \stasset representations of the delegated \asset.
 
-Asset, stAsset
+At some later time, the \stasset holder may wish to redelegate
+their underlying \asset to a new validator.
+The \stasset holder can \emph{resignal} their delegation intent and the protocol
+will redelegate the underlying \asset to the new validator.
 
-This means that, if a small stakeholder
-participating in the liquid staking protocol wants their... TODO
+The goal is for all \stasset holders to be represented proportionally to
+their stake. Hence, in a liquid staking protocol with proportional
+representation, for every \stasset in circulation, the derivative \asset
+in the protocol's delegation pool must be delegated to the validator
+of the current \stasset holder's choice.
 
-It makes sense to wrap this delegated
-stake into a \emph{derivative token} which can be used for trading and can
-be swapped for the underlying delegated stake at any time. Such tokens
-are most useful if they are \emph{fungible} with one another, regardless
-of the validator they originated from. We use the term
-\emph{refungibilization} for the process of converting (non-fungible) delegated stake
-into fungible tokens.
+
+% First, the stakeholder delegates their stake
+% directly to the validator of their choice. They are now holders of \emph{delegated
+% stake}, which is non-fungible and illiquid. They then
+% transfer\footnote{In some Cosmos implementations, illiquid delegated stake requires an intermediate
+% step before it can transferred: making the delegated stake \emph{minimally fungible}.
+% This is done by first converting the delegated stake into minimally fungible
+% \emph{liquid staking tokens} using the Liquidity Staking Module (LSM)~\cite{liquidity-staking-module}.
+% These tokens are then transfered to the liquid staking protocol for refungibilization.}
+% this delegated stake to the liquid staking protocol, which issues derivative
+% tokens to the stakeholder. These tokens are fully fungible. We call this
+% process \emph{refungibilization}, because the user starts with fungible assets,
+% which we denote \textsf{Asset}, converts them to non-fungible delegated stake,
+% which we denote \textsf{dAsset}, and, finally, deposites these into the liquid
+% staking protocol to receive a fully fungible derivative token, which we denote
+% \textsf{stAsset}.
+
+% This means that, if a small stakeholder
+% participating in the liquid staking protocol wants their... TODO
+
+% It makes sense to wrap this delegated
+% stake into a \emph{derivative token} which can be used for trading and can
+% be swapped for the underlying delegated stake at any time. Such tokens
+% are most useful if they are \emph{fungible} with one another, regardless
+% of the validator they originated from. We use the term
+% \emph{refungibilization} for the process of converting (non-fungible) delegated stake
+% into fungible tokens.
 
 \begin{itemize}
     \item Signalling on entering, resignalling during exchange
