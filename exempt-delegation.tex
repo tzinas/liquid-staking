@@ -77,14 +77,15 @@ the flash loan is $\betaasset b$. Hence:
   b \leq \frac{u}{\frac{1}{(\phi} + \betaasset)\gammastasset}
 \end{gather*}
 
-The final profit of the attack is $a = b^* - b' - qc - \betaasset b$.
-Solving for $\frac{da}{db} = 0$ gives the optimal $0 \leq b \leq \frac{u}{\frac{1}{(\phi} + \betaasset) \gammastasset}$ which
-maximizes the adversary's profit:
-
-\begin{align*}
-  b = max{(0, \min{(\frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset},\sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0)})}
-\end{align*}
-
+The final profit of the attack is $\alpha = b^* - b' - qc - \betaasset b$.
+Solving for $\frac{d\alpha}{db} = 0$ gives the optimal $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$,
+which maximizes
+the adversary's profit, subject to the constraints
+$0 \leq b \leq \frac{u}{(\frac{1}{\phi} + \betaasset) \gammastasset}$.
+In non-extreme market conditions, if the attack is profitable, the bound
+$b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$ will not be reached,
+and the adversary will use the value
+$b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
