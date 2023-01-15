@@ -44,6 +44,7 @@ corresponding to those $b$ \assets can be, as before, sold at $t_2$ to
 separate the Agent from the Principal, the $c$ amount remains with the
 Agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
+% Maybe before closing her position?
 of the attack, the adversary undelegates the remaining $(1 - q)c$ exempt delegation.
 
 The attack may remain profitable despite exempt delegations.
@@ -55,6 +56,60 @@ for the adversary to profit from the short, she must cause a significant
 shift in the price. The shift in the price is determined by the factor
 $p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
+
+\noindent
+\textbf{Initial capital}
+Let $\gammastasset$ be the collateral ratio of a standard \stasset
+loan.
+To perform the attack, the adversary has an initial capital of $u$ \asset.
+She will use this as collateral to get the $z = u \gammastasset \frac{b_0}{s_0}$ \stasset
+loan, needed to short \stasset at $t_0$.
+% Talk about collateral ratio in preliminaries
+After converting the loaned $z$ \stasset to $b^*$ \asset, part
+of the funds are used to exempt delegate $c = \frac{b}{\phi}$ \asset
+to $\mathcal{V}$. Another part
+is used to obtain the required $b$ \asset using a flash loan. The cost of
+the flash loan is $\betaasset b$. Hence:
+
+\begin{gather*}
+  c + \betaasset b \leq b^*\Rightarrow
+  %\frac{b}{\phi} + \betaasset b \leq b^*\Rightarrow
+  b \leq \frac{u}{\frac{1}{(\phi} + \betaasset)\gammastasset}
+\end{gather*}
+
+The final profit of the attack is $a = b^* - b' - qc - \betaasset b$.
+Solving for $\frac{da}{db} = 0$ gives the optimal $0 \leq b \leq \frac{u}{\frac{1}{(\phi} + \betaasset) \gammastasset}$ which
+maximizes the adversary's profit:
+
+\begin{align*}
+  b = max{(0, \min{(\frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset},\sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0)})}
+\end{align*}
+
+
+%\begin{align*}
+%  &a = b^* - b' - qc - \betaasset b\\
+%  &a = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b})((1 + \rstasset)^{\Delta_z} + \betastasset)) - \betaasset b - \frac{q}{\phi}b\\
+%  &a = \frac{u}{\gammastasset}(1 - (1 - p\frac{b}{b_0 + b})((1 + \rstasset)^{\Delta_z} + \betastasset)) - \betaasset b - \frac{q}{\phi}b\\
+%\end{align*}
+%
+%Let $f = (1 + \rstasset)^{\Delta_z} + \betastasset$:
+%
+%\begin{align*}
+%  &a = \frac{u}{\gammastasset}(1 - (1 - p\frac{b}{b_0 + b})f) - \betaasset b - \frac{q}{\phi}b\\
+%\end{align*}
+
+%\begin{gather*}
+%  \frac{da}{db} = 0\\
+%  \frac{u f p}{\gammastasset} \frac{b_0}{(b_0 + b)^2} - \betaasset - \frac{q}{\phi} = 0\\
+%  \frac{u f p b_0}{\gammastasset (b_0 + b)^2} = \betaasset + \frac{q}{\phi}\\
+%  \frac{u f p b_0}{\gammastasset (\betaasset + \frac{q}{\phi})} = (b_0 + b)^2\\
+%  (b_0 + b)^2 - \frac{u f p b_0}{\gammastasset (\betaasset + \frac{q}{\phi})} = 0\\
+%  b^2 + 2b_0b + b_0^2 - \frac{u f p b_0}{\gammastasset (\betaasset + \frac{q}{\phi})} = 0\\
+%\end{gather*}
+
+%The solution for $b > 0$ is:
+%$b = \sqrt{\frac{u f p b_0}{\betaasset + \frac{q}{\phi}}} - b_0$
+
 
 % TODO: analyze rationality of the attack
 % TODO: appendix? introduce discount of stasset -> asset in the market using loans
