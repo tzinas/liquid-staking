@@ -32,4 +32,8 @@ representation, for every \stasset in circulation, the underlying \asset
 in the protocol's delegation pool must be delegated to the validator
 of the current \stasset holder's choice.
 
-% TODO: explain why proportional representation is not instant
+Note that proportional representation may not be instant. Redelegation speeds
+are limited by the underlying blockchains' unbonding period.
+Hence, a \stasset holder may have to wait $delta$ before their corresponding
+\assets are redelegated to the validator of their choice. This is called
+eventual proportion representation.
