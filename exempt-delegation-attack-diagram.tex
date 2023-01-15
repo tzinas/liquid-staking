@@ -17,21 +17,6 @@
 \coordinate (P5) at ($(P4) + (distance)$);
 \coordinate (F) at (9,0); %End
 
-\node[anchor=east,yshift=15pt] at (O) {{\tiny \asset} reserves:};
-\node[anchor=east,yshift=7pt] at (O) {{\tiny \stasset} supply:};
-
-\coordinate[above=10pt] (M0) at (O);
-\coordinate[above=10pt] (M1) at (P1);
-\coordinate[above=10pt] (M2) at (P4);
-\coordinate[above=10pt] (M3) at (F);
-
-\draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white](L0) {$\frac{b_0}{s_0}$};
-\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white](L2) {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
-
-\draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
-\draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
-\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {$\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
-
 
 %% Timeline
 \draw[->] (O) -- (F);
@@ -44,26 +29,26 @@
 
 %% t_0
 \draw (P0) node[below=3pt](T0) {$t_0$} ;
-\node[align=center,below=30pt,xshift=-10pt](D0) at (P0) {%
-	Exempt\\delegates};
+\node[align=center,below=36pt,xshift=-12pt](D0) at (P0) {%
+	Shorts};
 \draw (T0) --  (D0.north);
 
 %% t_1
 \draw (P1) node[below=3pt](T1) {$t_1$} ;
 \node[align=center,below=30pt,xshift=-10pt](D1) at (P1) {%
-	Liquid\\stakes};
+	Exempt\\delegates};
 \draw (T1) --  (D1.north);
 
 %% t_2
 \draw (P2) node[below=3pt](T2) {$t_2$} ;
-\node[below=36pt,xshift=-12pt](D2) at (P2) {%
-	Sells};
+\node[align=center,below=30pt,xshift=-10pt](D2) at (P2) {%
+	Liquid\\stakes};
 \draw (T2) --  (D2.north);
 
 %% t_3
 \draw (P3) node[below=3pt](T3) {$t_3$} ;
 \node[below=36pt,xshift=-12pt](D3) at (P3) {%
-	Shorts};
+	Sells};
 \draw (T3) --  (D3.north);
 
 %% t_4
@@ -80,19 +65,11 @@
 
 
 %% Loans
-\coordinate[above=45pt] (RH0) at (P0);
-\coordinate[above=45pt] (RH3) at (P3);
+\coordinate[above=10pt] (R1) at (P2);
+\coordinate[above=10pt] (R2) at (P3);
+\coordinate[above=30pt] (R3) at (P0);
+\coordinate[above=30pt] (R5) at (P5);
 
-\coordinate[above=25pt] (R1) at (P1);
-\coordinate[above=25pt] (R2) at (P2);
-\coordinate[above=25pt] (R3) at (P3);
-\coordinate[above=25pt] (R5) at (P5);
-
-\draw[color=BrickRed] ($(RH0) + (0,3pt)$) -- ($(RH0) + (0,-3pt)$);
-\draw[color=BrickRed] ($(RH3) + (0,3pt)$) -- ($(RH3) + (0,-3pt)$);
-\draw[color=BrickRed] (RH0) -- (RH3) node[color=black,midway, above=3pt](L0) {$c$ {\tiny \asset}};
-
-\node[text=BrickRed,xshift=-48pt] at (L0) {flash loan};
 
 \draw[color=BrickRed] ($(R1) + (0,3pt)$) -- ($(R1) + (0,-3pt)$);
 \draw[color=BrickRed] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
