@@ -114,16 +114,16 @@ Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short
 \stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the
 total loan amount to be repaid, including the principal and interest, is
 % TODO(tzinas): define $f$ here
-$((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
+$((1 + \rstasset)^{\Delta_z} + \betastasset) z = f z$ \stasset.
 To recover this amount of \stasset, the adversary \emph{deposits}
-$b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) ((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \asset
+$b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) f z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
 
 Her total profits from the attack are
-$b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b})((1 + \rstasset)^{\Delta_z} + \betastasset))$.
-This will be profitable if $(1 - p\frac{b}{b_0 + b})((1 + \rstasset)^{\Delta_z} + \betastasset) < 1$,
-i.e., the cost $(1 + \rstasset)^{\Delta_z} + \betastasset$ of money borrowing (which is always $> 1$) is
+$b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b}) f)$.
+This will be profitable if $(1 - p\frac{b}{b_0 + b}) f < 1$,
+i.e., the cost $f$ of money borrowing (which is always $> 1$) is
 sufficiently cheap that she can make up for it by the price movement
 $1 - p\frac{b}{b_0 + b}$ she has caused.
 
