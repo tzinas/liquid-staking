@@ -14,13 +14,13 @@
 \coordinate (P5) at ($(P4) + (distance)$);
 \coordinate (F) at (9,0); %End
 
-\node[anchor=east,yshift=15pt] at (O) {{\tiny \asset} reserves:};
-\node[anchor=east,yshift=7pt] at (O) {{\tiny \stasset} supply:};
+\node[anchor=east,yshift=16pt] at (O) {{\tiny \asset} reserves:};
+\node[anchor=east,yshift=8pt] at (O) {{\tiny \stasset} supply:};
 
-\coordinate[above=10pt] (M0) at (O);
-\coordinate[above=10pt] (M1) at (P1);
-\coordinate[above=10pt] (M2) at (P4);
-\coordinate[above=10pt] (M3) at (F);
+\coordinate[above=12pt] (M0) at (O);
+\coordinate[above=12pt] (M1) at (P2);
+\coordinate[above=12pt] (M2) at (P4);
+\coordinate[above=12pt] (M3) at (F);
 
 \draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white](L0) {$\frac{b_0}{s_0}$};
 \draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white](L2) {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
@@ -35,27 +35,15 @@
 
 
 %% Ticks
-\foreach \x in {P1,P2,P3,P4,P5}
+\foreach \x in {P2,P4}
 \draw ($(\x) - (0,3pt)$) -- ($(\x) + (0,3pt)$);
 
-
-%% t_1
-\draw (P1) node[below=3pt](T1) {$t_1$} ;
-\node[below=30pt,xshift=-10pt](D1) at (P1) {%
-	Liquid stakes};
-\draw (T1) --  (D1.north);
 
 %% t_2
 \draw (P2) node[below=3pt](T2) {$t_2$} ;
 \node[below=30pt,xshift=-10pt](D2) at (P2) {%
-	Sells};
+	Liquid stakes};
 \draw (T2) --  (D2.north);
-
-%% t_3
-\draw (P3) node[below=3pt](T3) {$t_3$} ;
-\node[below=30pt,xshift=-10pt](D3) at (P3) {%
-	Shorts};
-\draw (T3) --  (D3.north);
 
 %% t_4
 \draw (P4) node[below=3pt](T4) {$t_4$} ;
@@ -63,27 +51,8 @@
   Equivocates};
 \draw (T4) --  (D4.north);
 
-%% t_5
-\draw (P5) node[below=3pt](T5) {$t_5$} ;
-\node[below=30pt,xshift=-10pt](D5) at (P5) {%
-  Closes};
-\draw (T5) --  (D5.north);
-
-
-%% Loans
-\coordinate[above=25pt] (R1) at (P1);
-\coordinate[above=25pt] (R2) at (P2);
-\coordinate[above=25pt] (R3) at (P3);
-\coordinate[above=25pt] (R5) at (P5);
-
-
-\draw[color=MidnightBlue] ($(R3) + (0,3pt)$) -- ($(R3) + (0,-3pt)$);
-\draw[color=MidnightBlue] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
-\draw[color=MidnightBlue] (R3) -- (R5) node[color=black,midway, above=3pt](L2) {$z$ {\tiny \stasset}};
-\node[text=MidnightBlue,above=3pt](LD3) at (L2) {loan};
-
 \end{tikzpicture}
 
-\caption{Timeline of the profitable attack.}
+\caption{Timeline of the simplistic attack.}
 \label{fig:timeline}
 \end{figure}

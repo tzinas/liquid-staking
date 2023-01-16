@@ -29,7 +29,7 @@ a new validator $\mathcal{V}$ under her control.
 We do not require any of the existing protocol participants to delegate
 to this validator for the attack to work, i.e., we assume all participants
 are wise and all other validators are honest.
-At time $t_1$, the adversary deposits $b$ \asset to the protocol,
+At time $t_2$, the adversary deposits $b$ \asset to the protocol,
 signalling delegation intent to $\mathcal{V}$.
 Due to Proportional Representation,
 the protocol respects this intent and delegates $b$ \asset to $\mathcal{V}$.
@@ -38,13 +38,15 @@ The protocol now holds $b$ delegated \asset to $\mathcal{V}$.
 Through this deposit, the adversary obtains
 $s = \frac{s_0}{b_0} b$ \stasset, and the quoted price remains
 $\frac{b_0 + b}{s_0 + s} = \frac{b_0}{s_0}$.
-Lastly, at time $t_4 > t_1$, the validator
+Lastly, at time $t_4 > t_2$, the validator
 $\mathcal{V}$ equivocates. This causes a proportion $p$ of
 the capital $b$ to be slashed.
 However the amount of \stasset circulating in the
 market remains $s_0 + s = s_0 + b\frac{s_0}{b_0}$.
 The new quoted price is now
 $\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) < \frac{b_0}{s_0}$.
+
+\import{./}{simple-attack-diagram.tex}
 
 % \begin{align*}
 %  &\frac{b_0 + (1 - p)b}{s_0 + s}\\
@@ -74,11 +76,11 @@ will explore how to make this attack profitable.
 The profitable version of the attack works similarly to the above
 irrational attack, but with some extra steps. As before, the adversary, initially
 holding a capital of $b$, begins by spawning the colluding validator $\mathcal{V}$,
-delegates $b$ at time $t_1$, and equivocates at time $t_4$.
+delegates $b$ at time $t_2$, and equivocates at time $t_4$.
 
 During equivocation, the adversary does not want to be holding any
 \stasset of her own, as the price of \stasset is about to drop.
-Therefore, at time $t_2$ (where $t_1 < t_2 < t_4$) the adversary sells
+Therefore, at time $t_3$ (where $t_2 < t_3 < t_4$) the adversary sells
 the acquired $s$ \stasset for $b$ \asset in the market.
 % TODO: account for discount when selling \stasset for \asset
 % If a loan was used to acquire her initial capital,
@@ -97,10 +99,10 @@ any \stasset. The loss has been averted.
 
 % TODO: remove "flash loan" label?
 % TODO: mark b, s above black line and below red/blue lines
-\import{./}{simple-attack-diagram.tex}
+\import{./}{profitable-attack-diagram.tex}
 
 A small extra trick will allow her to profit.
-Before forcing the price of \stasset to drop, at time $t_3 < t_4$
+Before forcing the price of \stasset to drop, at time $t_0 < t_4$
 the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stassets and
 sells\footnote{Instead of \emph{selling}, the adversary can \emph{redeem}, but
@@ -109,7 +111,7 @@ See Section~\ref{sec:stasset-price}.}
 them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
 
 Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
-\stasset loan. The duration of the loan was $\Delta_z = t_5 - t_3$, so the
+\stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the
 total loan amount to be repaid, including the principal and interest, is
 % TODO(tzinas): define $f$ here
 $((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
