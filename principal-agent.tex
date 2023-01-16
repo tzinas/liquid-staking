@@ -18,9 +18,40 @@ with a larger self-delegation will be affected by the slashing themselves.
 This is why self-delegation is considered to offer a layer of protection
 against the Principal--Agent problem.
 
-\begin{itemize}
-    \item More nuanced model than honest/adversarial: stakeholders are not honest or adversarial, but can make ``right'' or ``wrong'' choice; validators are honest and adversarial.
-    \item Fair punishment: You should not be slashed if you make the ``right'' choice.
-    \item Wise and unwise model
-    \item Why the problem is exacerbated (with example from governance)
-\end{itemize}
+In traditional staking protocols, delegators have the responsibility to
+delegate their funds \emph{wisely}.
+They are not considered to be honest or adversarial, like validators.
+They can just make ``right'' or ``wrong'' choices.
+A delegator that delegates to a malicious validator is considered unwise,
+whereas a delegator that delegates only to honest validators is
+considered wise.
+
+When a malicious validator misbehaves, only the stake of unwise delegators is slashed.
+This is because no wise delegator would have delegated to a malicious
+validator. Hence, no wise delegator gets punished as a result of
+the malicious validator's misbehavior. We consider protocols with
+this property to have \emph{fair punishment}.
+
+\begin{definition}
+    A staking protocol has Fair Punishment if no wise
+    delegator's stake gets slashed as a result of a malicious validator's
+    actions.
+\end{definition}
+
+With the introduction of liquid staking protocols, the delegator
+now becomes the protocol itself. If at least one of the validators
+delegated to by the protocol is malicious, the protocol is
+considered unwise. This means that a malicious validator's actions
+will cause slashing of the protocol's delegations.
+All of the protocol's delegations are fungible with one another.
+Hence, the entire market built on top of the protocol will be affected by
+the slashing. It is clear that the Principal--Agent problem is exacerbated.
+There is now a new incentive for validators to equivocate and short the
+protocol's market for profit.
+
+%\begin{itemize}
+%    \item More nuanced model than honest/adversarial: stakeholders are not honest or adversarial, but can make ``right'' or ``wrong'' choice; validators are honest and adversarial.
+%    \item Fair punishment: You should not be slashed if you make the ``right'' choice.
+%    \item Wise and unwise model
+%    \item Why the problem is exacerbated (with example from governance)
+%\end{itemize}
