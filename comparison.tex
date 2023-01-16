@@ -1,5 +1,42 @@
 \section{Comparison of Liquid Staking Systems}
-Desirable properties of Liquid Staking...
+
+Proportional Representation and Fair Punishment are two desirable
+properties of a liquid staking protocol.
+Proportional representation enables decentralization by allowing every
+participant to decide where their stake is delegated.
+Fair punishment ensures that only unwise participants get punished for
+their delegation decisions.
+As of today, there are multiple protocols that take different approaches
+to try to balance these two properties. In this section we will
+compare such protocols and discuss the trade-offs between them.
+
+\textbf{Governance.}
+The choice of where the protocol delegates its funds depends on the
+protocol itself. Some protocols, like Lido~\cite{lido}, follow a governance approach
+where the majority of participants decide where the funds are
+delegated. If the majority of participants are
+wise, the protocol is also wise. Hence, the actions of a malicious validator
+will not affect wise protocol participants' stake.
+However, if the majority of participants are unwise, the protocol is
+also unwise. Wise protocol participants will be unfairly punished in case
+of validator misbehavior.
+In the first instance, the protocol has fair punishment. In the
+second one, it does not.
+
+% Write about proportional representation and trade-offs (balanced)
+
+\textbf{Proportional Representation.}
+% Other protocols follow a proportion representation approach.
+
+% Trade-offs: +proportional representation, -fair punishment but exempt
+% delegations help
+
+\textbf{Centralized.}
+% Trade-offs: -proportional representation, -fair punishment
+
+\textbf{Non-Fungibility}
+% Trade-offs: +proportional representation, +fair punishment but lose
+% fungibility
 
 \begin{table}[]
 \centering
