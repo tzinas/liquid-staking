@@ -11,10 +11,10 @@ for u in range(1000, 10000, 1000):
   w = Symbol('w', positive=True, real=True)
   # b = Symbol('b', positive=True, real=True)
   b_star = u / γ # Symbol('b^*', positive=True, real=True)
-  g = u * f * p * b0 / ((β + w) * γ) # Symbol('g', positive=True, real=True)
+  g = (u * f * p * b0) / γ # Symbol('g', positive=True, real=True)
   b = sqrt(g / (β + w)) - b0 # Symbol('b', positive=True, real=True)
 
-  alpha = b_star - (1 - p * (b / (b0 + b))) * f / γ * u - w * b - β * b
+  alpha = b_star - (1 - p * (b / (b0 + b))) * f * (u / γ) - w * b - β * b
 
   # print(alpha)
   w0 = solve(alpha, w)[0]
