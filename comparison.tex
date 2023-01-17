@@ -1,13 +1,7 @@
 \section{Comparison of Liquid Staking Systems}
 
-Proportional Representation and Fair Punishment are two desirable
-properties of a liquid staking protocol.
-Proportional representation enables decentralization by allowing every
-participant to decide where their stake is delegated.
-Fair punishment ensures that only unwise participants get punished for
-their delegation decisions.
-As of today, there are multiple protocols that take different approaches
-to try to balance these two properties. In this section we will
+Liquid staking protocols take different approaches to try balancing
+proportional representation and fair punishment. In this section we
 compare such protocols and discuss the trade-offs between them.
 
 \textbf{Governance.}
@@ -38,13 +32,44 @@ second one, it does not.
 % Trade-offs: +proportional representation, +fair punishment but lose
 % fungibility
 
-\begin{table}[t]
-\centering
-\begin{tabular}{c|ccc}
-                     & {\color[HTML]{000000} \textbf{Fungibility}}        & \textbf{\begin{tabular}[c]{@{}c@{}}Proportional representation\\ stake threshold\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Fair punishment \\ wisdom threshold\end{tabular}} \\ \hline
-\textbf{Quicksilver} & \cellcolor[HTML]{B0D8A4}{\color[HTML]{000000} YES} & \cellcolor[HTML]{B0D8A4}{\color[HTML]{000000} 0\%}                                             & \cellcolor[HTML]{E84258}{\color[HTML]{000000} 100\%}                                 \\
-\textbf{Lido}        & \cellcolor[HTML]{B0D8A4}{\color[HTML]{000000} YES} & \cellcolor[HTML]{FEE191}50\%                                                                   & \cellcolor[HTML]{FEE191}{\color[HTML]{000000} 50\%}                                  \\
-\textbf{LSM}         & \cellcolor[HTML]{E84258}{\color[HTML]{000000} NO}  & \cellcolor[HTML]{B0D8A4}{\color[HTML]{000000} 0\%}                                             & \cellcolor[HTML]{B0D8A4}{\color[HTML]{000000} 0\%}                                   \\
-\textbf{Stride}      & \cellcolor[HTML]{B0D8A4}{\color[HTML]{000000} YES} & \cellcolor[HTML]{8281A0}{\color[HTML]{FFFFFF} $\infty$}                                        & \cellcolor[HTML]{8281A0}{\color[HTML]{FFFFFF} $\infty$}
+
+% Lido -> No proportional representation: Validators are chosen by the
+% Lido Node Operator Sub-governance Group (LNOSG) and voted by the
+% Lido DAO. Fair punishment: The simplistic attack can be performed
+% and the price of stETH will drop. Misbehaving validators are penalised
+% by the Lido DAO.
+
+% Rocket pool -> No proportional representation: user funds are randomly
+% assigned to validators. However, anyone can be a validator without approval (given
+% that the network is not underutilized). No fair punishment:
+% the simplistic attack can be performed and rETH price will drop. There is
+% a mechanism to make the shorting attack unprofitable. Any slashed amount
+% is covered by the validator's ETH and RPL collateral.
+
+% Parallel Finance -> No proportional representation: Validators probably
+% are proposed by Parellel Finance and voted by the governance.
+% No Fair punishment: If a validator is slashed, the price of
+% sDOT will drop. They offer fund insurance if purchased.
+% They offer instant unstaking of DOT by charging a borrowing fee
+% discussed in this paper.
+%https://docs.parallel.fi/parallel-finance/#2.-validator-choosing-strategy
+
+% Ankr -> No proportional representation: Validator set is centralized.
+% Fair punishment: If a validator is slashed, the price of ankrETH will drop.
+
+% Marinade -> No proportional representaion: There is an algorithm to
+% determine the chosen validators through a score (no "big" validators are
+% selected). Delegator's can't choose their validator Fair punishment: The
+% price mSOL will drop in case of validator slashing.
+% Marinade also offers immediate unstaking of SOL by charging a fee.
+
+\begin{table}[]
+\begin{tabular}{c|c|c}
+                                                                                        & \textbf{Represented} & \textbf{Fairly punished} \\ \hline
+\textbf{Quicksilver}                                                                    & 100\%                & 0\%                      \\
+\textbf{Lido}                                                                           & 50\%                 & 50\%                     \\
+\begin{tabular}[c]{@{}c@{}}\textbf{LSM} (non-fungible)\end{tabular} & 100\%                & 100\%                    \\
+\textbf{Rocket Pool}                                                                    & 0\%                  & 0\%                      \\
+\textbf{Stride}                                                                         & $\infty$             & $\infty$
 \end{tabular}
 \end{table}
