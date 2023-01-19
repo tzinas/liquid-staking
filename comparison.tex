@@ -1,23 +1,63 @@
 \section{Comparison of Liquid Staking Systems}
 
-Liquid staking protocols take different approaches to try balancing
-proportional representation and fair punishment. In this section we
-compare such protocols and discuss the trade-offs between them.
+There are multiple liquid staking protocol approaches. In this section we
+compare such protocols in the context of proportional representation
+and fair punishment, and discuss the trade-offs between the
+two properties.
 
 \textbf{Governance.}
-The choice of where the protocol delegates its funds depends on the
-protocol itself. Some protocols, like Lido~\cite{lido}, follow a governance approach
+Some protocols, like Lido~\cite{lido}, follow a governance approach
 where the majority of participants decide where the funds are
-delegated. If the majority of participants are
-wise, the protocol is also wise. Hence, the actions of a malicious validator
-will not affect wise protocol participants' stake.
+delegated. This means that only 50\% of participants are
+represented and proportional representation is not achieved.
+
+If the majority of participants are
+wise, the protocol is also wise. Hence, the actions of malicious validators
+do not affect wise protocol participants' stake.
 However, if the majority of participants are unwise, the protocol is
-also unwise. Wise protocol participants will be unfairly punished in case
+also unwise. Wise protocol participants are unfairly punished in case
 of validator misbehavior.
 In the first instance, the protocol has fair punishment. In the
-second one, it does not.
+second one, it does not. Hence, there is a 50\% participant
+\emph{wiseness threshold} for the protocol to have fair punishment.
 
-% Write about proportional representation and trade-offs (balanced)
+\textbf{Centralized.}
+In other protocols, a centralized entity is responsible for
+selecting where the protocol's funds are delegated.
+Factors such as commission rate,
+uptime, and stake are considered to select the validators.
+Signaling delegation intent is impossible. Hence, no protocol
+participant is guaranteed to be represented.
+
+If the centralized entity is unwise, protocol funds are
+delegated to malicious validators. In case a malicious validator in the
+set is slashed, all protocol participants are punished. Even if all
+protocol participants are wise, they are still punished.
+Hence, there is no fair punishment is this kind of protocols.
+
+The above protocols claim various levels of governance decentralization,
+but, even though the community might be consulted on governance matter,
+there is a central key or committee of keys which takes the final decision.
+If those keys become compromised, the community decisions can be bypassed, and
+the liquid staking protocol can be broken.
+
+% Trade-offs: -proportional representation, -fair punishment
+
+% Write about proportional representation and trade-offs
+
+\textbf{Algorithmic}
+Other protocols use an algorithmic process to determine
+where the protocol funds are delegated. Rocket Pool~\cite{rocketpool} %TODO
+allows any validator to join the validator set. Then,
+validators are delegated randomly by the protocol.
+This may leave protocol participants unrepresented if they are not in
+agreement with the algorithm. In extreme cases, no protocol participant may be
+represented.
+
+If the protocol delegates to a malicious validator that later equivacates,
+all protocol participants are punished. That includes wise participants. Thus,
+fair punishment is not achieved.
+
 
 \textbf{Proportional Representation.}
 % Other protocols follow a proportion representation approach.
@@ -25,10 +65,8 @@ second one, it does not.
 % Trade-offs: +proportional representation, -fair punishment but exempt
 % delegations help
 
-\textbf{Centralized.}
-% Trade-offs: -proportional representation, -fair punishment
 
-\textbf{Non-Fungibility}
+% \textbf{Non-Fungibility}
 % Trade-offs: +proportional representation, +fair punishment but lose
 % fungibility
 
@@ -38,6 +76,8 @@ second one, it does not.
 % Lido DAO. Fair punishment: The simplistic attack can be performed
 % and the price of stETH will drop. Misbehaving validators are penalised
 % by the Lido DAO.
+
+% TODO:
 
 % Rocket pool -> No proportional representation: user funds are randomly
 % assigned to validators. However, anyone can be a validator without approval (given
@@ -59,9 +99,17 @@ second one, it does not.
 
 % Marinade -> No proportional representaion: There is an algorithm to
 % determine the chosen validators through a score (no "big" validators are
-% selected). Delegator's can't choose their validator Fair punishment: The
+% selected). An automated bot (centralized) makes the delegations/redelegations.
+% Delegator's can't choose their validator.
+% Fair punishment: The
 % price mSOL will drop in case of validator slashing.
 % Marinade also offers immediate unstaking of SOL by charging a fee.
+
+% pStake -> No proportional representation: The validator set is
+% selected based on performance (maybe there is a formula?).
+% The addition to the validator set and delegations/redelegations are
+% centralized. No Fair punishment.
+
 
 \begin{table}[]
 \begin{tabular}{c|c|c}
