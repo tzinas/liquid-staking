@@ -1,25 +1,23 @@
 \section{Comparison of Liquid Staking Systems}
 
 There are multiple liquid staking protocol approaches. In this section we
-compare such protocols in the context of proportional representation
-and fair punishment, and discuss the trade-offs between the
-two properties.
+define 4 main categories and examine them in the context of proportional
+representation and fair punishment.
 
 \textbf{Governance.}
-Some protocols, like Lido~\cite{lido}, follow a governance approach
-where the majority of participants decide where the funds are
-delegated. This means that only 50\% of participants are
-represented and proportional representation is not achieved.
+In liquid staking protocols following the governance approach,
+the majority of protocol participants decide where the protocol's
+funds are delegated. This means that only the majority of participants
+are represented and proportional representation is not achieved.
 
-If the majority of participants are
-wise, the protocol is also wise. Hence, the actions of malicious validators
-do not affect wise protocol participants' stake.
-However, if the majority of participants are unwise, the protocol is
-also unwise. Wise protocol participants are unfairly punished in case
-of validator misbehavior.
-In the first instance, the protocol has fair punishment. In the
-second one, it does not. Hence, there is a 50\% participant
-\emph{wiseness threshold} for the protocol to have fair punishment.
+If the majority of participants are wise, no malicious validator is
+delegated by the protocol. Hence, there will be no slashing and no
+protocol participant is unfairly punished.
+However, if the majority of participants are unwise, malicious validators
+are delegated by the protocol. In case of slashing, all protocol participants
+are punished, including wise protocol participants.
+Hence, there is a 50\% participant \emph{wiseness threshold} for the protocol
+to have fair punishment.
 
 \textbf{Centralized.}
 In centalized liquid staking protocols, a centralized entity
@@ -47,20 +45,24 @@ can be bypassed.
 % Write about proportional representation and trade-offs
 
 \textbf{Algorithmic}
-Other protocols use an algorithmic process to determine
-where the protocol funds are delegated. Rocket Pool~\cite{rocketpool} %TODO
-allows any validator to join the validator set. Then,
-validators are delegated randomly by the protocol.
-This may leave protocol participants unrepresented if they are not in
-agreement with the algorithm. In extreme cases, no protocol participant may be
-represented.
+Protocols following this approach use an algorithmic process to determine
+where the protocol's funds are delegated. Validators could be selected based on
+commission rate, self-delegations, value locked or simply at random.
+However, protocol participants may have different delegation preferences from
+the protocol. Again, proportional representation is not achieved and in
+extreme cases, no participant is represented.
 
-If the protocol delegates to a malicious validator that later equivacates,
-all protocol participants are punished. That includes wise participants. Thus,
-fair punishment is not achieved.
-
+If an adversarial validator is delegated by the protocol, all participants,
+including wise participants, are punished in case of slashing. Hence,
+fair punishment is not achieved. In extreme cases, where all protocol
+participants are wise, no participant is fairly punished.
 
 \textbf{Proportional Representation.}
+Liquid staking protocols with proportional representation delegate
+protocol funds so that all participants are represented proportionally
+to their stake. Fair punishment is not achieved, as indicated in
+Section~\ref{sec:attack}.
+
 % Other protocols follow a proportion representation approach.
 
 % Trade-offs: +proportional representation, -fair punishment but exempt
@@ -94,6 +96,7 @@ fair punishment is not achieved.
 % They offer instant unstaking of DOT by charging a borrowing fee
 % discussed in this paper.
 %https://docs.parallel.fi/parallel-finance/#2.-validator-choosing-strategy
+%https://docs.parallel.fi/parallel-finance/#4.-council
 
 % Ankr -> No proportional representation: Validator set is centralized.
 % Fair punishment: If a validator is slashed, the price of ankrETH will drop.
