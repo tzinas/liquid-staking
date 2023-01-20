@@ -1,50 +1,85 @@
 \section{Comparison of Liquid Staking Systems}
 
-There are multiple liquid staking protocol approaches. In this section we
-define 4 main categories and examine them in the context of proportional
-representation and fair punishment.
+In this section we define four main electoral mechanisms for liquid staking
+protocol governance, and examine them in the context of fair punishment.
+Our taxonomy of electoral mechanisms concerns the representation of the liquid
+staking protocol stakeholders, those economic participants who are delegating
+their stake to the protocol. Our analysis does not concern the representation of
+other interest groups such as the developers of the protocol, initial investors,
+early adopters, and so on.
 
-\textbf{Governance.}
-In liquid staking protocols following the governance approach,
+\noindent
+\textbf{Dictatorships.}
+In a \emph{dictatorial}\footnote{We adopt the term \emph{dictatorship} from
+social choice theory. A \emph{dictatorship mechanism}~\cite{arrow} is a mechanism in which
+the results of voting mirror a single pre-determined person's preferences, without
+consideration of the other voters.}
+liquid staking protocol, a central entity
+selects the validator set or decides where the protocol's funds
+are delegated.
+Dictatorships may be governed by one signing key or a
+committee of keys. The distinguishing aspect of a committee-based dictatorship
+is that this committee is not necessarily related to the actual economic stakeholders
+of the liquid staking protocol.
+Proportional representation is not
+achieved.
+
+If the central entity is unwise, the validator set
+consists of adversarial validators and the protocol's funds are delegated
+to them. When the validator misbehaves,
+all protocol participants, including wise participants, are punished.
+Hence, fair punishment is not achieved.
+
+Some protocols following the dictatorial approach claim various levels of
+governance decentralization~\cite{???} and democracy~\cite{parallel}. % TODO(tzinas): Add more citations
+Even though the community might vote (off- or on-chain)
+on governance matters, there is a central party or committee of parties
+which promise to transfer this community decision to the protocol.
+The final on-chain decision
+is made by having the central key or committee of keys sign an on-chain transaction.
+If those keys become compromised, or if the holders of the keys disagree with the community
+decision, there is always a technical mechanism to bypass it.
+
+\noindent
+\textbf{Majoritarian.}
+In majoritarian liquid staking protocols,
 the majority of protocol participants decide where the protocol's
 funds are delegated. This means that only the majority of participants
 are represented and proportional representation is not achieved.
 
 If the majority of participants are wise, no malicious validator is
-delegated by the protocol. Hence, there will be no slashing and no
+selected for delegation by the protocol. Hence, there will be no slashing and no
 protocol participant is unfairly punished.
 However, if the majority of participants are unwise, malicious validators
-are delegated by the protocol. In case of slashing, all protocol participants
+are selection for delegation. In case of slashing, all protocol participants
 are punished, including wise protocol participants.
-Hence, there is a 50\% participant \emph{wiseness threshold} for the protocol
-to have fair punishment.
+Hence, there is, at best, a 50\% participant \emph{wisdom threshold} for the protocol
+to have fair punishment\footnote{The wisdom threshold can never be below 50\%
+even when voting tresholds are higher or lower than 50\%.
+% Safety issue:
+If the voting threshold is below 50\% and the wise participants constitute
+50\% of the population, a small unwise group
+can delegate to an adversrial validator and cause unfair punishment.
+% Liveness issue:
+If the voting threshold is above 50\% and the wise participants constitute
+50\% of the population, they have insufficient voting power to outvote a
+validator who has turned adversarial.}
 
-\textbf{Centralized.}
-In centalized liquid staking protocols, a centralized entity
-selects the validator set and/or decides where the protocol's funds
-are delegated. A participant's validator of choice could be exluded from
-the validator set and/or participants may not have the oportunity to signal
-their delegation intent. Hence, proportional representation is not
-achieved. In extreme cases, no participant is represented.
+% wisdom_threshold = max(voting_threshold, 1 - voting_threshold)
 
-The centralized entity could be unwise. The validator set could only
-consist of adversarial validators and the protocol's funds could be delegated
-to an adversarial validator by the centalized entity. In case of slashing,
-all protocol participants, including wise participants, are punished.
-Hence, fair punishment is not achieved. In extreme cases, where all
-protocol participants are wise, no participant is fairly punished.
-
-Some protocols following the centralized approach claim various levels of
-governance decentralization, but, even though the community might be consulted
-on governance matters, there is a central key or committee of keys which takes
-the final decision. If those keys become compromised, the community decisions
-can be bypassed.
+\noindent
+\textbf{Proportional Representation.}
+Liquid staking protocols with proportional representation delegate
+protocol funds so that all participants are represented proportionally
+to their stake. Fair punishment is not achieved, as indicated in
+Section~\ref{sec:attack}.
 
 % Trade-offs: -proportional representation, -fair punishment
 
 % Write about proportional representation and trade-offs
 
-\textbf{Algorithmic}
+\noindent
+\textbf{Algorithmic.}
 Protocols following this approach use an algorithmic process to determine
 where the protocol's funds are delegated. Validators could be selected based on
 commission rate, self-delegations, value locked or simply at random.
@@ -56,12 +91,6 @@ If an adversarial validator is delegated by the protocol, all participants,
 including wise participants, are punished in case of slashing. Hence,
 fair punishment is not achieved. In extreme cases, where all protocol
 participants are wise, no participant is fairly punished.
-
-\textbf{Proportional Representation.}
-Liquid staking protocols with proportional representation delegate
-protocol funds so that all participants are represented proportionally
-to their stake. Fair punishment is not achieved, as indicated in
-Section~\ref{sec:attack}.
 
 % Other protocols follow a proportion representation approach.
 
@@ -114,6 +143,14 @@ Section~\ref{sec:attack}.
 % The addition to the validator set and delegations/redelegations are
 % centralized. No Fair punishment.
 
+% \footnote{Stride currently have
+% taken a centralized decision, but plan to make future decisions by voting
+% among liquid stake holders~\cite{stride-validators}. Lido and Persistence
+% use a separate governance token~\cite{lido-validators,persistence-validators} for
+% such decision making in place of stakeholders.}
+
+% https://learn.bybit.com/altcoins/what-is-lido-dao-token-ldo/
+% ``The founding members have 64% of the tokens, locked for one year and vested from there.''
 
 \begin{table}[]
 \begin{tabular}{c|c|c}
