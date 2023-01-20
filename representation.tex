@@ -20,6 +20,7 @@ First, the stakeholder deposits \asset into the protocol and signals
 delegation intent to the validator of their choice. Then, the protocol
 delegates the deposited \asset to that validator. The stakeholder is
 now a holder of tradable \stasset representations of the delegated \asset.
+This \stasset can now be transfered to a different owner.
 
 At some later time, the \stasset holder may wish to redelegate
 their underlying \asset to a new validator.
@@ -27,7 +28,7 @@ The \stasset holder can \emph{resignal} their delegation intent and the protocol
 will redelegate the underlying \asset to the new validator.
 
 The goal is for all \stasset holders to be represented proportionally to
-their stake. Hence, in a liquid staking protocol with proportional
+their stake. In a liquid staking protocol with proportional
 representation, for every \stasset in circulation, the underlying \asset
 in the protocol's delegation pool must be delegated to the validator
 of the current \stasset holder's choice.
