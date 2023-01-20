@@ -22,24 +22,25 @@ second one, it does not. Hence, there is a 50\% participant
 \emph{wiseness threshold} for the protocol to have fair punishment.
 
 \textbf{Centralized.}
-In other protocols, a centralized entity is responsible for
-selecting where the protocol's funds are delegated.
-Factors such as commission rate,
-uptime, and stake are considered to select the validators.
-Signaling delegation intent is impossible. Hence, no protocol
-participant is guaranteed to be represented.
+In centalized liquid staking protocols, a centralized entity
+selects the validator set and/or decides where the protocol's funds
+are delegated. A participant's validator of choice could be exluded from
+the validator set and/or participants may not have the oportunity to signal
+their delegation intent. Hence, proportional representation is not
+achieved. In extreme cases, no participant is represented.
 
-If the centralized entity is unwise, protocol funds are
-delegated to malicious validators. In case a malicious validator in the
-set is slashed, all protocol participants are punished. Even if all
-protocol participants are wise, they are still punished.
-Hence, there is no fair punishment is this kind of protocols.
+The centralized entity could be unwise. The validator set could only
+consist of adversarial validators and the protocol's funds could be delegated
+to an adversarial validator by the centalized entity. In case of slashing,
+all protocol participants, including wise participants, are punished.
+Hence, fair punishment is not achieved. In extreme cases, where all
+protocol participants are wise, no participant is fairly punished.
 
-The above protocols claim various levels of governance decentralization,
-but, even though the community might be consulted on governance matter,
-there is a central key or committee of keys which takes the final decision.
-If those keys become compromised, the community decisions can be bypassed, and
-the liquid staking protocol can be broken.
+Some protocols following the centralized approach claim various levels of
+governance decentralization, but, even though the community might be consulted
+on governance matters, there is a central key or committee of keys which takes
+the final decision. If those keys become compromised, the community decisions
+can be bypassed.
 
 % Trade-offs: -proportional representation, -fair punishment
 
