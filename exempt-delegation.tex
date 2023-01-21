@@ -88,6 +88,12 @@ In non-extreme market conditions, if the attack is profitable, the bound
 $b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$ will not be reached,
 and the adversary will use the value
 $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
+Solving $\alpha = 0$ for $\frac{q}{\phi}$ gives the parameters that make the
+attack profitable for the adverasary:
+
+\begin{gather*}
+  \frac{q}{\phi} = (f p u + f u - b_0 \betaasset \gamma - 2 u \sqrt{fp} \sqrt{f - 1} - u)\frac{1}{b_0 \gamma}
+\end{gather*}
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
