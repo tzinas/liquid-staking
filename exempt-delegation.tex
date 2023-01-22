@@ -58,6 +58,8 @@ shift in the price. The shift in the price is determined by the factor
 $p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
+% TODO: Consider the adverasary taking a loan up to s_0 asset and using the rest of u
+% just to move the market
 \noindent
 \textbf{Initial capital}
 Let $\gammastasset$ be the collateral ratio of a standard \stasset
@@ -74,9 +76,9 @@ the flash loan is $\betaasset b$. Hence:
 % TODO: Maybe only a flash loan could be used instead of loan?
 
 \begin{gather*}
-  c + \betaasset b \leq b^*\Rightarrow
-  %\frac{b}{\phi} + \betaasset b \leq b^*\Rightarrow
-  b \leq \frac{u}{\frac{1}{(\phi} + \betaasset)\gammastasset}
+  c + \betaasset b \leq b^*\Rightarrow\\
+  \frac{b}{\phi} + \betaasset b \leq b^*\Rightarrow\\
+  b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}
 \end{gather*}
 
 The final profit of the attack is $\alpha = b^* - b' - qc - \betaasset b$.
@@ -88,12 +90,54 @@ In non-extreme market conditions, if the attack is profitable, the bound
 $b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$ will not be reached,
 and the adversary will use the value
 $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
-Solving $\alpha = 0$ for $\frac{q}{\phi}$ gives the parameters that make the
-attack profitable for the adverasary:
 
+
+Solving $\alpha = 0$ for $\frac{q}{\phi}$ with $b\geq0$ gives the
+security parameter of the protocol.
+
+% (-b0*β*γ - 2*sqrt(f)*sqrt(p)*u*sqrt(f - 1) + f*p*u + f*u - u)/(b0*γ)
+% (1/(b0*γ)) * (f*p*u + f*u - b0*β*γ - 2*u*sqrt(fp*(f-1)) - u)
 \begin{gather*}
-  \frac{q}{\phi} = (f p u + f u - b_0 \betaasset \gamma - 2 u \sqrt{fp} \sqrt{f - 1} - u)\frac{1}{b_0 \gamma}
+  \frac{q}{\phi} = \frac{1}{b_0 \gamma}(f p u + f u - b_0 \betaasset \gamma - 2 u \sqrt{fp (f-1)} - u)
 \end{gather*}
+
+This parameter should be calculated independently for each protocol by replacing
+the constants: $p$, $\betaasset$, $f$, $b_0$, $\gammastasset$ and $u$ with the
+appropriate values of the blockchain it operates on.
+
+Higher slashing of exempt delegations $q$ makes the protocol more secure. This
+is because more of the exempt delegation $c$, holding the adversary accountable,
+is slashed. Lower exempt delegation factor $\phi$ also makes the protocol more secure.
+A larger exempt delegation $c$ is required to liquid stake $b$ \asset.
+Hence, lower $\frac{\phi}{q}$ makes the protocol less vulnerable to the attack.
+
+
+We consider: a blockchain with slashing percentage $p = 0.5$, an \asset market
+with flash loan cost $\betaasset = 0.003$, a \stasset market with total
+loan cost $f = 1.03$ for duration $\Delta_z$ and collateral ration
+$\gammastasset = 1.2$. The initial \asset holdings of the liquid staking protocol
+are $b_0 = 10000$ \asset.
+
+While the cost of borrowing money goes up, the attack becomes less profitable
+for the adverasary. Thus, the protocol has to increase the parameter
+$\frac{\phi}{q}$ to remain secure.
+
+\begin{figure}[htb]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./plots/plotf20.pdf}
+    \caption{Collateral $u = 20\%$ of $b_0$.}
+    \label{fig:plotf20}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
+    \caption{Collateral $u = 50\%$ of $b_0$.}
+    \label{fig:plotf50}
+  \end{subfigure}
+  \caption{Attack profitability.}
+  \label{fig:images}
+\end{figure}
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
