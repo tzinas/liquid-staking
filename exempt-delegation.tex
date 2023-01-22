@@ -1,5 +1,3 @@
-\import{./}{exempt-delegation-attack-diagram.tex}
-
 \section{Exempt Delegations}
 
 Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
@@ -35,6 +33,8 @@ themselves (or someone who trusts the validator for extrinsic reasons).
 This means that, in case of validator misbehavior, the exempt delegation
 slashing $qc$ is a penalty that only affects the validator.
 
+\import{./}{exempt-delegation-attack-diagram.tex}
+
 This raises
 the cost of the attack described in the previous section. The
 adversary must first, at time $t_1$ (where $t_0 < t_1 < t_2$), exempt delegate a sufficient amount
@@ -45,7 +45,7 @@ separate the Agent from the Principal, the $c$ amount remains with the
 Agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
 % Maybe before closing her position?
-of the attack, the adversary undelegates the remaining $(1 - q)c$ exempt delegation.
+of the attack, the adversary undelegates the unslashed $(1 - q)c$ exempt delegation.
 The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}.
 
 The attack may remain profitable despite exempt delegations.
@@ -61,7 +61,7 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 % TODO: Consider the adverasary taking a loan up to s_0 asset and using the rest of u
 % just to move the market
 \noindent
-\textbf{Initial capital}
+\textbf{Initial capital.}
 Let $\gammastasset$ be the collateral ratio of a standard \stasset
 loan.
 To perform the attack, the adversary has an initial capital of $u$ \asset.
@@ -101,16 +101,33 @@ security parameter of the protocol.
   \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}
 \end{gather*}
 
-This parameter should be calculated independently for each protocol by replacing
+The parameter $\frac{\phi}{q}$ should be calculated independently for each protocol by replacing
 the constants: $p$, $\betaasset$, $f$, $b_0$, $\gammastasset$ and $u$ with the
 appropriate values of the blockchain it operates on.
 
-Higher slashing of exempt delegations $q$ makes the protocol more secure. This
-is because more of the exempt delegation $c$, holding the adversary accountable,
-is slashed. Lower exempt delegation factor $\phi$ also makes the protocol more secure.
-A larger exempt delegation $c$ is required to liquid stake $b$ \asset.
-Hence, lower $\frac{\phi}{q}$ makes the protocol less vulnerable to the attack.
+For illustration purposes, if we consider flash loans to be free ($\beta = 0$), interest rates to be $r = 0$,
+and the collateral ratio required to be $\gamma = 100\%$, the above is greatly simplified to:
 
+\begin{gather*}
+  \frac{q}{\phi} \geq p \frac{u}{b_0} \label{eq:phi-choice} \tag{$\ast$}
+\end{gather*}
+
+Higher slashing of exempt delegations $q$ makes the protocol more secure. This
+is because a larger portion of the exempt delegation $c$, holding the adversary accountable,
+is slashed. A lower exempt delegation factor $\phi$ also makes the protocol more secure.
+A larger exempt delegation $c$ is required to liquid stake the same $b$ \asset.
+Hence, a lower $\frac{\phi}{q}$ makes the protocol less vulnerable to the attack.
+
+We recommend always setting $q = 1$ if possible, as this allows for
+larger values of $\phi$, increasing liquidity, without any harm to anyone
+besides the adversary. Equation~\eqref{eq:phi-choice}, with some extra safety
+margin, can be used in practice to calculate the appropriate value of $\phi$
+that can withstand an adversary with a market presence of $\frac{u}{b_0}$.
+For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
+and the adversary can use a capital of $u = 100$ \asset to attack the protocol
+(a $\frac{u}{b_0} = 10\%$ market domination),
+if $p = q = 100\%$ is the slashing rate, then $\phi \ll \frac{b_0}{u} = 10$
+is a safe protocol parametrization.
 
 We consider: a blockchain with slashing percentage $p = 0.5$, an \asset market
 with flash loan cost $\betaasset = 0.003$, a \stasset market with total

@@ -115,7 +115,9 @@ Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short
 \stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the
 total loan amount to be repaid, including the principal and interest, is
 % TODO(tzinas): define $f$ here
-$((1 + \rstasset)^{\Delta_z} + \betastasset) z = f z$ \stasset.
+$((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
+We let $f = ((1 + \rstasset)^{\Delta_z} + \betastasset)$ be the cost factor
+of the loan.
 To recover this amount of \stasset, the adversary \emph{deposits}
 $b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) f z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
@@ -143,7 +145,7 @@ In fact, because
 the attack causes slashing of \asset, the supply of \asset is decreased
 and the price of \asset with respect to the reference currency may
 even increase.
-Lastly, any price fluctuations of \asset with respect USD will likely be
+Lastly, any price fluctuations of \asset with respect to USD will likely be
 minor, as the attack has a short duration of a couple of seconds.
 
 % TODO: resignalling
