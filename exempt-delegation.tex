@@ -65,10 +65,10 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 Let $\gammastasset$ be the collateral ratio of a standard \stasset
 loan.
 To perform the attack, the adversary has an initial capital of $u$ \asset.
-She will use this as collateral to get the $z = u \gammastasset \frac{b_0}{s_0}$ \stasset
+She will use this as collateral to get the $z = \frac{u}{\gammastasset} \frac{s_0}{b_0}$ \stasset
 loan, needed to short \stasset at $t_0$.
 % Talk about collateral ratio in preliminaries
-After converting the loaned $z$ \stasset to $b^*$ \asset, part
+After converting the loaned $z$ \stasset to $b^*=\frac{u}{\gammastasset}$ \asset, part
 of the funds are used to exempt delegate $c = \frac{b}{\phi}$ \asset
 to $\mathcal{V}$. Another part
 is used to obtain the required $b$ \asset using a flash loan. The cost of
@@ -98,7 +98,7 @@ security parameter of the protocol.
 % (-b0*β*γ - 2*sqrt(f)*sqrt(p)*u*sqrt(f - 1) + f*p*u + f*u - u)/(b0*γ)
 % (1/(b0*γ)) * (f*p*u + f*u - b0*β*γ - 2*u*sqrt(fp*(f-1)) - u)
 \begin{gather*}
-  \frac{q}{\phi} = \frac{1}{b_0 \gamma}(f p u + f u - b_0 \betaasset \gamma - 2 u \sqrt{fp (f-1)} - u)
+  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}
 \end{gather*}
 
 This parameter should be calculated independently for each protocol by replacing
@@ -125,9 +125,9 @@ $\frac{\phi}{q}$ to remain secure.
 \begin{figure}[htb]
   \centering
   \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{./plots/plotf20.pdf}
-    \caption{Collateral $u = 20\%$ of $b_0$.}
-    \label{fig:plotf20}
+    \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
+    \caption{Collateral $u = 30\%$ of $b_0$.}
+    \label{fig:plotf30}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.49\textwidth}
