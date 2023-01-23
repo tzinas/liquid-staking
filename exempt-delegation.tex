@@ -76,8 +76,8 @@ the flash loan is $\betaasset b$. Hence:
 % TODO: Maybe only a flash loan could be used instead of loan?
 
 \begin{gather*}
-  c + \betaasset b \leq b^*\Rightarrow\\
-  \frac{b}{\phi} + \betaasset b \leq b^*\Rightarrow\\
+  c + \betaasset b \leq b^*\Rightarrow
+  % \frac{b}{\phi} + \betaasset b \leq b^*\Rightarrow\\
   b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}
 \end{gather*}
 
@@ -92,69 +92,106 @@ and the adversary will use the value
 $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
 
 
-Solving $\alpha = 0$ for $\frac{q}{\phi}$ with $b\geq0$ gives the
-security parameter of the protocol.
-
+Solving $\alpha \leq 0$ for $\frac{\phi}{q}$ gives:
 % (-b0*β*γ - 2*sqrt(f)*sqrt(p)*u*sqrt(f - 1) + f*p*u + f*u - u)/(b0*γ)
 % (1/(b0*γ)) * (f*p*u + f*u - b0*β*γ - 2*u*sqrt(fp*(f-1)) - u)
 \begin{gather*}
-  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}
+  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u} \label{eq:phi-choice} \tag{$1$}
 \end{gather*}
 
-The parameter $\frac{\phi}{q}$ should be calculated independently for each protocol by replacing
-the constants: $p$, $\betaasset$, $f$, $b_0$, $\gammastasset$ and $u$ with the
-appropriate values of the blockchain it operates on.
+This is when the attack becomes unprofitable for the adversary.
+Hence, the parameter $\frac{\phi}{q}$ should be selected by the protocol in order
+to satisfy the above inequation.
+Each protocol should substitute $p$, $\betaasset$, $f$, $b_0$,
+$\gammastasset$ and $u$ with the appropriate values of the blockchain it operates on.
 
-For illustration purposes, if we consider flash loans to be free ($\beta = 0$), interest rates to be $r = 0$,
-and the collateral ratio required to be $\gamma = 100\%$, the above is greatly simplified to:
-
-\begin{gather*}
-  \frac{q}{\phi} \geq p \frac{u}{b_0} \label{eq:phi-choice} \tag{$\ast$}
-\end{gather*}
-
-Higher slashing of exempt delegations $q$ makes the protocol more secure. This
+Higher exempt delegation slashing rate $q$ makes the attack more expensive. This
 is because a larger portion of the exempt delegation $c$, holding the adversary accountable,
-is slashed. A lower exempt delegation factor $\phi$ also makes the protocol more secure.
-A larger exempt delegation $c$ is required to liquid stake the same $b$ \asset.
+is slashed. A lower exempt delegation factor $\phi$ also makes the attack more expensive
+since a larger exempt delegation $c$ is required to liquid stake the same $b$ \asset.
 Hence, a lower $\frac{\phi}{q}$ makes the protocol less vulnerable to the attack.
-
 We recommend always setting $q = 1$ if possible, as this allows for
 larger values of $\phi$, increasing liquidity, without any harm to anyone
-besides the adversary. Equation~\eqref{eq:phi-choice}, with some extra safety
-margin, can be used in practice to calculate the appropriate value of $\phi$
-that can withstand an adversary with a market presence of $\frac{u}{b_0}$.
-For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
-and the adversary can use a capital of $u = 100$ \asset to attack the protocol
-(a $\frac{u}{b_0} = 10\%$ market domination),
-if $p = q = 100\%$ is the slashing rate, then $\phi \ll \frac{b_0}{u} = 10$
-is a safe protocol parametrization.
+besides the adversary.
 
-We consider: a blockchain with slashing percentage $p = 0.5$, an \asset market
-with flash loan cost $\betaasset = 0.003$, a \stasset market with total
-loan cost $f = 1.03$ for duration $\Delta_z$ and collateral ration
-$\gammastasset = 1.2$. The initial \asset holdings of the liquid staking protocol
-are $b_0 = 10000$ \asset.
-
-While the cost of borrowing money goes up, the attack becomes less profitable
-for the adverasary. Thus, the protocol has to increase the parameter
-$\frac{\phi}{q}$ to remain secure.
+The cost of borrowing money increases when the collateral ratio
+$\gammastasset$, the flash loan cost $\betaasset$ or the total loan cost $f$
+increase. While the cost of borrowing money goes up, the attack becomes less profitable
+for the adverasary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
+and still remain secure in the rational model. This is illustrated in Figure~\ref{fig:plotf} for
+an adverasary with $30\%$ market domination, and an adverasary with $50\%$ market domination.
+While $f$ increases, the parameter $\frac{\phi}{q}$ increases with it.
+Indicated by a black line, is where the attack becomes unprofitable ($\alpha = 0$).
+The white area under the black line is where the protocol is considered secure.
 
 \begin{figure}[htb]
   \centering
   \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
-    \caption{Collateral $u = 30\%$ of $b_0$.}
+    \caption{Collateral $u$ is $30\%$ of $b_0$.}
     \label{fig:plotf30}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
-    \caption{Collateral $u = 50\%$ of $b_0$.}
+    \caption{Collateral $u$ is $50\%$ of $b_0$.}
     \label{fig:plotf50}
   \end{subfigure}
-  \caption{Attack profitability.}
-  \label{fig:images}
+  \caption{Cost of borrowing and attack profitability.}
+  \label{fig:plotf}
 \end{figure}
+
+Free money borrowing makes the adverasary's attack more profitable.
+For illustration purposes, if we consider flash loans to be free ($\beta = 0$), interest rates to be $r = 0$,
+and the collateral ratio required to be $\gamma = 100\%$, equation~\eqref{eq:phi-choice} is greatly simplified to:
+
+\begin{gather*}
+  \frac{\phi}{q} \leq \frac{b_0}{pu} \label{eq:phi-choice-simple} \tag{$\ast$}
+\end{gather*}
+
+If the protocol is secure in the rational model, under these assumptions,
+it is also secure when money borrowing is not free.
+Figure~\ref{fig:compare-f-plotu} illustrates where the attack is unprofitable
+for different costs of borrowing $f$. Notice that parameter $\frac{\phi}{q}$
+with free money borrowing $f = 1$ is always less than $\frac{\phi}{q}$ for $f>1$
+for any adverasarial market domination.
+
+Hence, equation~\eqref{eq:phi-choice-simple} can be used in practice
+to calculate the appropriate value of $\frac{\phi}{q}$
+that can withstand an adversary with a market presence of $\frac{u}{b_0}$.
+For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
+and the adversary can use a capital of $u = 100$ \asset to attack the protocol
+($\frac{u}{b_0} = 10\%$ market domination),
+if $p = q = 100\%$ is the slashing rate, then $\phi \leq \frac{b_0}{u} = 10$
+is a safe protocol parametrization.
+
+If parameter $\frac{\phi}{q}$ is selected so the protocol is secure
+in the rational model when money borrowing $f = 1$, it is also secure when $f > 1$.
+This is illustrated here with the total loan cost $f$
+
+We consider a blockchain with slashing percentage $p = 0.5$, an \asset market
+with flash loan cost $\betaasset = 0.003$, a \stasset market with total
+loan cost $f = 1.03$ for duration $\Delta_z$ and collateral ration
+$\gammastasset = 1.2$. The initial \asset holdings of the liquid staking protocol
+are $b_0 = 10000$ \asset.
+
+\begin{figure}[htb]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./plots/plotu.pdf}
+    \caption{Adverasarial market domination and attack profitability.}
+    \label{fig:plotu}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
+    \caption{Where the attack profitability based on adverasarial market domination.}
+    \label{fig:compare-f-plotu}
+  \end{subfigure}
+\end{figure}
+
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
