@@ -58,7 +58,7 @@ shift in the price. The shift in the price is determined by the factor
 $p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
-% TODO: Consider the adverasary taking a loan up to s_0 asset and using the rest of u
+% TODO: Consider the adversary taking a loan up to s_0 asset and using the rest of u
 % just to move the market
 \noindent
 \textbf{Initial capital.}
@@ -69,17 +69,13 @@ She will use this as collateral to get the $z = \frac{u}{\gammastasset} \frac{s_
 loan, needed to short \stasset at $t_0$.
 % Talk about collateral ratio in preliminaries
 After converting the loaned $z$ \stasset to $b^*=\frac{u}{\gammastasset}$ \asset, part
-of the funds are used to exempt delegate $c = \frac{b}{\phi}$ \asset
-to $\mathcal{V}$. Another part
+of the $b^*$ funds are used to exempt delegate $c = \frac{b}{\phi}$ \asset
+to $\mathcal{V}$, and another part
 is used to obtain the required $b$ \asset using a flash loan. The cost of
-the flash loan is $\betaasset b$. Hence:
-% TODO: Maybe only a flash loan could be used instead of loan?
-
-\begin{gather*}
-  c + \betaasset b \leq b^*\Rightarrow
-  % \frac{b}{\phi} + \betaasset b \leq b^*\Rightarrow\\
-  b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}
-\end{gather*}
+the flash loan is $\betaasset b$. Hence $c + \betaasset b \leq b^*$
+and the adversary is bounded to use up to
+$b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$
+to move the price.
 
 The final profit of the attack is $\alpha = b^* - b' - qc - \betaasset b$.
 Solving for $\frac{d\alpha}{db} = 0$ gives the optimal $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$,
@@ -117,9 +113,9 @@ besides the adversary.
 The cost of borrowing money increases when the collateral ratio
 $\gammastasset$, the flash loan cost $\betaasset$ or the total loan cost $f$
 increase. While the cost of borrowing money goes up, the attack becomes less profitable
-for the adverasary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
+for the adversary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
 and still remain secure in the rational model. This is illustrated in Figure~\ref{fig:plotf} for
-an adverasary with $30\%$ market domination, and an adverasary with $50\%$ market domination.
+an adversary with $30\%$ market domination, and an adversary with $50\%$ market domination.
 While $f$ increases, the parameter $\frac{\phi}{q}$ increases with it.
 Indicated by a black line, is where the attack becomes unprofitable ($\alpha = 0$).
 The white area under the black line is where the protocol is considered secure.
@@ -141,7 +137,7 @@ The white area under the black line is where the protocol is considered secure.
   \label{fig:plotf}
 \end{figure}
 
-Free money borrowing makes the adverasary's attack more profitable.
+Free money borrowing makes the adversary's attack more profitable.
 For illustration purposes, if we consider flash loans to be free ($\beta = 0$), interest rates to be $r = 0$,
 and the collateral ratio required to be $\gamma = 100\%$, equation~\eqref{eq:phi-choice} is greatly simplified to:
 
@@ -154,7 +150,7 @@ it is also secure when money borrowing is not free.
 Figure~\ref{fig:compare-f-plotu} illustrates where the attack is unprofitable
 for different costs of borrowing $f$. Notice that parameter $\frac{\phi}{q}$
 with free money borrowing $f = 1$ is always less than $\frac{\phi}{q}$ for $f>1$
-for any adverasarial market domination.
+for any adversarial market domination.
 
 Hence, equation~\eqref{eq:phi-choice-simple} can be used in practice
 to calculate the appropriate value of $\frac{\phi}{q}$
@@ -180,14 +176,17 @@ are $b_0 = 10000$ \asset.
   \begin{subfigure}{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{./plots/plotu.pdf}
-    \caption{Adverasarial market domination and attack profitability.}
+    \caption{Adversarial market domination and attack profitability
+             for varying $\frac{\phi}{q}$.}
     \label{fig:plotu}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.49\textwidth}
     \centering
     \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
-    \caption{Where the attack profitability based on adverasarial market domination.}
+    \caption{Optimal $\frac{phi}{q}$ system parametrizations
+             for different adversarial market dominations $\frac{u}{b_0}$
+             and market conditions $f$.}
     \label{fig:compare-f-plotu}
   \end{subfigure}
 \end{figure}
