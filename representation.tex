@@ -1,10 +1,10 @@
 \section{Representation}
 
-In a staking protocol, whether liquid or not, each delegator has an opinion
+In a staking protocol, whether liquid or not, each principal has an opinion
 about which validator they wish to delegate to.
 
 \begin{definition}[Delegation Wish]
-  For each delegator, we define
+  For each principal, we define
   their \emph{delegation wish} to be a particular validator of their choice.
 \end{definition}
 
@@ -12,12 +12,13 @@ It will generally be desired that these delegation wishes point to
 honest validators. We formalize this in the notion of \emph{wisdom}.
 
 \begin{definition}[Wisdom]
-  A delegator is \emph{wise} if their delegation wish points to an honest
-  validator. Otherwise, the delegator is \emph{unwise}.
+  A principal is \emph{wise} if their delegation wish points to an honest
+  validator. Otherwise, the principal is \emph{unwise}.
 \end{definition}
 
 In the liquid staking protocols described in Section~\ref{sec:preliminaries},
-the decision of which validators to delegate to is up to the governance.
+the decision of which validators to delegate to is up to the majority of the
+stakeholders.
 This creates a problem. A stakeholder holding a minority of the stake
 may wish to delegate this stake to a particular validator, but the rest
 of the stakeholders can overturn him by a majority vote. Hence, in these
@@ -28,6 +29,8 @@ On the contrary, in a \emph{proportional representation} system, the
 majority of the stakeholders decide where to delegate the majority of
 the stake, but the minority of the stakeholders also decide where to delegate
 the minority of the stake.
+
+% TODO: Formalize proportional representation.
 
 % Formal version:
 % TODO(dionyziz): Consider moving this to the appendix.
@@ -49,18 +52,18 @@ the minority of the stake.
 \begin{definition}[Proportional Representation]
   In a \emph{proportionally represented} liquid staking protocol,
   each validator is delegated a proportion of the liquid staking pool's \asset
-  equal to the sum of the proportions of \stasset held by the \stasset holders
+  equal to the sum of the proportions of \stasset held by the principals
   who wish to delegate to that validator.
 \end{definition}
 
 In order to achieve this, the process of liquid
-staking becomes different. Each stakeholder must \emph{signal} their
+staking becomes different. Each principal must \emph{signal} their
 \emph{intent}~\cite{quicksilver} indicating which validator they wish
 the pool to delegate to.
 
-First, the stakeholder deposits \asset into the protocol and signals
+First, the principal deposits \asset into the protocol and signals
 delegation intent to the validator of their choice. Then, the protocol
-delegates the deposited \asset to that validator. The stakeholder is
+delegates the deposited \asset to that validator. The principal is
 now a holder of tradable \stasset representations of the delegated \asset.
 This \stasset can now be transfered to a different owner.
 
@@ -70,12 +73,6 @@ The \stasset holder can \emph{resignal} their delegation intent and the protocol
 will redelegate the underlying \asset to the new validator.
 The goal is for all \stasset holders to be represented proportionally to
 their stake.
-
-
-In a liquid staking protocol with proportional
-representation, for every \stasset in circulation, the underlying \asset
-in the protocol's delegation pool must be delegated to the validator
-of the current \stasset holder's choice.
 
 Note that proportional representation may not be instant. Redelegation speeds
 are limited by the underlying blockchains' unbonding period.

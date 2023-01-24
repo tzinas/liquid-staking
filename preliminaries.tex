@@ -40,8 +40,9 @@ for the delegated stake, and delegated stake is also slashed in case of validato
 misbehavior. The stake bonded by a validator themselves and not delegated from
 others is known as \emph{self-delegation}. Self-delegations as
 well as stake delegated from others is known as \emph{delegated stake},
-and the capital holder of delegated stake is known as the \emph{delegator}.
-A delegator can \emph{undelegate} or \emph{redelegate} at any time,
+and the capital holder of delegated stake is known as the \emph{delegator},
+but will also be referred to as the \emph{principal}.
+A principal can \emph{undelegate} or \emph{redelegate} at any time,
 but must wait\footnote{The waiting period may sometimes be \emph{waived} and redelegations
 allowed instantly if no other redelegations have happened within $\delta$, such as
 in Cosmos~\cite{?}. The important point for us is that, after redelegation has commenced, the
@@ -51,7 +52,7 @@ for a period of $\delta$.} for an \emph{unbonding period} $\delta$.
 
 \noindent
 \textbf{Liquid Staking.} Delegated stake earns rewards, but remains locked and
-is illiquid. Delegators often wish to use their delegated stake as collateral,
+is illiquid. Principals often wish to use their delegated stake as collateral,
 for example to take loans~\cite{gudgeon2020defi} or to, more broadly, participate in the
 DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
 \emph{liquid staking protocols}~\cite{liquid-staking-report}.

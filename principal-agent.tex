@@ -1,41 +1,32 @@
 \section{The Principal--Agent Problem}
 In the Proof-of-Stake systems described in the previous sections,
-delegators grant permission of their funds to validators so they can
+principals grant permission of their funds to validators so they can
 participate in consensus on their behalf.
-Hence, delegators have ownership of the stake, but
+Hence, principals have ownership of the stake, but
 validators have control over it.
 The stakeholders rely on validators to act according to their
 best interest: Stay online and follow the protocol.
-However, validators (the Agent) may have extrinsic motivation to
-misbehave and plot against delegators (the Principal). This creates
+However, validators (the agent) may have extrinsic motivation to
+misbehave and plot against principals. This creates
 a conflict of interest that is known as the Principal--Agent problem.
 
 For example, a malicious validator can equivocate, which can cause
-the delegator's funds to be slashed. If the malicious validator has
+the principal's funds to be slashed. If the malicious validator has
 limited self-delegation and no reputation to lose, the validator
-may be able to profit from the delegator's loss. However, a validator
+may be able to profit from the principal's loss. However, a validator
 with a larger self-delegation will be affected by the slashing themselves.
 This is why self-delegation is considered to offer a layer of protection
 against the Principal--Agent problem.
 
-In traditional staking protocols, delegators have the responsibility to
+In traditional staking protocols, principals have the responsibility to
 delegate their funds \emph{wisely}.
-They are not considered to be honest or adversarial, like validators.
-They can just make ``right'' or ``wrong'' choices.
-A delegator that delegates to a malicious validator is considered unwise,
-whereas a delegator that delegates only to honest validators is
-considered wise.
+When a malicious validator misbehaves, only the stake of unwise principals is
+slashed. No wise principal gets \emph{unfairly punished}.
 
-When a malicious validator misbehaves, only the stake of unwise delegators is slashed.
-This is because no wise delegator would have delegated to a malicious
-validator. Hence, no wise delegator gets punished as a result of
-the malicious validator's misbehavior. We consider protocols with
-this property to have \emph{fair punishment}.
-
+% TODO(e-print): Formalize fair punishment
 \begin{definition}[Fair Punishment]
-    A staking protocol has Fair Punishment if no wise
-    delegator's stake gets slashed as a result of a malicious validator's
-    actions.
+    A staking protocol has Fair Punishment if no wise principal's
+    stake gets slashed as a result of a malicious validator's actions.
 \end{definition}
 
 With the introduction of liquid staking protocols, the delegator
