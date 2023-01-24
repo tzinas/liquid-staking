@@ -1,6 +1,6 @@
 \section{Preliminaries}\label{sec:preliminaries}
 
-% TODO: citations
+% TODO (tzinas): citations
 
 \noindent
 \textbf{Loans.} For the attack we will describe in this paper, some upfront
@@ -30,7 +30,7 @@ model, validators can be \emph{honest} or \emph{adversarial}. The honest validat
 run the prescribed protocol, and hence never equivocate, whereas the adversarial
 validators can deviate from the protocol arbitrarily.
 
-% TODO: accountable/slashable safety
+% TODO (w/dionyziz): accountable/slashable safety
 
 \noindent
 \textbf{Delegation.} Since not everyone has the capacity to become a validator,
@@ -76,13 +76,12 @@ derivative tokens are only fungible when they have been
 delegated to the same validator in the same batch.}. We are only concerned with liquid
 staking protocols that are fully fungible. At any time, the derivative asset holder
 can \emph{redeem} their derivative asset.
-% TODO: assets are not directly returned to the user -- LSM shares are. Explain here or later?
 During redemption, the contract burns
 the holder's derivative assets and returns the respective assets to the holder.
 In our treatment, we consider a generic asset that we denominate in \asset
 and the respective derivative token, that we denominate in \stasset,
 issued by an arbitrary liquid staking protocol.
-% TODO: is the loan market infinitely deep?
+% TODO (w/dionyziz): is the loan market infinitely deep?
 We assume a perfectly efficient market for \asset and \stasset,
 as well as a loan market with rates
 $\rasset$, $\betaasset$, $\rstasset$, $\betastasset$.

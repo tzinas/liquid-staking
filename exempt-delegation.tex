@@ -44,9 +44,10 @@ corresponding to those $b$ \assets can be, as before, sold at $t_3$ to
 separate the Agent from the Principal, the $c$ amount remains with the
 Agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
-% Maybe before closing her position?
+% TODO (w/dionyziz): Maybe before closing her position?
 of the attack, the adversary undelegates the unslashed $(1 - q)c$ exempt delegation.
 The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}.
+%TODO (tzinas): The flash loan will be explained in the next paragraph.
 
 The attack may remain profitable despite exempt delegations.
 The rational adversary should not waste any unnecessary resources on
@@ -93,7 +94,7 @@ In non-extreme market conditions, if the attack is profitable, the bound
 $b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$ will not be reached,
 and the adversary will use the value
 $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
-%TODO: check if this is true
+%TODO(tzinas): check if this is true
 
 What would it take to disincentivize the adversary from attacking the protocol?
 As protocol designers, we need to carefully parametrize the liquid staking protocol
@@ -143,10 +144,10 @@ with \stasset loan cost $f = 1.03$ and with collateral ratio $\gammastasset = 1.
 and plot the dependencies between the cost of money $f$ and the adversarial
 profit in Figure~\ref{fig:plotf}.
 
-%TODO: find out if setting $b_0$ here is necessary
+%TODO (tzinas and w/dionyziz): find out if setting $b_0$ here is necessary
 %, a liquid staking protocol with $b_0 = 10000$ \asset initial holdings,
 
-%TODO: correct the plots
+%TODO (tzinas): correct the plots
 \begin{figure}[htb]
   \centering
   \begin{subfigure}{0.49\textwidth}
@@ -164,8 +165,6 @@ profit in Figure~\ref{fig:plotf}.
   \label{fig:plotf}
 \end{figure}
 
-%TODO: Move this before equation
-% Free money makes the adversary more powerful
 Free money borrowing makes the adversary more powerful and her attack
 more profitable.
 Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
@@ -175,9 +174,9 @@ money borrowing is not free. This is illustrated in
 Figure~\ref{fig:compare-f-plotu}. Safe values of the parameter $\frac{\phi}{q}$
 for $f = 1$, indicated by the black line, are also safe for $f > 1$.
 
-%TODO: check if the same happens for β and γ
+%TODO (tzinas): check if the same happens for β and γ
 
-%TODO: correct the plots
+%TODO (tzinas): correct the plots
 \begin{figure}[htb]
   \centering
   \begin{subfigure}{0.49\textwidth}
@@ -203,11 +202,12 @@ for $f = 1$, indicated by the black line, are also safe for $f > 1$.
 Hence, we can greatly simplify the above calculations by assuming that money borrowing is free.
 Concretely if flash loans are free ($\beta = 0$), interest rates are zero ($f = 1$),
 and the collateral ratio is $\gamma = 100\%$, equation~\eqref{eq:phi-choice} simplifies to:
+%TODO (w/ dionyziz): why not use \betaasset and \gammastasset?
 
 \begin{gather*}
   \frac{\phi}{q} \leq \frac{b_0}{pu} \label{eq:phi-choice-simple} \tag{$\ast$}
-  % TODO: is naming necessary here?
-  % TODO: should the previous equation be named asterisk?
+  % TODO (w/ dionyziz): is naming necessary here?
+  % TODO (w/ dionyziz): should the previous equation be named asterisk?
 \end{gather*}
 
 This equation can be used in practice to calculate the appropriate value
@@ -243,10 +243,3 @@ of the parameter $\frac{\phi}{q}$.
 %  (b_0 + b)^2 - \frac{u f p b_0}{\gammastasset (\betaasset + \frac{q}{\phi})} = 0\\
 %  b^2 + 2b_0b + b_0^2 - \frac{u f p b_0}{\gammastasset (\betaasset + \frac{q}{\phi})} = 0\\
 %\end{gather*}
-
-%The solution for $b > 0$ is:
-%$b = \sqrt{\frac{u f p b_0}{\betaasset + \frac{q}{\phi}}} - b_0$
-
-
-% TODO: analyze rationality of the attack
-% TODO: appendix? introduce discount of stasset -> asset in the market using loans

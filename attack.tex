@@ -35,7 +35,6 @@ signalling delegation intent to $\mathcal{V}$.
 Due to Proportional Representation,
 the protocol respects this intent and delegates $b$ \asset to $\mathcal{V}$.
 The protocol now holds $b$ delegated \asset to $\mathcal{V}$.
-% Reduntaunt? ^^
 Through this deposit, the adversary obtains
 $s = \frac{s_0}{b_0} b$ \stasset, and the quoted price remains
 $\frac{b_0 + b}{s_0 + s} = \frac{b_0}{s_0}$.
@@ -64,13 +63,8 @@ As everyone else was
 wise, this constitutes unfair punishment.
 
 The above attack requires the adversary to expend capital $b$ to cause
-%capital bp ?
 harm to others, and is irrational. In the remainder of this section, we
 will explore how to make this attack profitable.
-
-% TODO: conjecture that in the adversarial setting, the three properties
-% (fungibility, proportional representation, fair punishment) are
-% not all attainable when the protocol is slashably safe.
 
 \noindent
 \textbf{Making the attack profitable.}
@@ -83,23 +77,10 @@ During equivocation, the adversary does not want to be holding any
 \stasset of her own, as the price of \stasset is about to drop.
 Therefore, at time $t_3$ (where $t_2 < t_3 < t_4$) the adversary sells
 the acquired $s$ \stasset for $b$ \asset in the market.
-% TODO: account for discount when selling \stasset for \asset
-% If a loan was used to acquire her initial capital,
-% these \asset can be used to repay it.
 The adversary has now managed to add $b$ \asset delegated to validator $\mathcal{V}$
 in the protocol's delegation pool while not currently holding
 any \stasset. The loss has been averted.
-% TODO: move to resignalling section?
-% Since the protocol has Proportional Representation, the new $s$
-% \stasset holder can eventually resignal his delegation intent and the
-% $b$ \asset delegated to $\mathcal{V}$ will be redelegated elsewhere.
-% % Explain how redelegation works?
-% However, during the unbonding period $\delta$, the redelegated \asset will
-% still be bonded with $\mathcal{V}$ and therefore vulnerable to slashing
-% if $\mathcal{V}$ equivocates.
 
-% TODO: remove "flash loan" label?
-% TODO: mark b, s above black line and below red/blue lines
 \import{./}{profitable-attack-diagram.tex}
 
 A small extra trick will allow her to profit.
@@ -114,7 +95,6 @@ them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
 Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
 \stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the
 total loan amount to be repaid, including the principal and interest, is
-% TODO(tzinas): define $f$ here
 $((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
 We let $f = ((1 + \rstasset)^{\Delta_z} + \betastasset)$ be the cost factor
 of the loan.
@@ -130,7 +110,6 @@ i.e., the cost $f$ of money borrowing (which is always $> 1$) is
 sufficiently cheap that she can make up for it by the price movement
 $1 - p\frac{b}{b_0 + b}$ she has caused.
 
-% Maybe this should be moved to the appendix
 \noindent
 \textbf{Realizing profits in USD.}
 If the attacker wants to do bookkeeping in a more stable reference currency,
@@ -148,12 +127,10 @@ even increase.
 Lastly, any price fluctuations of \asset with respect to USD will likely be
 minor, as the attack has a short duration of a couple of seconds.
 
-% TODO: resignalling
-
-% TODO: consider the case p < 1
+% TODO (w/ dionyziz): consider the case p < 1
 
 \subsection{The Market price of \stasset}\label{sec:stasset-price}
-% TODO: Consider moving this to appendix
+% TODO (w/ dionyziz): Consider moving this to appendix
 
 Let us consider the price $\alpha$ of \stasset denominated in \asset in the market.
 Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
@@ -187,25 +164,11 @@ If the redeemed amounts exceed the deposited amounts, some amounts will necessar
 a delay. However, the above bounds may effectively be tighter than $\delta$ due to
 a shorter effective unbonding duration.
 
-% TODO: explore whether the principle of remittances is actually implemented anywhere
+% TODO (w/ dionyziz): explore whether the principle of remittances is actually implemented anywhere
 
-% TODO: mention in a remark (maybe later) that exchange rates between asset/stAsset may not
+% TODO (w/dionyziz): mention in a remark (maybe later) that exchange rates between asset/stAsset may not
 % be 1:1 because slashing risk and unbonding time must be factored in, and cite
 % the economist's paper on liquid staking:
 % https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4180341
 
-% TODO: Study a few of the big Liquid Staking protocols (https://defillama.com/protocols/Liquid%20Staking)
-% top 13 e.g., Marinade, Algo Liquid, Benqi, Stader, Ankr
-
-% TODO: Re-state the attack formulae using the corrected pricing of stasset
-
-% Instead of selling the \stasset in the open market, maybe the
-% adversary could use the
-% protocol's redemption mechanism and receive delegated \asset
-% instead of \asset
-% Delegated \asset can also be used to
-% continue with the attack if the protocol accepts already delegated
-% \asset in addition to \asset when liquid staking.
-
-% TODO: optimization problem, find optimal balance between b/c/z
-% given limited capital.
+% TODO (w/dionyziz): Re-state the attack formulae using the corrected pricing of stasset
