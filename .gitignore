@@ -61,3 +61,6 @@ latex.out/
 .vscode/
 
 env/
+experiments/*.pdf
+__pycache__/
+*.synctex*
