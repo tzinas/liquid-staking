@@ -60,27 +60,30 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 \noindent
 \textbf{Initial capital.}
-Let $\gammastasset$ be the collateral ratio of a standard \stasset loan.
-Until now, we assumed the adversary taking a $z$ \stasset loan,
-needed to short \stasset at $t_0$, without any requirements.
-However, in practice, the adversary uses an
-initial capital of $u$ \asset as collateral to obtain the
-$z = \frac{u}{\gammastasset} \frac{s_0}{b_0}$ \stasset loan.
+So far, we have allowed the adversary to take a loan indiscriminately without
+any concern for collateral. In practical systems, however, loan platforms
+require a collateral, so that attack impact will be limited by the adversary's
+initial capital. Let $u$ \asset be the initial capital of the adversary, and
+let $\gammastasset$ be the collateral ratio of a standard \stasset
+loan. The adversary uses the whole initial capital of $u$ \asset as
+collateral to obtain a loan of $z = \frac{u}{\gammastasset} \frac{s_0}{b_0}$ \stasset.
 The loaned $z$ \stasset are converted to $b^*=\frac{u}{\gammastasset}$ \asset
 and utilized by the adverasary in the next steps of the attack.
 
 It was also previously assumed that the adversary has $c$ \asset to exempt
 delegate ($t_1$) and $b$ \asset to deposit in the protocol ($t_2$) at her disposal.
-However this is not required.
+Instead of requiring these as extra assets set aside, we will make them part of
+the loan obtained by the adversary. That way, the adversary will maximize her
+shorting leverage.
 Part of the $b^*$ funds are used to exempt delegate $c = \frac{b}{\phi}$ \asset
 to $\mathcal{V}$ at $t_1$, and another part to obtain the $b$ \asset, required for depositing in
 the protocol at $t_2$, using a flash loan.  The cost of the flash loan is $\betaasset b$ and is repayed at $t_3$,
 after the adverasary has sold back her \stasset for $b$ \asset.
-Hence $c + \betaasset b \leq b^*$ and the adversary is bounded to use up to
+Hence $c + \betaasset b \leq b^*$ and the adversary may use up to
 $b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$
 to move the price.
 
-Including the flash loan cost, the final profit of the attack is now
+Taking into consideration the flash loan cost as well, the final profit of the attack is now
 $\alpha = b^* - b' - qc - \betaasset b$.
 Solving for $\frac{d\alpha}{db} = 0$ gives the optimal $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$,
 which maximizes
@@ -92,20 +95,25 @@ and the adversary will use the value
 $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
 %TODO: check if this is true
 
-In a secure liquid staking protocol, in the rational model,
-this attack should be unprofitable for the adversary.
-To achieve this, the protocol must select the parameter $\frac{\phi}{q}$
-in order to satisfy $\alpha \leq 0$. Solving for $\frac{\phi}{q}$ gives:
+What would it take to disincentivize the adversary from attacking the protocol?
+As protocol designers, we need to carefully parametrize the liquid staking protocol
+to ensure the adversarial profit is not positive. This will render the attack irrational
+and the protocol secure in the rational model. To achieve this, we must select
+the parameter $\frac{\phi}{q}$ in a way that $\alpha \leq 0$.
+Plugging in the optimal value for $b$ in the inequality $\alpha \leq 0$ and solving
+the resulting equation for $\frac{\phi}{q}$ yields
 
 % (-b0*β*γ - 2*sqrt(f)*sqrt(p)*u*sqrt(f - 1) + f*p*u + f*u - u)/(b0*γ)
 % (1/(b0*γ)) * (f*p*u + f*u - b0*β*γ - 2*u*sqrt(fp*(f-1)) - u)
 \begin{gather*}
-  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u} \label{eq:phi-choice} \tag{$1$}
+  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}\,. \label{eq:phi-choice} \tag{$1$}
 \end{gather*}
 
-The constants $p$, $\betaasset$, $f$, $b_0$, $\gammastasset$ and $u$ should
-be substituted with the appropriate values of the blockchain and market conditions
-that the protocol operates on.
+The protocol designers can now calculate a secure value for $\frac{\phi}{q}$
+by plugging
+the appropriate values of blockchain and market conditions
+that the protocol operates on into
+constants $p$, $\betaasset$, $f$, $b_0$, $\gammastasset$ and $u$.
 
 Higher exempt delegation slashing rate $q$ makes the attack more expensive. This
 is because a larger portion of the exempt delegation $c$, holding the adversary accountable,
@@ -125,11 +133,15 @@ Figure~\ref{fig:plotf} for an adversary with $30\%$ market domination $\frac{u}{
 and an adversary with $50\%$ market domination $\frac{u}{b0}$.
 While $f$ increases, the safe parameter $\frac{\phi}{q}$ can increase with it.
 The black line indicates where the attack becomes unprofitable for the adversary ($\alpha = 0$).
-The white area under the black line is where the protocol is secure.
+The white area under the black line represents the configuration in which
+the protocol is secure in the rational model.
 
-In Figure~\ref{fig:plotf} we consider a blockchain with slashing percentage
+As an illustration,
+we consider a blockchain with slashing percentage
 $p = 0.5$ and a reasonable market with \asset flash loan cost $\betaasset = 0.003$,
-with \stasset loan cost $f = 1.03$ and with collateral ratio $\gammastasset = 1.2$.
+with \stasset loan cost $f = 1.03$ and with collateral ratio $\gammastasset = 1.2$,
+and plot the dependencies between the cost of money $f$ and the adversarial
+profit in Figure~\ref{fig:plotf}.
 
 %TODO: find out if setting $b_0$ here is necessary
 %, a liquid staking protocol with $b_0 = 10000$ \asset initial holdings,
@@ -160,7 +172,7 @@ Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
 borrowing is free ($f = 1$, $\betaasset = 0$, $\gammastasset = 1$),
 the same parameter $\frac{\phi}{q}$ keeps the protocol secure even when
 money borrowing is not free. This is illustrated in
-Figure~\ref{fig:compare-f-plotu}. Safe values of parameter $\frac{\phi}{q}$
+Figure~\ref{fig:compare-f-plotu}. Safe values of the parameter $\frac{\phi}{q}$
 for $f = 1$, indicated by the black line, are also safe for $f > 1$.
 
 %TODO: check if the same happens for β and γ
@@ -189,8 +201,7 @@ for $f = 1$, indicated by the black line, are also safe for $f > 1$.
 \end{figure}
 
 Hence, we can greatly simplify the above calculations by assuming that money borrowing is free.
-Concretely if flash loans are free ($\beta = 0$), interest rates are $r = 0$,
-%TODO: why is r used here and not f?
+Concretely if flash loans are free ($\beta = 0$), interest rates are zero ($f = 1$),
 and the collateral ratio is $\gamma = 100\%$, equation~\eqref{eq:phi-choice} simplifies to:
 
 \begin{gather*}
@@ -200,7 +211,9 @@ and the collateral ratio is $\gamma = 100\%$, equation~\eqref{eq:phi-choice} sim
 \end{gather*}
 
 This equation can be used in practice to calculate the appropriate value
-of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$.
+of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$
+(due to the very short duration of the attack, the cost of money borrowing does not alter
+the final result by much).
 For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
 and the adversary can use a capital of $u = 100$ \asset to attack the protocol
 ($\frac{u}{b_0} = 10\%$ market domination),
@@ -208,7 +221,7 @@ if $p = q = 100\%$ is the slashing rate, then $\phi \leq \frac{b_0}{u} = 10$
 is a safe protocol parametrization. Attack profitability for different adversarial
 market dominations $\frac{u}{b_0}$ are illustrated in Figure~\ref{fig:contour-plotu}.
 The white area under the black line ($\alpha = 0$) consists of safe values
-of parameter $\frac{\phi}{q}$.
+of the parameter $\frac{\phi}{q}$.
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
