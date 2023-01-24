@@ -29,20 +29,16 @@ slashed. No wise principal gets \emph{unfairly punished}.
     stake gets slashed as a result of a malicious validator's actions.
 \end{definition}
 
-With the introduction of liquid staking protocols, the delegator
-now becomes the protocol itself. If at least one of the validators
-delegated to by the protocol is malicious, the protocol is
-considered unwise. This means that a malicious validator's actions
-will cause slashing of the protocol's delegations.
-All of the protocol's delegations are fungible with one another.
-Hence, the entire market built on top of the protocol will be affected by
-the slashing. It is clear that the Principal--Agent problem is exacerbated.
-There is now a new incentive for validators to equivocate and short the
-protocol's market for profit.
-
-%\begin{itemize}
-%    \item More nuanced model than honest/adversarial: stakeholders are not honest or adversarial, but can make ``right'' or ``wrong'' choice; validators are honest and adversarial.
-%    \item Fair punishment: You should not be slashed if you make the ``right'' choice.
-%    \item Wise and unwise model
-%    \item Why the problem is exacerbated (with example from governance)
-%\end{itemize}
+With the introduction of liquid staking protocols, the principal
+is no longer directly delegating to the validator of their choice.
+Instead, the protocol is now responsible for the delegation process
+and fund distribution to validators.
+Although the principal can express their delegation wish, ultimately
+the protocol decides where funds are delegated based on its
+\emph{delegation strategy}. All these delegations are fungible
+with one another, hence all validators delegated to by
+the protocol become agents for the principal.
+It is clear that the Principal--Agent problem is exacerbated.
+The principal's funds are now controlled by multiple validators
+the principal has not necessarily chosen, each one with their own
+interests and incentives.
