@@ -1,0 +1,36 @@
+\begin{algorithm}[H]
+  \caption{\label{alg.liquid-staking} The basic tokenomics of all liquid staking protocols.}
+  \begin{algorithmic}[1]
+    \Contract{\sf liquid-stake$\text{ extends }$\textsf{ERC20}}
+      \Let{b_0}{0}
+      \Let{s_0}{0}
+
+      \Payable{\sf constructor}{}
+        \State{$\textsf{require}(\textsf{msg.value} \geq 0)$}
+        \Let{b_0}{\textsf{msg.value}}
+        \Let{s_0}{b_0}
+        \Let{\sf balances[msg.sender]}{\sf msg.value}
+      \EndPayable
+
+      \Payable{\sf deposit}{}
+        \Let{b}{\textsf{msg.value}}
+        \Let{s}{b \cdot \frac{s_0}{b_0}}
+        \Let{\sf balances[msg.sender]}{\textsf{balances[msg.sender]} + s}
+        \CommentLine{Maintain the invariant $\frac{b_0}{s_0} = \frac{b_0 + b}{s_0 + s}$}
+        \Let{b_0}{b_0 + b}
+        \Let{s_0}{s_0 + s}\Comment{Mint}
+      \EndPayable
+
+      \Function{\sf withdraw}{$s$}
+        \State{$\textsf{require}(\textsf{balances[msg.sender]} \geq s)$}
+        \State{$\textsf{require}(s_0 > s)$}
+        \Let{b}{s \cdot \frac{b_0}{s_0}}
+        \CommentLine{Maintain the invariant $\frac{b_0}{s_0} = \frac{b_0 - b}{s_0 - s}$}
+        \Let{s_0}{s_0 - s}\Comment{Burn}
+        \Let{b_0}{b_0 - b}
+        \Let{\textsf{balances[msg.sender]}}{\textsf{balances[msg.sender]} - s}
+        \State{\textsf{msg.sender.transfer}($b$)}
+      \EndFunction
+    \EndContract
+  \end{algorithmic}
+\end{algorithm}

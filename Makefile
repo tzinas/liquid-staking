@@ -1,4 +1,4 @@
-liquid-staking.pdf: *.tex *.bib *.sty
+liquid-staking.pdf: *.tex *.bib *.sty algorithms/*.tex
 	xelatex liquid-staking.tex && \
 	bibtex liquid-staking && \
 	xelatex liquid-staking.tex && \
