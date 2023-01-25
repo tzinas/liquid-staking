@@ -46,7 +46,8 @@ Agent, holding her financially liable to misbehavior. After equivocation at $t_4
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
 % TODO (w/dionyziz): Maybe before closing her position?
 of the attack, the adversary undelegates the unslashed $(1 - q)c$ exempt delegation.
-The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}.
+The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}
+(the flash loan indication is explained when we introduce cost of borrowing).
 %TODO (tzinas): The flash loan will be explained in the next paragraph.
 
 The attack may remain profitable despite exempt delegations.
@@ -60,7 +61,7 @@ $p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \ph
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 \noindent
-\textbf{Initial capital.}
+\textbf{The cost of borrowing.}
 So far, we have allowed the adversary to take a loan indiscriminately without
 any concern for collateral. In practical systems, however, loan platforms
 require a collateral, so that attack impact will be limited by the adversary's
@@ -74,12 +75,20 @@ and utilized by the adverasary in the next steps of the attack.
 It was also previously assumed that the adversary has $c$ \asset to exempt
 delegate ($t_1$) and $b$ \asset to deposit in the protocol ($t_2$) at her disposal.
 Instead of requiring these as extra assets set aside, we will make them part of
-the loan obtained by the adversary. That way, the adversary will maximize her
-shorting leverage.
-Part of the $b^*$ funds are used to exempt delegate $c = \frac{b}{\phi}$ \asset
-to $\mathcal{V}$ at $t_1$, and another part to obtain the $b$ \asset, required for depositing in
-the protocol at $t_2$, using a flash loan.  The cost of the flash loan is $\betaasset b$ and is repayed at $t_3$,
-after the adverasary has sold back her \stasset for $b$ \asset.
+the loan obtained by the adversary. That way, all the initial capital of
+the adversary can be used to maximize her shorting leverage.
+
+Notice that the adversary deposits $b$ \asset in the protocol at $t_2$ and
+gets them back at $t_3$ after selling the \stasset obtained from the deposit.
+These 2 actions can be performed in a single transaction. Hence, a flash
+loan can be used to obtain the required $b$ \asset at $t_2$ and be repaid,
+including a $\betaasset b$ \asset cost, at $t_3$, after the adverasary gets
+$b$ \asset back.
+The flash loan is illustrated in Figure~\ref{fig:exempt-timeline}.
+
+To perform the attack, part of the $b^*$ funds are used to exempt delegate
+$c = \frac{b}{\phi}$ \asset to $\mathcal{V}$ at $t_1$, and another part
+to pay $\betaasset b$ \asset for the flash loan cost at $t_3$.
 Hence $c + \betaasset b \leq b^*$ and the adversary may use up to
 $b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$
 to move the price.
@@ -165,6 +174,9 @@ profit in Figure~\ref{fig:plotf}.
   \label{fig:plotf}
 \end{figure}
 
+
+\noindent
+\textbf{Free money borrowing.}
 Free money borrowing makes the adversary more powerful and her attack
 more profitable.
 Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
