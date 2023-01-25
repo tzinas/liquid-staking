@@ -38,7 +38,7 @@ The protocol now holds $b$ delegated \asset to $\mathcal{V}$.
 Through this deposit, the adversary obtains
 $s = \frac{s_0}{b_0} b$ \stasset, and the quoted price remains
 $\frac{b_0 + b}{s_0 + s} = \frac{b_0}{s_0}$.
-Lastly, at time $t_4 > t_2$, the validator
+Lastly, at time $t_4 > t_2$, validator
 $\mathcal{V}$ equivocates. This causes a proportion $p$ of
 the capital $b$ to be slashed.
 However the amount of \stasset circulating in the
@@ -127,11 +127,9 @@ even increase.
 Lastly, any price fluctuations of \asset with respect to USD will likely be
 minor, as the attack has a short duration of a couple of seconds.
 
-% TODO (w/ dionyziz): consider the case p < 1
-
 \subsection{The Market price of \stasset}\label{sec:stasset-price}
-% TODO (w/ dionyziz): Consider moving this to appendix
 
+% TODO (tzinas): change \alpha
 Let us consider the price $\alpha$ of \stasset denominated in \asset in the market.
 Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
 depositing, the price of \stasset denominated in \asset in a perfectly
@@ -140,13 +138,14 @@ rational buyer would use the market. Hence, the market rate is
 $\alpha \leq \frac{b_0}{s_0}$.
 
 There are two options to convert $s$ \stasset to \asset: either sell
-at the market rate to obtain $b = \alpha s$, or use the redemption mechanism.
+at the market rate to obtain $b = \alpha s$ \asset, or use the redemption mechanism.
 Using the redemption mechanism, the \assets become available after
 time $\delta$.
 Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
 delegated assets. To get $b$ \asset immediately (and avoid having to wait
-for the unbonding period), a loan of $b$ \asset is taken~\cite{liquid-staking-report} and
-repayed after duration $\delta$. The amount of \asset that needs to be paid back,
+for the unbonding period), a loan of $b$ \asset is taken~\cite[p.~13]{liquid-staking-report} and
+repayed after duration $\delta$.
+The amount of \asset that needs to be paid back,
 including principal and interest, is $((1 + \rasset)^\delta + \betaasset)b$ \asset.
 We set this amount to be equal to $b'$, the amount of \assets that will be
 unbonded after $\delta$ time. Solving for $b$, we get
@@ -158,17 +157,16 @@ We deduce that the bounds for an efficient market of \asset and \stasset are
   \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq \alpha \leq \frac{b_0}{s_0}\,.
 \]
 
-Some liquid staking protocols use the principle of remittances to match depositing and
+The longer the duration $\delta$, the larger the potential price deviation
+(c.f. the empirical analysis in
+\emph{Liquid Staking: Basis Determinants and Price Discovery}~\cite{scharnowski2022liquid}).
+The process of the loan is automated in some protocols~\cite[\S5]{parallel}\cite{marinade-matching}.
+
+It is also possible to use the principle of remittances
+(matching)~\cite[\S5]{parallel}\cite{marinade-matching} to match depositing and
 redeeming parties, so that the redeeming party does not have to incur any unbonding delay.
-If the redeemed amounts exceed the deposited amounts, some amounts will necessarily uncur
+If the redeemed amounts exceed the deposited amounts, some amounts will necessarily incur
 a delay. However, the above bounds may effectively be tighter than $\delta$ due to
 a shorter effective unbonding duration.
 
-% TODO (w/ dionyziz): explore whether the principle of remittances is actually implemented anywhere
-
-% TODO (w/dionyziz): mention in a remark (maybe later) that exchange rates between asset/stAsset may not
-% be 1:1 because slashing risk and unbonding time must be factored in, and cite
-% the economist's paper on liquid staking:
-% https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4180341
-
-% TODO (w/dionyziz): Re-state the attack formulae using the corrected pricing of stasset
+% TODO (e-print): Re-state the attack formulae using the corrected pricing of stasset

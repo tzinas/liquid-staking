@@ -10,6 +10,7 @@ be obtained, in which the loan has zero duration and does not risk any funds. We
 a loan of duration $\Delta t$ for capital $u$ has an \emph{upfront} cost $\beta$
 and an \emph{interest rate} $r$ for a total cost of
 $((1 + r)^{\Delta t} - 1 + \beta) u$. The term $\beta$ models the cost of a flash loan,
+%TODO: (w/ dionyziz) We are not consistent with loan cost (-1 or not)
 which has duration $0$.
 In order to take a loan, a collateral in different currency must be deposited for the duration
 of the loan. DeFi protocols typically require overcollateralization. We denote by
@@ -45,8 +46,9 @@ but will also be referred to as the \emph{principal}.
 A principal can \emph{undelegate} or \emph{redelegate} at any time,
 but must wait\footnote{The waiting period may sometimes be \emph{waived} and redelegations
 allowed instantly if no other redelegations have happened within $\delta$, such as
-in Cosmos~\cite{?}. The important point for us is that, after redelegation has commenced, the
-% TODO (tzinas): Fill citation and author of https://docs.cosmos.network/main/modules/staking
+in Cosmos~\cite{cosmos-staking-module}. The important point for us is that, after redelegation has commenced, the
+% TODO (w/ dionyziz): Fill citation and author of https://docs.cosmos.network/main/modules/staking
+% Can't find author
 redelegated stake is still prone to slashing due to the \emph{old} validator's misbehavior
 for a period of $\delta$.} for an \emph{unbonding period} $\delta$.
 
@@ -58,7 +60,7 @@ DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
 \emph{liquid staking protocols}~\cite{liquid-staking-report}.
 Some such protocols~\cite{lido,stride} operate
 in the form of smart contracts (\eg Lido in Ethereum) or separate appchains
-(\eg Stride, Persistence, and Quicksilver in Cosmos).
+(\eg Stride, pStake, and Quicksilver in Cosmos).
 Stakeholders \emph{deposit} their funds into the liquid staking protocol.
 Upon deposit, these contracts act as
 delegators and delegate the incoming funds to their choice of validators.
@@ -118,3 +120,5 @@ In the voting process, anyone can propose for a proportion of the protocols's as
 to be delegated to a validator of their choosing.
 Each stakeholder can then vote \emph{yes} or \emph{no}
 to a proposal, and decisions are taken by weighted majority.
+
+%TODO (w/dionyziz): Is it clear that proportional representation is not our idea?
