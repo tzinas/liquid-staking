@@ -5,44 +5,6 @@
 % .    \
 % .     -> Exempt Delegation
 
-\noindent
-\textbf{Liquid Staking Module (LSM).}
-In the context
-of Cosmos, the exempt delegation mechanism is planned to be applied at the consensus
-layer by the Liquidity Staking Module (LSM)~\cite{liquidity-staking-module}.
-When this mechanism is used, \emph{assets} are first delegated to a validator by
-a principal who obtains \emph{delegated assets}, marking them as exempt or non-exempt.
-In the case of non-exempt delegated assets, these are then
-\emph{tokenized} into \emph{LSM shares}, representations of delegated assets that
-are minimally fungible (fungible among the other tokens that were delegated in the
-same batch to the same validator). These tokenized
-shares are subject to the exempt delegation constraint $b \leq \phi c$. The tokenized shares
-can then be \emph{deposited} into the liquid staking protocol, which issues liquid staking
-tokens (\stassets), as usual, in a process termed \emph{refungibilization}.
-The protocol does not need to delegate further, as it can readily start reaping the
-delegation rewards (as long as a relevant so-called \emph{LSM record} is also transferred
-along with the tokenized shares).
-It also does not need to perform further exempt delegation constraint checks.
-When the user \emph{redeems} \stassets, the protocol may elect to give
-back tokenized shares instead of \assets. Those can then be unwrapped into delegated assets,
-that can afterwards be undelegated into \assets after the relevant unbonding
-period expires.
-Through this mechanism, the exempt delegation $c$ of a validator is
-a \emph{shared} amount across potentially multiple liquid staking
-protocols that opt to accept tokenized shares
-instead of \assets directly. The \emph{intent} necessary for proportional
-representation can be read by the liquid staking protocol by simply
-looking at the LSM tokenized share records, and no separate voting is
-necessary when entering the protocol. The factor $\phi$ is decided not by the
-liquid staking protocols' governance, but by the governance of
-the underlying chain. The slashing factor $q$ is applied directly
-by the chain and not by the liquid staking protocol.
-In the current LSM design, $q = p$.
-If a liquid staking protocol participates in
-multiple chains, the $\phi$ factors can be different in each chain.
-In our exposition, we abstract out these implementation details to highlight
-the economic issues at hand.
-
 % First, the stakeholder delegates their stake
 % directly to the validator of their choice. They are now holders of \emph{delegated
 % stake}, which is non-fungible and illiquid. They then

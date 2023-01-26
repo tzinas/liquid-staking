@@ -59,14 +59,16 @@ the minority of the stake.
 
 In order to achieve this, the process of liquid
 staking becomes different. Each principal must \emph{signal} their
-\emph{intent}~\cite{quicksilver} indicating which validator they wish
-the pool to delegate to.
+\emph{intent} indicating which validator they wish
+the pool to delegate to. This election mechanism was introduced by
+QuickSilver~\cite{quicksilver} even though it is not yet implemented at
+the time of writing.
 
 First, the principal deposits \asset into the protocol and signals
 delegation intent to the validator of their choice. Then, the protocol
 delegates the deposited \asset to that validator. The principal is
 now a holder of tradable \stasset representations of the delegated \asset.
-This \stasset can now be transfered to a different owner.
+This \stasset can now be transferred to a different owner.
 
 At some later time, the \stasset holder may wish to redelegate
 their underlying \asset to a new validator.

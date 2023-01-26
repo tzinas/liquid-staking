@@ -21,7 +21,7 @@ the \emph{exempt}
 marking means that those delegated assets cannot be part of the liquid
 staking protocol pool, but must remain infungibly locked aside. Additionally,
 these specially marked delegations are slashed\footnote{We abstract some
-of the irrelevant implementation details here. See Section~\ref{sec:lsm}
+of the irrelevant implementation details here. See Appendix~\ref{sec:lsm}
 for how the real protocol works in the context of Cosmos.}
 at a potentially higher rate $q \geq p$. Exempt delegated assets cannot
 be undelegated in a way that would cause a violation of the inequality
@@ -79,7 +79,7 @@ the adversary can be used to maximize her shorting leverage.
 
 Notice that the adversary deposits $b$ \asset in the protocol at $t_2$ and
 gets them back at $t_3$ after selling the \stasset obtained from the deposit.
-These 2 actions can be performed in a single transaction. Hence, a flash
+These two actions can be performed in a single transaction. Hence, a flash
 loan can be used to obtain the required $b$ \asset at $t_2$ and be repaid,
 including a $\betaasset b$ \asset cost, at $t_3$, after the adverasary gets
 $b$ \asset back.
@@ -134,7 +134,7 @@ larger values of $\phi$, increasing liquidity, without any harm to anyone
 besides the adversary.
 
 The cost of borrowing money increases when the collateral ratio
-$\gammastasset$, the flash loan cost $\betaasset$ or the total loan cost $f$
+$\gammastasset$, the flash loan cost factor $\betaasset$ or the loan cost factor $f$
 increase. While the cost of borrowing money goes up, the attack becomes less profitable
 for the adversary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
 and still remain secure. This is illustrated in
@@ -149,10 +149,10 @@ As an illustration,
 we consider a blockchain with slashing percentage
 $p = 0.5$ and a reasonable market\footnote{Market values were collected from
 Aave~\cite{aave} (at 24 Jan, 2023) and concern loans in Ethereum.}
-with \asset flash loan cost $\betaasset = 0.0009$,
-with \stasset loan cost $f = 1.000006$ and with collateral ratio $\gammastasset = 1.2$,
-and plot the dependencies between the cost of money $f$ and the adversarial
-profit in Figure~\ref{fig:plotf}.
+with \asset flash loan cost factor $\betaasset = 0.0009$,
+collateral ratio $\gammastasset = 1.2$ and \stasset loan cost factor $f = 1.000006$.
+In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
+profit.
 
 %TODO (tzinas and w/dionyziz): find out if setting $b_0$ here is necessary
 %, a liquid staking protocol with $b_0 = 10000$ \asset initial holdings,
@@ -233,7 +233,8 @@ and the adversary can use a capital of $u = 100$ \asset to attack the protocol
 ($\frac{u}{b_0} = 10\%$ market domination),
 if $p = q = 100\%$ is the slashing rate, then $\phi \leq \frac{b_0}{u} = 10$
 is a safe protocol parametrization. Attack profitability for different adversarial
-market dominations $\frac{u}{b_0}$ are illustrated in Figure~\ref{fig:contour-plotu}.
+market dominations $\frac{u}{b_0}$, and assuming free money borrowing,
+are illustrated in Figure~\ref{fig:contour-plotu}.
 The white area under the black line ($\alpha = 0$) consists of safe values
 of the parameter $\frac{\phi}{q}$.
 

@@ -9,7 +9,7 @@ def u_plot():
   f_values = list(np.arange(1.0, 1.21, 0.001))
   fig, (ax1) = plt.subplots(1, figsize=(7, 5))
 
-  plt.xlabel(r'Adversary market domination $\frac{u}{b_0}$', labelpad=15)
+  plt.xlabel(r'Loan cost factor $f$', labelpad=15)
   plt.ylabel(r'$\frac{\phi}{q}$', rotation=0, labelpad=15)
   ax1.xaxis.set_major_locator(MaxNLocator(nbins=5))
   ax1.yaxis.set_major_locator(MaxNLocator(nbins=4, prune='lower'))

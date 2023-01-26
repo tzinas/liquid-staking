@@ -7,10 +7,9 @@
 capital is required. Sometimes a portion of this capital is needed only throughout \emph{one}
 transaction. Towards this purpose, a \emph{flash loan}~\cite{gudgeon2020defi} can
 be obtained, in which the loan has zero duration and does not risk any funds. We assume that
-a loan of duration $\Delta t$ for capital $u$ has an \emph{upfront} cost $\beta$
-and an \emph{interest rate} $r$ for a total cost of
-$((1 + r)^{\Delta t} - 1 + \beta) u$. The term $\beta$ models the cost of a flash loan,
-%TODO: (w/ dionyziz) We are not consistent with loan cost (-1 or not)
+a loan of duration $\Delta t$ for capital $u$ has an \emph{upfront} cost factor $\beta$,
+an \emph{interest rate} $r$ and the amount to be repaid, including both the principal and interest, is
+$((1 + r)^{\Delta t} + \beta) u$. The term $\beta$ models the cost factor of a flash loan,
 which has duration $0$.
 In order to take a loan, a collateral in different currency must be deposited for the duration
 of the loan. DeFi protocols typically require overcollateralization. We denote by
@@ -21,7 +20,8 @@ value of $\gamma z$ in another currency.
 \noindent
 \textbf{Proof-of-Stake.} In Proof-of-Stake (PoS) systems, ledgers are secured
 by \emph{validators} who participate in the protocol by proposing and voting
-on blocks. To become a validator, a stakeholder must \emph{bond} their stake
+on blocks. To become a validator in a slashably safe~\cite{slashable-safety} PoS
+system, a stakeholder must \emph{bond} their stake
 which locks it up for a particular period of time in return for rewards.
 Validators promise they will
 not \emph{equivocate} by signing conflicting blocks.
@@ -30,8 +30,6 @@ In case of equivocation, a percentage $0 < p \leq 1$ of the locked stake is
 model, validators can be \emph{honest} or \emph{adversarial}. The honest validators
 run the prescribed protocol, and hence never equivocate, whereas the adversarial
 validators can deviate from the protocol arbitrarily.
-
-% TODO (w/dionyziz): accountable/slashable safety
 
 \noindent
 \textbf{Delegation.} Since not everyone has the capacity to become a validator,
@@ -47,8 +45,6 @@ A principal can \emph{undelegate} or \emph{redelegate} at any time,
 but must wait\footnote{The waiting period may sometimes be \emph{waived} and redelegations
 allowed instantly if no other redelegations have happened within $\delta$, such as
 in Cosmos~\cite{cosmos-staking-module}. The important point for us is that, after redelegation has commenced, the
-% TODO (w/ dionyziz): Fill citation and author of https://docs.cosmos.network/main/modules/staking
-% Can't find author
 redelegated stake is still prone to slashing due to the \emph{old} validator's misbehavior
 for a period of $\delta$.} for an \emph{unbonding period} $\delta$.
 
@@ -83,9 +79,8 @@ the holder's derivative assets and returns the respective assets to the holder.
 In our treatment, we consider a generic asset that we denominate in \asset
 and the respective derivative token, that we denominate in \stasset,
 issued by an arbitrary liquid staking protocol.
-% TODO (w/dionyziz): is the loan market infinitely deep?
 We assume a perfectly efficient market for \asset and \stasset,
-as well as a loan market with rates
+as well as a sufficiently deep loan market with rates
 $\rasset$, $\betaasset$, $\rstasset$, $\betastasset$.
 
 \noindent
@@ -110,15 +105,12 @@ functionalities of any liquid staking protocol in Appendix~\ref{app:contract}.
 \noindent
 \textbf{Governance.}
 The choice of which validator the liquid staking protocol's assets are delegated to
-depends on the particularities of the protocol, but, broadly speaking
-is either centralized, or decided through a voting process among
-liquid stake holders.
+depends on the particularities of the protocol.
 In centralized protocols, the decision is taken by a
 central party or central committee of parties, who may not be the
 liquid stake holders themselves.
-In the voting process, anyone can propose for a proportion of the protocols's assets
+Some protocols allow the principals to vote.
+During the voting process, anyone can propose for a proportion of the protocols's assets
 to be delegated to a validator of their choosing.
-Each stakeholder can then vote \emph{yes} or \emph{no}
-to a proposal, and decisions are taken by weighted majority.
-
-%TODO (w/dionyziz): Is it clear that proportional representation is not our idea?
+Each principal can then vote \emph{yes} or \emph{no}
+to a proposal. Decisions are often taken by weighted majority.
