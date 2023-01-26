@@ -1,3 +1,4 @@
+\pdfbookmark[section]{Attack}{Attack}
 \section{Attack}\label{sec:attack}
 
 We now describe an attack an adversary can conduct which leverages the
@@ -32,7 +33,7 @@ to this validator for the attack to work, i.e., we assume all participants
 are wise and all other validators are honest.
 At time $t_2$, the adversary deposits $b$ \asset to the protocol,
 signalling delegation intent to $\mathcal{V}$.
-Due to Proportional Representation,
+Due to proportional representation,
 the protocol respects this intent and delegates $b$ \asset to $\mathcal{V}$.
 The protocol now holds $b$ delegated \asset to $\mathcal{V}$.
 Through this deposit, the adversary obtains
@@ -45,6 +46,7 @@ However the amount of \stasset circulating in the
 market remains $s_0 + s = s_0 + b\frac{s_0}{b_0}$.
 The new quoted price is now
 $\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) < \frac{b_0}{s_0}$.
+%TODO (w/dionyziz): Should we talk about the price movement?
 
 \import{./}{simple-attack-diagram.tex}
 
@@ -81,7 +83,6 @@ The adversary has now managed to add $b$ \asset delegated to validator $\mathcal
 in the protocol's delegation pool while not currently holding
 any \stasset. The loss has been averted.
 
-\import{./}{profitable-attack-diagram.tex}
 
 A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_0 < t_4$
@@ -102,6 +103,8 @@ To recover this amount of \stasset, the adversary \emph{deposits}
 $b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) f z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
+
+\import{./}{profitable-attack-diagram.tex}
 
 Her total profits from the attack are
 $b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b}) f)$.
@@ -127,18 +130,18 @@ even increase.
 Lastly, any price fluctuations of \asset with respect to USD will likely be
 minor, as the attack has a short duration of a couple of seconds.
 
+\pdfbookmark[subsection]{The Market price of \stasset}{stasset-market-price}
 \subsection{The Market price of \stasset}\label{sec:stasset-price}
 
-% TODO (tzinas): change \alpha
-Let us consider the price $\alpha$ of \stasset denominated in \asset in the market.
+Let us consider the price $k$ of \stasset denominated in \asset in the market.
 Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
 depositing, the price of \stasset denominated in \asset in a perfectly
 efficient market is $\frac{b_0}{s_0}$ at maximum. Otherwise, no
 rational buyer would use the market. Hence, the market rate is
-$\alpha \leq \frac{b_0}{s_0}$.
+$k \leq \frac{b_0}{s_0}$.
 
 There are two options to convert $s$ \stasset to \asset: either sell
-at the market rate to obtain $b = \alpha s$ \asset, or use the redemption mechanism.
+at the market rate to obtain $b = k s$ \asset, or use the redemption mechanism.
 Using the redemption mechanism, the \assets become available after
 time $\delta$.
 Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
@@ -150,11 +153,11 @@ including principal and interest, is $((1 + \rasset)^\delta + \betaasset)b$ \ass
 We set this amount to be equal to $b'$, the amount of \assets that will be
 unbonded after $\delta$ time. Solving for $b$, we get
 $b = s \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
-Therefore, in an efficient market $\alpha \geq \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
+Therefore, in an efficient market $k \geq \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
 We deduce that the bounds for an efficient market of \asset and \stasset are
 
 \[
-  \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq \alpha \leq \frac{b_0}{s_0}\,.
+  \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq k \leq \frac{b_0}{s_0}\,.
 \]
 
 The longer the duration $\delta$, the larger the potential price deviation

@@ -1,3 +1,4 @@
+\pdfbookmark[section]{Preliminaries}{Preliminaries}
 \section{Preliminaries}\label{sec:preliminaries}
 
 % TODO (tzinas): citations
@@ -55,7 +56,7 @@ for example to take loans~\cite{gudgeon2020defi} or to, more broadly, participat
 DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
 \emph{liquid staking protocols}~\cite{liquid-staking-report}.
 Some such protocols~\cite{lido,stride} operate
-in the form of smart contracts (\eg Lido in Ethereum) or separate appchains
+in the form of smart contracts (\eg Lido and Rocket Pool in Ethereum) or separate appchains
 (\eg Stride, pStake, and Quicksilver in Cosmos).
 Stakeholders \emph{deposit} their funds into the liquid staking protocol.
 Upon deposit, these contracts act as
@@ -78,10 +79,12 @@ During redemption, the contract burns
 the holder's derivative assets and returns the respective assets to the holder.
 In our treatment, we consider a generic asset that we denominate in \asset
 and the respective derivative token, that we denominate in \stasset,
+% TODO(w/ dionyziz): "a" instead of "the"?
 issued by an arbitrary liquid staking protocol.
 We assume a perfectly efficient market for \asset and \stasset,
 as well as a sufficiently deep loan market with rates
 $\rasset$, $\betaasset$, $\rstasset$, $\betastasset$.
+%TODO (w/dionyziz): "Respectively"?
 
 \noindent
 \textbf{Exchange rates.} Initially, \asset and \stasset are priced at a 1:1 exchange rate,
@@ -113,4 +116,4 @@ Some protocols allow the principals to vote.
 During the voting process, anyone can propose for a proportion of the protocols's assets
 to be delegated to a validator of their choosing.
 Each principal can then vote \emph{yes} or \emph{no}
-to a proposal. Decisions are often taken by weighted majority.
+to the proposal. Decisions are often taken by weighted majority.

@@ -1,3 +1,4 @@
+\pdfbookmark[subsection]{Liquid Staking Module (LSM)}{lsm}
 \section{Liquid Staking Module (LSM)}\label{sec:lsm}
 In the context
 of Cosmos, the exempt delegation mechanism is planned to be applied at the consensus
@@ -29,7 +30,8 @@ necessary when entering the protocol. The factor $\phi$ is decided not by the
 liquid staking protocols' governance, but by the governance of
 the underlying chain. The slashing factor $q$ is applied directly
 by the chain and not by the liquid staking protocol.
-In the current LSM design, $q = p$.
+In the current~\cite{lsm-q-factor} LSM design, $q = p$.
+% TODO (w/dionyziz): Is this citation correct?
 If a liquid staking protocol participates in
 multiple chains, the $\phi$ factors can be different in each chain.
 In our exposition, we abstract out these implementation details to highlight

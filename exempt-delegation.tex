@@ -1,3 +1,4 @@
+\pdfbookmark[section]{Exempt Delegations}{Exempt Delegations}
 \section{Exempt Delegations}
 
 Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
@@ -44,7 +45,6 @@ corresponding to those $b$ \assets can be, as before, sold at $t_3$ to
 separate the Agent from the Principal, the $c$ amount remains with the
 Agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
-% TODO (w/dionyziz): Maybe before closing her position?
 of the attack, the adversary undelegates the unslashed $(1 - q)c$ exempt delegation.
 The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}
 (the flash loan indication is explained when we introduce cost of borrowing).
@@ -233,7 +233,7 @@ and the adversary can use a capital of $u = 100$ \asset to attack the protocol
 ($\frac{u}{b_0} = 10\%$ market domination),
 if $p = q = 100\%$ is the slashing rate, then $\phi \leq \frac{b_0}{u} = 10$
 is a safe protocol parametrization. Attack profitability for different adversarial
-market dominations $\frac{u}{b_0}$, and assuming free money borrowing,
+market dominations $\frac{u}{b_0}$, assuming free money borrowing and $p = 50\%$,
 are illustrated in Figure~\ref{fig:contour-plotu}.
 The white area under the black line ($\alpha = 0$) consists of safe values
 of the parameter $\frac{\phi}{q}$.
