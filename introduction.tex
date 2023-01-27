@@ -1,15 +1,13 @@
 \pdfbookmark[section]{Introduction}{Introduction}
 \section{Introduction}
 
-Staking is a mechanism used in proof-of-stake (PoS)
-blockchains~\cite{2018tendermint,buchman2016tendermint,ouroboros,algorand,casper}
-to ensure security. Validators participating in PoS
-\emph{bond} their stake, locking it up for a certain period of time,
-in exchange for interest in the form of rewards.
+When a validator participates in a proof-of-stake
+protocol, they \emph{bond} their stake, locking it up for a period of time
+in exchange for rewards.
 This locked-up stake is \emph{slashed} in case of validator misbehavior
-such as equivocations.
-Stakeholders can \emph{delegate} their stake to \emph{validators} to also
-earn rewards. If the validator a delegator delegates to misbehaves,
+such as equivocation.
+Stakeholders \emph{delegate} their stake to \emph{validators} to also
+earn rewards. If the validator misbehaves,
 the funds of the delegator are also slashed. This introduces a
 \emph{Principal--Agent} problem~\cite{jensen1976,wealthofnations}
 in which the actions of the validator (the \emph{Agent})
@@ -26,8 +24,8 @@ and utilized by stakeholders elsewhere in the blockchain ecosystem.
 Liquid staking token representations are most valuable when they are
 \emph{fungible}. However, this fungibility exacerbates the Principal--Agent
 problem of delegated stake.
-A liquid staking system \emph{pools together} stakes from different participants.
-The question whom to delegate these pooled moneys to then arises.
+A liquid staking system \emph{pools together} stakes from different participants,
+prompting the question of whom to delegate these pooled funds to.
 If the system has \emph{proportional representation}, every pool participant
 can decide whom to delegate to \emph{in proportion} to their contributed shares.
 The crux of the issue arises from the fact
