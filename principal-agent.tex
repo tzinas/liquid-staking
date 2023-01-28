@@ -1,6 +1,6 @@
 \pdfbookmark[section]{The Principal--Agent Problem}{The Principal--Agent Problem}
 \section{The Principal--Agent Problem}
-In the Proof-of-Stake systems described in the previous sections,
+In the proof-of-stake systems described in the previous sections,
 principals grant permission of their funds to validators so they can
 participate in consensus on their behalf.
 Hence, principals have ownership of the stake, but
@@ -11,12 +11,12 @@ However, validators (the agents) may have extrinsic motivation to
 misbehave and plot against principals. This creates
 a conflict of interest that is known as the Principal--Agent problem.
 
-For example, a malicious validator can equivocate, which can cause
+For example, a malicious validator can equivocate, which causes
 the principal's funds to be slashed. If the malicious validator has
 limited self-delegation and no reputation to lose, the validator
 may be able to profit from the principal's loss. However, a validator
-with a larger self-delegation will be affected by the slashing themselves.
-This is why self-delegation is considered to offer a layer of protection
+with a larger self-delegation will themselves be affected by the slashing.
+This is why self-delegation offers a layer of protection
 against the Principal--Agent problem.
 
 In traditional staking protocols, principals have the responsibility to
@@ -33,13 +33,12 @@ slashed. No wise principal gets \emph{unfairly punished}.
 With the introduction of liquid staking protocols, the principal
 is no longer directly delegating to the validator of their choice.
 Instead, the protocol is now responsible for the delegation process
-and fund distribution to validators.
+and stake allocation to validators.
 Although the principal can express their delegation wish, ultimately
 the protocol decides where funds are delegated based on its
-\emph{delegation strategy}. All these delegations are fungible
-with one another, hence all validators delegated to by
-the protocol become agents for the principal.
-It is clear that the Principal--Agent problem is exacerbated.
+\emph{delegation strategy}. All liquid staking tokens are fungible,
+hence all validators delegated to by
+the protocol become agents for all principals.
+The Principal--Agent problem is exacerbated.
 The principal's funds are now effectively delegated to validators
-he has not necessarily chosen, each with their own
-incentives.
+he has not necessarily chosen, some with mischievous intentions.
