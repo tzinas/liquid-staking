@@ -238,14 +238,6 @@ are illustrated in Figure~\ref{fig:contour-plotu}.
 The white area under the black line ($\alpha = 0$) consists of safe values
 of the parameter $\frac{\phi}{q}$.
 
-Proportional representation and fair punishment, as indicated in
-Section~\ref{sec:attack}, are two conflicting properties in liquid
-staking. An adversary can always leverage proportional
-representation to cause the unfair punishment of principals.
-However, with the introduction of exempt delegations and a carefully selected
-$\frac{\phi}{q}$ parameter, a liquid staking protocol can achieve both of these
-properties in the rational model.
-
 \noindent
 \textbf{Repeating the attack.} If the adversary finds herself in a situation
 where the attack is profitable, the attack can be repeated in quick succession
@@ -255,6 +247,20 @@ As the attack repeats, $b_0$ decreases and $u$ increases as money moves from
 the reserves of the staking protocol to the hands of the adversary.
 We conclude that the protocol must be configured with enough margin
 such that the conditions for the attack never emerge.
+
+\noindent
+\textbf{Proportional representation VS fair punishment.}
+Proportional representation and fair punishment, as indicated in
+Section~\ref{sec:attack}, are conflicting properties in liquid
+staking. Without exempt delegations ($\frac{\phi}{q} = \infty$),
+the protocol has full proportional representation, as the principal can
+signal delegation to any agent of their choice without restriction. There,
+an adversary can always cause unfair punishment of principals.
+However, with the introduction of exempt delegations, if we make
+$\frac{\phi}{q}$ smaller, the pool of available agents to choose from is reduced to
+only the wealthy amongst them, so proportional representation
+becomes limited. For a sufficiently small $\frac{\phi}{q}$,
+unfair punishment is no longer a rational outcome.
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
