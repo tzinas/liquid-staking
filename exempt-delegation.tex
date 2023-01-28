@@ -147,12 +147,13 @@ the protocol is secure in the rational model.
 
 As an illustration,
 we consider a blockchain with slashing percentage
-$p = 0.5$ and a reasonable market\footnote{Market values were collected from
-Aave~\cite{aave} (at 24 Jan, 2023) and concern loans in Ethereum.}
-with \asset flash loan cost factor $\betaasset = 0.0009$,
-collateral ratio $\gammastasset = 1.2$ and \stasset loan cost factor $f = 1.000006$.
+$p = 0.5$ and market conditions\footnote{Lido stETH borrowing rates
+on Aave~\cite{aave} as of 27 Jan, 2023.}
+with \asset flash loan cost factor $\betaasset = 0.0009$ and
+collateral ratio $\gammastasset = 146\%$.
 In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
-profit.
+profit. At the time of writing, if the attack duration is $20$ sec, we have
+$f = 1 + 10^{-8}$.
 
 %TODO (tzinas and w/dionyziz): find out if setting $b_0$ here is necessary
 %, a liquid staking protocol with $b_0 = 10000$ \asset initial holdings,
