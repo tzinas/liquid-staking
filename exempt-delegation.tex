@@ -62,8 +62,8 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 \noindent
 \textbf{The cost of borrowing.}
 So far, we have allowed the adversary to take a loan indiscriminately without
-any concern for collateral. In practical systems, however, loan platforms
-require a collateral, so that attack impact will be limited by the adversary's
+any concern for collateral. In practice, loan platforms
+require a collateral, so the attack impact will be limited by the adversary's
 initial capital. Let $u$ \asset be the initial capital of the adversary, and
 let $\gammastasset$ be the collateral ratio of a standard \stasset
 loan. The adversary uses the whole initial capital of $u$ \asset as
@@ -81,7 +81,7 @@ Notice that the adversary deposits $b$ \asset in the protocol at $t_2$ and
 gets them back at $t_3$ after selling the \stasset obtained from the deposit.
 These two actions can be performed in a single transaction. Hence, a flash
 loan can be used to obtain the required $b$ \asset at $t_2$ and be repaid,
-including a $\betaasset b$ \asset cost, at $t_3$, after the adversary gets
+including a $\betaasset b$ \asset flash loan cost, at $t_3$, after the adversary gets
 $b$ \asset back.
 The flash loan is illustrated in Figure~\ref{fig:exempt-timeline}.
 
@@ -115,7 +115,7 @@ the resulting equation for $\frac{\phi}{q}$ yields
 % (-b0*β*γ - 2*sqrt(f)*sqrt(p)*u*sqrt(f - 1) + f*p*u + f*u - u)/(b0*γ)
 % (1/(b0*γ)) * (f*p*u + f*u - b0*β*γ - 2*u*sqrt(fp*(f-1)) - u)
 \begin{gather*}
-  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}\,. \label{eq:phi-choice} \tag{$1$}
+  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}\,. \label{eq:phi-choice} \tag{$\ast$}
 \end{gather*}
 
 The protocol designers can now calculate a secure value for $\frac{\phi}{q}$
