@@ -178,8 +178,9 @@ $f = 1 + 10^{-8}$.
 
 \noindent
 \textbf{Free money borrowing.}
-Free money borrowing makes the adversary more powerful and her attack
-more profitable.
+We saw that, in practice, $f \simeq 1$, and money borrowing is almost free
+for short durations. Free money borrowing makes the adversary more powerful
+and her attack more profitable.
 Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
 borrowing is free ($f = 1$, $\betaasset = 0$, $\gammastasset = 1$),
 the same parameter $\frac{\phi}{q}$ keeps the protocol secure even when
@@ -220,15 +221,17 @@ and the collateral ratio is $\gamma = 100\%$, equation~\eqref{eq:phi-choice} sim
 %TODO (w/ dionyziz): why not use \betaasset and \gammastasset?
 
 \begin{gather*}
-  \frac{\phi}{q} \leq \frac{b_0}{pu} \label{eq:phi-choice-simple} \tag{$\ast$}
-  % TODO (w/ dionyziz): is naming necessary here?
-  % TODO (w/ dionyziz): should the previous equation be named asterisk?
+  \frac{\phi}{q} \leq \frac{b_0}{pu} \label{eq:phi-choice-simple}
 \end{gather*}
 
 This equation can be used in practice to calculate the appropriate value
 of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$
 (due to the very short duration of the attack, the cost of money borrowing does not alter
-the final result by much).
+the final result by much). Note that, even though the attack might be profitable for a
+large $p$, a lower value of $p$ may make the attack unprofitable.
+Additionally, protocols with more liquidity $b_0$ are less prone to attack,
+because a larger capital $u$ is required to achieve the required market domination
+$\frac{u}{b_0}$.
 For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
 and the adversary can use a capital of $u = 100$ \asset to attack the protocol
 ($\frac{u}{b_0} = 10\%$ market domination),
