@@ -21,12 +21,12 @@ and $s_0$ be the total amount of \stasset tokens outstanding
 before the attack commences. The initial quoted price of \stasset
 is $\frac{b_0}{s_0}$.
 
-Initially,
-the adversary $\mathcal{A}$ creates\footnote{To create this validator, she uses a fresh identity
-to suppress potential suspicions. While most validators
+Initially, the adversary $\mathcal{A}$ creates
+a new validator $\mathcal{V}$ under her
+control\footnote{To do so, she uses a fresh identity
+to suppress potential suspicions. Most validators
 have a real-world presence and can be held legally
-accountable~\cite{liquid-staking-report}, this validator is pseudonymous.}
-a new validator $\mathcal{V}$ under her control.
+accountable~\cite[p.~29]{liquid-staking-report}, but this validator is pseudonymous.}.
 We do not require any of the existing protocol participants to delegate
 to this validator for the attack to work, i.e., we assume all participants
 are wise and all other validators are honest.
@@ -167,7 +167,7 @@ The longer the duration $\delta$, the larger the potential price deviation
 \emph{Liquid Staking: Basis Determinants and Price Discovery}~\cite{scharnowski2022liquid}).
 The process of the loan is automated in some protocols~\cite[\S5]{parallel}\cite{marinade-matching}.
 
-It is also possible to use the principle of remittances
+It is also possible to use the principle of \emph{remittances}
 (matching)~\cite[\S5]{parallel}\cite{marinade-matching} to match depositing and
 redeeming parties, so that the redeeming party does not have to incur any unbonding delay.
 If the redeemed amounts exceed the deposited amounts, some amounts will necessarily incur
