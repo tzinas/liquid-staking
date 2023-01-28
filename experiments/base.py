@@ -40,4 +40,4 @@ max_b = u / ((w + β) * γ)
 B0_VALUE = 10000
 
 def replace_known_values(ex):
-  return ex.subs(b0, B0_VALUE).subs(β, 0).subs(p, 0.5).subs(γ, 1)
+  return ex.subs(b0, B0_VALUE).subs(β, 0).subs(p, 0.5).subs(γ, 1.46)

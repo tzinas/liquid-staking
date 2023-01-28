@@ -3,7 +3,7 @@ from base import *
 MARKET_DOMINATION = 0.5
 
 def replace_all_values(ex):
-  return replace_known_values(ex.subs(u, MARKET_DOMINATION * B0_VALUE))
+  return replace_known_values(ex.subs(u, MARKET_DOMINATION * B0_VALUE).subs(β, 0.0009))
 
 def u_plot():
   f_values = list(np.arange(1.0, 1.21, 0.001))
@@ -42,12 +42,12 @@ def u_plot():
       alpha_list[len(alpha_list) - 1].append(100 * corrected_alpha / B0_VALUE)
 
 
-  plt.contourf(f_list, w_list, alpha_list, levels=np.linspace(0, 20, 11), cmap='RdYlBu')
+  plt.contourf(f_list, w_list, alpha_list, levels=np.linspace(0, 12, 13), cmap='RdYlBu')
   cbar = plt.colorbar()
   cbar.ax.tick_params(labelsize=20)
   cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=22, pad=32, ha='center', va='center')
-  cbar.locator = MaxNLocator(nbins=6)
-  cbar.set_ticks(np.linspace(0, 20, 6))
+  cbar.locator = MaxNLocator(nbins=5)
+  cbar.set_ticks(np.linspace(0, 12, 5))
   tick_labels = ['{}\%'.format(int(x)) for x in cbar.get_ticks()]
   cbar.set_ticklabels(tick_labels)
 

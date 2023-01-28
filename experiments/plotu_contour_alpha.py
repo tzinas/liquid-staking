@@ -36,16 +36,16 @@ def u_plot():
       if b_with_values.subs(u, ut).subs(1 / w, wt) > m:
         print('pro')
 
-      corrected_alpha -= 0.2
+      corrected_alpha -= 0.1
       alpha_list[len(alpha_list) - 1].append(100 * corrected_alpha / 10000)
 
 
-  plt.contourf(list(map(lambda a: a/10000, u_list)), w_list, alpha_list, levels=np.linspace(0, 45, 11), cmap='RdYlBu')
+  plt.contourf(list(map(lambda a: a/10000, u_list)), w_list, alpha_list, levels=np.linspace(0, 25, 11), cmap='RdYlBu')
   cbar = plt.colorbar()
   cbar.ax.tick_params(labelsize=20)
   cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=22, pad=32, ha='center', va='center')
   cbar.locator = MaxNLocator(nbins=6)
-  cbar.set_ticks(np.linspace(0, 45, 6))
+  cbar.set_ticks(np.linspace(0, 25, 6))
   tick_labels = ['{}\%'.format(int(x)) for x in cbar.get_ticks()]
   cbar.set_ticklabels(tick_labels)
 

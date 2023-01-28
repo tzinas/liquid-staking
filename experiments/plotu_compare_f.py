@@ -7,7 +7,7 @@ def u_plot():
   plt.ylabel(r'$\frac{q}{\phi}$', rotation=0, labelpad=15)
   ax1.xaxis.set_major_locator(MaxNLocator(nbins=5))
   ax1.yaxis.set_major_locator(MaxNLocator(nbins=5, prune='lower'))
-  ax1.axis([0, 1, 0, 100])
+  ax1.axis([0, 1, 0, 120])
 
   w0 = solve(alpha, w)[0]
   labels = []
