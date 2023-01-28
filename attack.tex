@@ -93,6 +93,8 @@ sells\footnote{Instead of \emph{selling}, the adversary can \emph{redeem}, but
 this may incur an unbonding delay, which can be rectified by taking a loan.
 See Section~\ref{sec:stasset-price}.}
 them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
+If $z$ approaches $s_0$, the loan market will not be sufficiently deep,
+and the adversary may have to split the attack into multiple iterations.
 
 Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
 \stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the

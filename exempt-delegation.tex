@@ -246,6 +246,16 @@ However, with the introduction of exempt delegations and a carefully selected
 $\frac{\phi}{q}$ parameter, a liquid staking protocol can achieve both of these
 properties in the rational model.
 
+\noindent
+\textbf{Repeating the attack.} If the adversary finds herself in a situation
+where the attack is profitable, the attack can be repeated in quick succession
+to siphon off almost all of the money in the liquid staking protocol.
+This corresponds to moving across the $x$ axis in Figure~\ref{fig:contour-plotu}.
+As the attack repeats, $b_0$ decreases and $u$ increases as money moves from
+the reserves of the staking protocol to the hands of the adversary.
+We conclude that the protocol must be configured with enough margin
+such that the conditions for the attack never emerge.
+
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
 %  &a = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b})((1 + \rstasset)^{\Delta_z} + \betastasset)) - \betaasset b - \frac{q}{\phi}b\\
