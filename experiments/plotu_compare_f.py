@@ -4,7 +4,7 @@ def u_plot():
   fig, (ax1) = plt.subplots(1, figsize=(7, 5))
 
   plt.xlabel(r'Adversary market domination $\frac{u}{b_0}$', labelpad=15)
-  plt.ylabel(r'$\frac{q}{\phi}$', rotation=0, labelpad=15)
+  plt.ylabel(r'$\frac{\phi}{q}$', rotation=0, labelpad=15)
   ax1.xaxis.set_major_locator(MaxNLocator(nbins=5))
   ax1.yaxis.set_major_locator(MaxNLocator(nbins=5, prune='lower'))
   ax1.axis([0, 1, 0, 120])

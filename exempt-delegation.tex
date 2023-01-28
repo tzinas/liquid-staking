@@ -154,9 +154,7 @@ In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
 profit. At the time of writing, if the attack duration is $20$ sec, we have
 $f = 1 + 10^{-8}$.
 
-%TODO (tzinas and w/dionyziz): find out if setting $b_0$ here is necessary
-%, a liquid staking protocol with $b_0 = 10000$ \asset initial holdings,
-
+%TODO: Raname plot files
 \begin{figure}[htb]
   \centering
   \begin{subfigure}{0.49\textwidth}
@@ -190,7 +188,7 @@ under any adversarial market domination $\frac{u}{b_0}$.
 
 %TODO (tzinas): check if the same happens for β and γ
 % updated: happens for β, γ needs to be checked as well
-%TODO (w/ dionyziz): where should we include the plots?
+%TODO (w/ dionyziz e-print): where should we include the plots?
 
 \begin{figure}[htb]
   \centering
@@ -215,9 +213,8 @@ under any adversarial market domination $\frac{u}{b_0}$.
 \end{figure}
 
 Hence, we can greatly simplify the above calculations by assuming that money borrowing is free.
-Concretely if flash loans are free ($\beta = 0$), interest rates are zero ($f = 1$),
-and the collateral ratio is $\gamma = 100\%$, equation~\eqref{eq:phi-choice} simplifies to:
-%TODO (w/ dionyziz): why not use \betaasset and \gammastasset?
+Concretely if flash loans are free ($\betaasset = 0$), interest rates are zero ($f = 1$),
+and the collateral ratio is $\gammastasset = 100\%$, equation~\eqref{eq:phi-choice} simplifies to:
 
 \begin{gather*}
   \frac{\phi}{q} \leq \frac{b_0}{pu} \label{eq:phi-choice-simple}

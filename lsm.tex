@@ -13,9 +13,11 @@ shares are subject to the exempt delegation constraint $b \leq \phi c$. The toke
 can then be \emph{deposited} into the liquid staking protocol, which issues liquid staking
 tokens (\stassets), as usual, in a process termed \emph{refungibilization}.
 The protocol does not need to delegate further, as it can readily start reaping the
-delegation rewards (as long as a relevant so-called \emph{LSM record} is also transferred
-along with the tokenized shares).
-It also does not need to perform further exempt delegation constraint checks.
+delegation rewards (as long as a relevant so-called \emph{LSM record}, which
+enshrines its holder with the privilege of claiming the rewards associated with a
+particular delegation, is also transferred along with the tokenized shares).
+It also does not need to perform further exempt delegation constraint checks as
+these are enforced by the LSM.
 When the user \emph{redeems} \stassets, the protocol may elect to give
 back tokenized shares instead of \assets. Those can then be unwrapped into delegated assets,
 that can afterwards be undelegated into \assets after the relevant unbonding
@@ -32,7 +34,6 @@ the underlying chain. The slashing factor $q$ is applied directly
 by the chain and not by the liquid staking protocol.
 In the current\footnote{Zaki Manian, personal communication, Jan 1st, 2023}
 LSM design, $q = p$.
-% TODO (w/dionyziz): Is this citation correct?
 If a liquid staking protocol participates in
 multiple chains, the $\phi$ factors can be different in each chain.
 In our exposition, we abstract out these implementation details to highlight
