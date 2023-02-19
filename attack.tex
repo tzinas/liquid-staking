@@ -99,9 +99,8 @@ Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short
 \stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the
 total loan amount to be repaid, including the principal and interest, is
 $((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
-We let $f = ((1 + \rstasset)^{\Delta_z} + \betastasset)$ be the cost factor
-of the loan.
-To recover this amount of \stasset, the adversary \emph{deposits}
+Letting $f = ((1 + \rstasset)^{\Delta_z} + \betastasset)$ be the cost factor
+of the loan, to recover this amount of \stasset, the adversary \emph{deposits}
 $b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) f z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
