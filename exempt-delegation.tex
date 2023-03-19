@@ -1,3 +1,5 @@
+\import{./}{exempt-delegation-attack-diagram.tex}
+
 \pdfbookmark[section]{Exempt Delegations}{Exempt Delegations}
 \section{Exempt Delegations}
 
@@ -34,7 +36,6 @@ themselves (or someone who trusts the validator for extrinsic reasons).
 This means that, in case of validator misbehavior, the exempt delegation
 slashing $qc$ is a penalty that only affects the validator.
 
-\import{./}{exempt-delegation-attack-diagram.tex}
 
 This raises
 the cost of the attack described in the previous section. The
@@ -58,6 +59,25 @@ for the adversary to profit from the short, she must cause a significant
 shift in the price. The shift in the price is determined by the factor
 $p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
+
+
+%TODO: Raname plot files
+\begin{figure*}[htb]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
+    \caption{Collateral $u$ is $30\%$ of $b_0$.}
+    \label{fig:plotf30}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
+    \caption{Collateral $u$ is $50\%$ of $b_0$.}
+    \label{fig:plotf50}
+  \end{subfigure}
+  \caption{Cost of borrowing and attack profitability.}
+  \label{fig:plotf}
+\end{figure*}
 
 \noindent
 \textbf{The cost of borrowing.}
@@ -154,24 +174,6 @@ In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
 profit. At the time of writing, if the attack duration is $20$ sec, we have
 $f = 1 + 10^{-8}$.
 
-%TODO: Raname plot files
-\begin{figure}[htb]
-  \centering
-  \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
-    \caption{Collateral $u$ is $30\%$ of $b_0$.}
-    \label{fig:plotf30}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
-    \caption{Collateral $u$ is $50\%$ of $b_0$.}
-    \label{fig:plotf50}
-  \end{subfigure}
-  \caption{Cost of borrowing and attack profitability.}
-  \label{fig:plotf}
-\end{figure}
-
 
 \noindent
 \textbf{Free money borrowing.}
@@ -190,10 +192,10 @@ under any adversarial market domination $\frac{u}{b_0}$.
 % updated: happens for β, γ needs to be checked as well
 %TODO (w/ dionyziz e-print): where should we include the plots?
 
-\begin{figure}[htb]
+\begin{figure*}[htb]
   \centering
   \begin{subfigure}{0.48\textwidth}
-    \raisebox{3.7mm}{
+    \raisebox{0mm}{
     \includegraphics[width=\textwidth]{./plots/plotu.pdf}
     }
     \caption{Adversarial market domination and attack profitability
@@ -202,7 +204,9 @@ under any adversarial market domination $\frac{u}{b_0}$.
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.5\textwidth}
+    \raisebox{0mm}{
     \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
+    }
     \caption{Optimal $\frac{\phi}{q}$ system parametrizations
              for different adversarial market dominations $\frac{u}{b_0}$
              and market conditions $f$.}
@@ -210,7 +214,7 @@ under any adversarial market domination $\frac{u}{b_0}$.
   \end{subfigure}
   \caption{Adversarial market domination and attack profitability.}
   \label{fig:plotu}
-\end{figure}
+\end{figure*}
 
 Hence, we can greatly simplify the above calculations by assuming that money borrowing is free.
 Concretely if flash loans are free ($\betaasset = 0$), interest rates are zero ($f = 1$),

@@ -11,8 +11,12 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xspace}
-\usepackage[table,xcdraw,dvipsnames]{xcolor}
+%\usepackage[table,xcdraw,dvipsnames]{xcolor}
 \usepackage{tikz}
+
+\definecolor{myred}{RGB}{182,50,28}
+\definecolor{myblue}{RGB}{0,103,149}
+\definecolor{mygreen}{RGB}{0,139,114}
 
 \usepackage{amsmath}
 % \let\proof\relax
@@ -119,7 +123,7 @@
 % [1]{\textbf{operator #1}}
 % [0]{\textbf{end operator}}
 
-\usepackage[]{xcolor}
+%\usepackage[]{xcolor}
 \usepackage{color}
 
 \newcommand{\anote}[1]{{\color{magenta}[Andrew:{#1}]}}
@@ -192,6 +196,7 @@
 
 \pagestyle{plain}
 
-\newenvironment{Claim}{claim}{claim}
-\newenvironment{Definition}{definition}{definition}
+%\newenvironment{claim}{claim}{claim}
+\newtheorem{claim}{Claim}[section]
+%\newenvironment{Definition}{definition}{definition}
 \raggedbottom

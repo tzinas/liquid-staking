@@ -4,11 +4,11 @@ def replace_all_values(ex):
   return replace_known_values(ex.subs(f, 1))
 
 def u_plot():
-  u_values = list(np.arange(1.0, 10000.0, 10.0))
+  u_values = list(np.arange(50.0, 10000.0, 10.0))
   fig, (ax1) = plt.subplots(1, figsize=(7, 5))
 
   plt.xlabel(r'Adversary market domination $\frac{u}{b_0}$', labelpad=15)
-  plt.ylabel(r'$\frac{\phi}{q}$', rotation=0, labelpad=15)
+  plt.ylabel(r'$\frac{\phi}{q}$', rotation=0, labelpad=15, fontsize=20)
   ax1.xaxis.set_major_locator(MaxNLocator(nbins=5))
   ax1.yaxis.set_major_locator(MaxNLocator(nbins=5, prune='lower'))
   ax1.axis([0, 1, 0, 100])
@@ -40,10 +40,11 @@ def u_plot():
       alpha_list[len(alpha_list) - 1].append(100 * corrected_alpha / 10000)
 
 
+  alpha_list = np.array(alpha_list, dtype=float)
   plt.contourf(list(map(lambda a: a/10000, u_list)), w_list, alpha_list, levels=np.linspace(0, 25, 11), cmap='RdYlBu')
   cbar = plt.colorbar()
-  cbar.ax.tick_params(labelsize=20)
-  cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=22, pad=32, ha='center', va='center')
+  cbar.ax.tick_params(labelsize=16)
+  cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=17, pad=32, ha='center', va='center')
   cbar.locator = MaxNLocator(nbins=6)
   cbar.set_ticks(np.linspace(0, 25, 6))
   tick_labels = ['{}\%'.format(int(x)) for x in cbar.get_ticks()]

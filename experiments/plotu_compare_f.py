@@ -27,7 +27,7 @@ def u_plot():
     ax1.plot(list(map(lambda a: a/10000, u_values)), w_values, lw=2, color=color)
     labels.append(r'{}'.format(uf))
 
-  ax1.legend(fontsize=20, title=r'Loan cost factor $f$', labels=labels)
+  ax1.legend(fontsize=16, title=r'Loan cost factor $f$', labels=labels)
 
 u_plot()
 

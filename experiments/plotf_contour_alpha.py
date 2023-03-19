@@ -10,7 +10,7 @@ def u_plot():
   fig, (ax1) = plt.subplots(1, figsize=(7, 5))
 
   plt.xlabel(r'Loan cost factor $f$', labelpad=15)
-  plt.ylabel(r'$\frac{\phi}{q}$', rotation=0, labelpad=15)
+  plt.ylabel(r'$\frac{\phi}{q}$', rotation=0, labelpad=15, fontsize=20)
   ax1.xaxis.set_major_locator(MaxNLocator(nbins=5))
   ax1.yaxis.set_major_locator(MaxNLocator(nbins=4, prune='lower'))
   ax1.axis([1, 1.2, 0, 120])
@@ -41,11 +41,17 @@ def u_plot():
       corrected_alpha -= 0.2
       alpha_list[len(alpha_list) - 1].append(100 * corrected_alpha / B0_VALUE)
 
+  print(f_list)
+  print(w_list)
+
+  print(alpha_list)
+  alpha_list = np.array(alpha_list, dtype=float)
+  print(alpha_list)
 
   plt.contourf(f_list, w_list, alpha_list, levels=np.linspace(0, 12, 13), cmap='RdYlBu')
   cbar = plt.colorbar()
-  cbar.ax.tick_params(labelsize=20)
-  cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=22, pad=32, ha='center', va='center')
+  cbar.ax.tick_params(labelsize=16)
+  cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=17, pad=32, ha='center', va='center')
   cbar.locator = MaxNLocator(nbins=5)
   cbar.set_ticks(np.linspace(0, 12, 5))
   tick_labels = ['{}\%'.format(int(x)) for x in cbar.get_ticks()]

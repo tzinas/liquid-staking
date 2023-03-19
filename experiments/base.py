@@ -12,7 +12,7 @@ rc(
     family='serif',
     serif=['Computer Modern Roman'],
     monospace=['Computer Modern Typewriter'],
-    size=25
+    size=17
 )
 
 w = Symbol('w', positive=True, real=True)
@@ -40,4 +40,4 @@ max_b = u / ((w + β) * γ)
 B0_VALUE = 10000
 
 def replace_known_values(ex):
-  return ex.subs(b0, B0_VALUE).subs(β, 0).subs(p, 0.5).subs(γ, 1.46)
+  return ex.subs(b0, B0_VALUE).subs(β, 0.001).subs(p, 0.5).subs(γ, 1.46)
