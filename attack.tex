@@ -68,21 +68,40 @@ explore how to make this attack profitable for protocols with an
 \emph{unbonding period} $\delta > 0$.
 
 \noindent
-\textbf{Making the attack profitable.}
-The profitable version of the attack (Figure~\ref{fig:profitable-timeline}) works similarly to the above
-irrational attack, but with some extra steps. As before, the adversary, initially
-holding a capital of $b$, begins by spawning the colluding validator $\mathcal{V}$,
-delegates $b$ at time $t_2$, and equivocates at time $t_4$.
-
+\textbf{Attack with no initial capital.}
+With a subtle change to the above construction, the attack can be
+performed without the adversary expending any capital.
+Before depositing into the protocol at time $t_2$, the
+adversary acquires a flash loan of $b$ \asset. She will deposit these
+borrowed funds instead of her own capital.
+For now, we assume that the borrowing of money is free.
+Hence, there is no cost for the flash loan and the adversary
+requires no initial capital.
 During equivocation, the adversary does not want to be holding any
-\stasset of her own, as the price of \stasset is about to drop.
-Therefore, at time $t_3$ (where $t_2 < t_3 < t_4$) the adversary sells
-the acquired $s$ \stasset for $b$ \asset in the market.
+\stasset of her own, as the price of \stasset is about to drop. She also
+needs to repay the acquired flash loan.
+Therefore, after the adversary obtains $s = \frac{s_0}{b_0} b$ \stasset
+from the deposit, she immediately sells them for $b = \frac{b_0}{s_0} s_0$
+\asset at time $t_3$ and repays the flash loan. We consider that all
+of the above can be performed within a single transaction.
 The adversary has now managed to add $b$ \asset delegated to validator $\mathcal{V}$
 in the protocol's delegation pool while not currently holding
-any \stasset. The loss has been averted. At this time, even though the
+any \stasset. The loss has been averted.
+At this time, even though the
 \stassets have changed hands, the liquid staking protocol cannot redelegate
 its \assets instantly due to $\delta > 0$.
+The adversary can now equivocate at time $t_4$ and, as before, cause the
+price of \stasset to drop.
+
+
+\import{./}{profitable-attack-diagram.tex}
+
+\noindent
+\textbf{Making the attack profitable.}
+The profitable version of the attack (Figure~\ref{fig:profitable-timeline}) works similarly to the above
+attack, but with some extra steps. As before, the adversary begins by spawning the
+colluding validator $\mathcal{V}$, deposits $b$ \asset, obtained by a flash loan, at time $t_2$,
+sells the acquired $s$ \stasset to repay the flash loan at time $t_3$, and equivocates at time $t_4$.
 
 A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_0 < t_4$
@@ -94,82 +113,35 @@ See Section~\ref{sec:stasset-price}.}
 them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
 If $z$ approaches $s_0$, the loan market will not be sufficiently deep,
 and the adversary may have to split the attack into multiple iterations.
-
 Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
-\stasset loan. The duration of the loan was $\Delta_z = t_5 - t_0$, so the
-total loan amount to be repaid, including the principal and interest, is
-$((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
-Letting $f = ((1 + \rstasset)^{\Delta_z} + \betastasset)$ be the cost factor
-of the loan, to recover this amount of \stasset, the adversary \emph{deposits}
-$b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) f z$ \asset
+\stasset loan. Once again, we consider that money borrowing is free. Hence,
+the total loan amount to be repaid is $z$ \stasset.
+To recover this amount of \stasset, the adversary \emph{deposits}
+$b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
 
-\import{./}{profitable-attack-diagram.tex}
-
 Her total profits from the attack are
-$b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b}) f)$.
-This will be profitable if $(1 - p\frac{b}{b_0 + b}) f < 1$,
-i.e., the cost factor $f$ of money borrowing (which is always $> 1$) is
-sufficiently cheap that she can make up for it by the price movement
-$1 - p\frac{b}{b_0 + b}$ she has caused.
+$b^* - b' = z \frac{b_0}{s_0} p \frac{b}{b_0 + b}$.
+A larger short position $z \frac{b_0}{s_0}$ and a larger
+\stasset price drop percentage $p \frac{b}{b_0 + b}$, yields higher profits for the adversary.
 
-\noindent
-\textbf{Realizing profits in USD.}
-If the attacker wants to do bookkeeping in a more stable reference currency,
-such as USD, the attack is still profitable. The attacker begins by buying
-\asset for USD. At the end of the attack, the attacker sells \asset for USD.
-Because the attack concerns a particular liquid staking protocol, and
-not the whole \asset network, the price of \asset will likely not
-be significantly affected by the attack at all.
-This attack decreases the market confidence in \stasset,
-but not in \asset.
-In fact, because
-the attack causes slashing of \asset, the supply of \asset is decreased
-and the price of \asset with respect to the reference currency may
-even increase.
-Lastly, any price fluctuations of \asset with respect to USD will likely be
-minor, as the attack has a short duration of a couple of seconds.
 
-\noindent
-\textbf{The Market price of \stasset.}\label{sec:stasset-price}
-Let us consider the price $k$ of \stasset denominated in \asset in the market.
-Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
-depositing, the price of \stasset denominated in \asset in a perfectly
-efficient market is $\frac{b_0}{s_0}$ at maximum. Otherwise, no
-rational buyer would use the market. Hence, the market rate is
-$k \leq \frac{b_0}{s_0}$.
 
-There are two options to convert $s$ \stasset to \asset: either sell
-at the market rate to obtain $b = k s$ \asset, or use the redemption mechanism.
-Using the redemption mechanism, the \assets become available after
-time $\delta$.
-Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
-delegated assets. To get $b$ \asset immediately (and avoid having to wait
-for the unbonding period), a loan of $b$ \asset is taken~\cite[p.~13]{liquid-staking-report} and
-repayed after duration $\delta$.
-The amount of \asset that needs to be paid back,
-including principal and interest, is $((1 + \rasset)^\delta + \betaasset)b$ \asset.
-We set this amount to be equal to $b'$, the amount of \assets that will be
-unbonded after $\delta$ time. Solving for $b$, we get
-$b = s \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
-Therefore, in an efficient market $k \geq \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
-We deduce that the bounds for an efficient market of \asset and \stasset are
+%Her total profits from the attack are
+%$b^* - b' = \frac{b_0}{s_0}z(1 - (1 - p\frac{b}{b_0 + b}) f)$.
+%This will be profitable if $(1 - p\frac{b}{b_0 + b}) f < 1$,
+%i.e., the cost factor $f$ of money borrowing (which is always $> 1$) is
+%sufficiently cheap that she can make up for it by the price movement
+%$1 - p\frac{b}{b_0 + b}$ she has caused.
 
-\[
-  \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)} \leq k \leq \frac{b_0}{s_0}\,.
-\]
-
-The longer the duration $\delta$, the larger the potential price deviation
-(c.f. the empirical analysis in
-\emph{Liquid Staking: Basis Determinants and Price Discovery}~\cite{scharnowski2022liquid}).
-The process of the loan is automated in some protocols~\cite[\S5]{parallel}\cite{marinade-matching}.
-
-It is also possible to use the principle of \emph{remittances}
-(matching)~\cite[\S5]{parallel}\cite{marinade-matching} to match depositing and
-redeeming parties, so that the redeeming party does not have to incur any unbonding delay.
-If the redeemed amounts exceed the deposited amounts, some amounts will necessarily incur
-a delay. However, the above bounds may effectively be tighter than $\delta$ due to
-a shorter effective unbonding duration.
-
-% TODO (e-print): Re-state the attack formulae using the corrected pricing of stasset
+%
+%The duration of the loan was $\Delta_z = t_5 - t_0$, so the
+%total loan amount to be repaid, including the principal and interest, is
+%$((1 + \rstasset)^{\Delta_z} + \betastasset) z$ \stasset.
+%Letting $f = ((1 + \rstasset)^{\Delta_z} + \betastasset)$ be the cost factor
+%of the loan, to recover this amount of \stasset, the adversary \emph{deposits}
+%$b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) f z$ \asset
+%into the protocol, which allows her to issue the exact required \stasset
+%to be paid back. This concludes the attack.
+%

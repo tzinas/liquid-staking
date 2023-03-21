@@ -66,14 +66,21 @@
 
 
 %% Loans
-\coordinate[above=25pt] (R0) at (P0);
-\coordinate[above=25pt] (R5) at (P5);
+\coordinate[above=25pt] (R2) at (P2);
+\coordinate[above=25pt] (R3) at (P3);
+\coordinate[above=45pt] (R0) at (P0);
+\coordinate[above=45pt] (R5) at (P5);
 
+
+\draw[color=BrickRed] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
+\draw[color=BrickRed] ($(R3) + (0,3pt)$) -- ($(R3) + (0,-3pt)$);
+\draw[color=BrickRed] (R2) -- (R3) node[color=black,midway, above=3pt](L1) {$b$ {\tiny \asset}};
+\node[text=BrickRed,xshift=-52pt,yshift=-8pt] at (L1) {flash loan};
 
 \draw[color=MidnightBlue] ($(R0) + (0,3pt)$) -- ($(R0) + (0,-3pt)$);
 \draw[color=MidnightBlue] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
-\draw[color=MidnightBlue] (R0) -- (R5) node[color=black,midway, above=3pt](L) {$z$ {\tiny \stasset}};
-\node[text=MidnightBlue,above=3pt] at (L) {loan};
+\draw[color=MidnightBlue] (R0) -- (R5) node[color=black,midway, above=3pt](L2) {$z$ {\tiny \stasset}};
+\node[text=MidnightBlue,above=3pt] at (L2) {loan};
 
 \end{tikzpicture}
 
