@@ -92,8 +92,10 @@ adversary can \emph{redeem}, but this may incur an unbonding delay, which can
 be rectified by taking a loan.  See Section~\ref{sec:stasset-price}.} them
 for $b = \frac{b_0}{s_0} s$ \asset in the open market, at time $t_3$.
 She uses the obtained $b$ \asset to
-repay the flash loan. We consider that all
-of the above can be performed within a single transaction.
+repay the flash loan.
+The acts of taking the flash loan,
+depositing, swapping, and returning the flash loan,
+can all be performed in a single transaction.
 
 \import{./}{free-attack-diagram.tex}
 
@@ -107,8 +109,6 @@ The adversary can now equivocate at time $t_4$ and, as before, cause the
 price of \stasset to drop.
 
 
-\import{./}{profitable-attack-diagram.tex}
-
 \noindent
 \textbf{Making the attack profitable.}
 The profitable version of the attack (Figure~\ref{fig:profitable-timeline}) works similarly to the above
@@ -116,36 +116,40 @@ attack, but with some extra steps. As before, the adversary begins by spawning t
 colluding validator $\mathcal{V}$, deposits $b$ \asset, obtained by a flash loan, at time $t_2$,
 sells the acquired $s$ \stasset to repay the flash loan at time $t_3$, and equivocates at time $t_4$.
 
+\import{./}{profitable-attack-diagram.tex}
+
 A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_0 < t_4$
 the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stassets and
 sells them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
-If $z$ approaches $s_0$, the loan market will not be sufficiently deep,
-and the adversary may have to split the attack into multiple iterations.
-Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
-\stasset loan. Once again, we consider that money borrowing is free. Hence,
-the total loan amount to be repaid is $z$ \stasset.
-To recover this amount of \stasset, the adversary \emph{deposits}
+% If $z$ approaches $s_0$, the loan market will not be sufficiently deep,
+% and the adversary may have to split the attack into multiple iterations.
+Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying $z$
+\stasset.
+% Once again, we consider that money borrowing is free.
+% Hence, the total loan amount to be repaid is $z$ \stasset.
+To recover this amount of \stasset, at time $t_5$, the adversary \emph{deposits}
 $b' = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) z$ \asset
 into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
 
 Her total profits from the attack are
-$\alpha = b^* - b' = z \frac{b_0}{s_0} p \frac{b}{b_0 + b}$.
+$\alpha = b^* - b' = z \frac{b_0}{s_0} p \frac{b}{b_0 + b}$ \asset.
 A larger short position $z \frac{b_0}{s_0}$ and a larger
 \stasset price drop percentage $p \frac{b}{b_0 + b}$, yields higher profits for the adversary.
 
 So far, we have allowed the adversary to take a loan indiscriminately without
 any concern for collateral. In practice, loan platforms
 require a collateral, so the attack impact will be limited by the adversary's
-initial capital. Let $u$ \asset be the initial capital of the adversary.
-The adversary uses the whole initial capital of $u$ \asset as
-collateral to obtain the loan of $z = u \frac{s_0}{b_0}$ \stasset and
+initial capital available for collateralization.
+Let $u$ \asset be the initial capital of the adversary.
+If no overcollateralization is required and the adversary uses her
+whole initial capital $u$ \asset as
+collateral, she obtains a loan of $z = u \frac{s_0}{b_0}$ \stasset and
 then sells them back for $b^* = u$ \asset.
-We assume that no overcollateralization is required.
-Hence, the adversary's profit relative to her initial capital is
-$\alpha = u p \frac{b}{b_0 + b}$.
+The adversary's profit relative to her initial capital is
+$\alpha = u p \frac{b}{b_0 + b}$ \asset.
 
 
 
