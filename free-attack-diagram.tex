@@ -1,0 +1,70 @@
+\usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[very thick, black]
+
+\coordinate (distance) at (3,0);
+
+\coordinate (O) at (-1,0); % Origin
+\coordinate (P2) at (1, 0);
+\coordinate (P3) at ($(P2) + (distance)$);
+\coordinate (P4) at ($(P3) + (distance)$);
+\coordinate (F) at (9,0); %End
+
+\node[anchor=east,yshift=16pt] at (O) {{\tiny \asset} reserves:};
+\node[anchor=east,yshift=8pt] at (O) {{\tiny \stasset} supply:};
+
+\coordinate[above=12pt] (M0) at (O);
+\coordinate[above=12pt] (M1) at (P2);
+\coordinate[above=12pt] (M2) at (P4);
+\coordinate[above=12pt] (M3) at (F);
+
+\draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white] {$\frac{b_0}{s_0}$};
+\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white] {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
+
+\draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
+\draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
+\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white] {$\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
+
+
+%% Timeline
+\draw[->] (O) -- (F);
+
+
+%% Ticks
+\foreach \x in {P2,P3,P4}
+\draw ($(\x) - (0,3pt)$) -- ($(\x) + (0,3pt)$);
+
+
+%% t_2
+\draw (P2) node[below=3pt](T2) {$t_2$} ;
+\node[below=8pt] at (T2) {%
+	Liquid stakes};
+
+%% t_3
+\draw (P3) node[below=3pt](T3) {$t_3$} ;
+\node[below=8pt] at (T3) {%
+	Sells};
+
+%% t_4
+\draw (P4) node[below=3pt](T4) {$t_4$} ;
+\node[below=8pt] at (T4) {%
+  Equivocates};
+
+
+%% Loans
+\coordinate[above=25pt] (R0) at (P2);
+\coordinate[above=25pt] (R5) at (P3);
+
+
+\draw[color=BrickRed] ($(R0) + (0,3pt)$) -- ($(R0) + (0,-3pt)$);
+\draw[color=BrickRed] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
+\draw[color=BrickRed] (R0) -- (R5) node[color=black,midway, above=3pt](L) {$b$ {\tiny \asset}};
+\node[text=BrickRed,above=3pt] at (L) {flash loan};
+
+\end{tikzpicture}
+
+\caption{Timeline of the attack with no initial capital.}
+\label{fig:free-timeline}
+\end{figure}

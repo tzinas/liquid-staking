@@ -13,7 +13,7 @@ cannot have \emph{fair punishment}.
 \end{claim}
 
 \noindent
-\textbf{A first attack attempt.}
+\textbf{Demonstration.}
 To see why the above claim holds, consider the following simplistic attack
 illustrated in Figure~\ref{fig:simple-timeline}.
 Let $b_0$ be the amount of delegated \asset in the protocol's delegation pool,
@@ -28,7 +28,8 @@ to suppress potential suspicions. Most validators
 have a real-world presence and can be held legally
 accountable~\cite[p.~29]{liquid-staking-report}, but this validator is pseudonymous.}.
 We do not require any of the existing protocol participants to delegate
-to this validator for the attack to work, i.e., we assume all participants
+to this validator for the attack to work, i.e., we assume, without loss of
+generality, that all participants
 are wise and all other validators are honest.
 At time $t_2$, the adversary deposits $b$ \asset to the protocol,
 signalling delegation intent to $\mathcal{V}$.
@@ -59,31 +60,43 @@ $\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) < \fra
 
 Because \stasset is fungible, \emph{every} stakeholder is negatively affected,
 proportionally to their holdings.
-As everyone else was
+The losses are socialized. As everyone else was
 wise, this constitutes unfair punishment.
+\hfill
+$\diamond$
+
 
 The above attack requires the adversary to expend capital $b$ to cause
 harm to others, and is irrational. In the remainder of this section, we
-explore how to make this attack profitable for protocols with an
-\emph{unbonding period} $\delta > 0$.
+explore how to make this attack profitable. The profitable attack works
+for protocols with an \emph{unbonding period} $\delta > 0$. First, we show
+how to attack without adversarial losses; later, how to profit.
 
 \noindent
 \textbf{Attack with no initial capital.}
 With a subtle change to the above construction, the attack can be
-performed without the adversary expending any capital.
-Before depositing into the protocol at time $t_2$, the
-adversary acquires a flash loan of $b$ \asset. She will deposit these
-borrowed funds instead of her own capital.
-For now, we assume that the borrowing of money is free.
+performed without the adversary expending any capital (Figure~\ref{fig:free-timeline}).
+Before depositing, the
+adversary acquires a flash loan of $b$ \asset. At time $t_2$ she deposits \emph{those}
+borrowed funds instead of her own.
+For now, we assume that the borrowing of money is free (we
+revisit this assumption in Section~\ref{sec:cost-of-money}).
 Hence, there is no cost for the flash loan and the adversary
-requires no initial capital.
+requires no initial capital to obtain it.
 During equivocation, the adversary does not want to be holding any
 \stasset of her own, as the price of \stasset is about to drop. She also
 needs to repay the acquired flash loan.
 Therefore, after the adversary obtains $s = \frac{s_0}{b_0} b$ \stasset
-from the deposit, she immediately sells them for $b = \frac{b_0}{s_0} s_0$
-\asset at time $t_3$ and repays the flash loan. We consider that all
+from the deposit, she immediately sells\footnote{Instead of \emph{selling}, the
+adversary can \emph{redeem}, but this may incur an unbonding delay, which can
+be rectified by taking a loan.  See Section~\ref{sec:stasset-price}.} them
+for $b = \frac{b_0}{s_0} s$ \asset in the open market, at time $t_3$.
+She uses the obtained $b$ \asset to
+repay the flash loan. We consider that all
 of the above can be performed within a single transaction.
+
+\import{./}{free-attack-diagram.tex}
+
 The adversary has now managed to add $b$ \asset delegated to validator $\mathcal{V}$
 in the protocol's delegation pool while not currently holding
 any \stasset. The loss has been averted.
@@ -107,10 +120,7 @@ A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_0 < t_4$
 the adversary \emph{shorts}
 \stasset: She takes a loan of $z$ \stassets and
-sells\footnote{Instead of \emph{selling}, the adversary can \emph{redeem}, but
-this may incur an unbonding delay, which can be rectified by taking a loan.
-See Section~\ref{sec:stasset-price}.}
-them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
+sells them for $b^* = z \frac{b_0}{s_0}$ \asset in the market.
 If $z$ approaches $s_0$, the loan market will not be sufficiently deep,
 and the adversary may have to split the attack into multiple iterations.
 Lastly, at time $t_5 > t_4$ after the price drop, the adversary closes her short position by repaying the
@@ -122,9 +132,20 @@ into the protocol, which allows her to issue the exact required \stasset
 to be paid back. This concludes the attack.
 
 Her total profits from the attack are
-$b^* - b' = z \frac{b_0}{s_0} p \frac{b}{b_0 + b}$.
+$\alpha = b^* - b' = z \frac{b_0}{s_0} p \frac{b}{b_0 + b}$.
 A larger short position $z \frac{b_0}{s_0}$ and a larger
 \stasset price drop percentage $p \frac{b}{b_0 + b}$, yields higher profits for the adversary.
+
+So far, we have allowed the adversary to take a loan indiscriminately without
+any concern for collateral. In practice, loan platforms
+require a collateral, so the attack impact will be limited by the adversary's
+initial capital. Let $u$ \asset be the initial capital of the adversary.
+The adversary uses the whole initial capital of $u$ \asset as
+collateral to obtain the loan of $z = u \frac{s_0}{b_0}$ \stasset and
+then sells them back for $b^* = u$ \asset.
+We assume that no overcollateralization is required.
+Hence, the adversary's profit relative to her initial capital is
+$\alpha = u p \frac{b}{b_0 + b}$.
 
 
 
