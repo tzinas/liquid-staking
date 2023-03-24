@@ -3,7 +3,7 @@
 
 Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
 are a mechanism to alleviate the Principal--Agent problem in liquid staking.
-An exempt delegation amount $c$, measured in \asset, is associated
+In this mechanism, an exempt delegation amount $c$, measured in \asset, is associated
 with each validator. It is a measure of the validator's trustworthiness.
 The liquid staking protocol is now redesigned to impose restrictions
 on how much of the protocol's pooled moneys can be delegated to a particular
@@ -11,7 +11,7 @@ validator based on the validator's exempt delegation.
 The restriction is
 parameterized by a factor $\phi$ (in practice, $\phi > 1$)
 and is given by the inequality $b \leq \phi c$: Only up to $b$ \assets
-are allowed to be delegated by the liquid staking protocol
+are allowed to be delegated in aggregate by the liquid staking protocol
 to a validator with $c$ \assets in exempt delegations.
 
 A new validator begins its lifecycle with $c = 0$. They can then
@@ -28,7 +28,7 @@ at a potentially higher rate $q \geq p$. Exempt delegated assets cannot
 be undelegated in a way that would cause a violation of the inequality
 $b \leq \phi c$.
 
-Principals, whether wise or unwise, do not participate in exempt
+Principals, whether wise or unwise, are not expected to participate in exempt
 delegations; instead, it is the validator who exempt delegates to
 themselves (or someone who trusts the validator for extrinsic reasons).
 This means that, in case of validator misbehavior, the exempt delegation
@@ -45,31 +45,30 @@ corresponding to those $b$ \assets can be, as before, sold at $t_3$ to
 separate the agent from the principal, the $c$ amount remains with the
 agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
-of the attack, the adversary undelegates the unslashed $(1 - q)c$ exempt delegation.
+of the attack, the adversary undelegates the unslashed $(1 - q)c$ \asset exempt delegation.
 The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}.
 
 The attack may remain profitable despite exempt delegations.
+To maximize her shorting leverage, the adversary wants to use all
+of her initial capital $u$ \asset to obtain the $z$ \stasset loan.
+Upon swapping $z$ for $b^*$ \asset, the adversary can then use part of it as $c$.
 The rational adversary should not waste any unnecessary resources on
-$c$; therefore, she can set $c = \frac{b}{\phi}$.
-Instead of requiring the exempt delegation amount as extra assets set aside, we will make them part of
-the loan obtained by the adversary. That way, all the initial capital of
-the adversary can be used to maximize her shorting leverage.
-To perform the attack, part of the $b^*$ funds are used to exempt delegate
-$c = \frac{b}{\phi}$ \asset to $\mathcal{V}$ at $t_1$.
-Hence $c \leq b^*$ and the adversary may use up to
-$b \leq u\phi$ to move the price.
+$c$; therefore, after choosing $b$ she can set $c = \frac{b}{\phi}$.
+Since the maximum amount that the adversary exempt delegates
+cannot be more than her initial capital $u$ \asset,
+it must always hold that $b \leq u\phi$.
 
-
-The profit of the attack now becomes $\alpha = b^* - b' - \frac{q}{\phi}b$.
+The profit of the attack now becomes $\alpha = b^* - b' - qc$.
 Solving for $\frac{d\alpha}{db} = 0$ gives the optimal $b = \sqrt{u p b_0 \frac{\phi}{q}} - b_0$,
 which maximizes
 the adversary's profit, subject to the constraints
 $0 \leq b \leq u\phi$.
 
+
 The intuition for why exempt delegations protect the system is that,
 for the adversary to profit from the short, she must cause a significant
 shift in the price. The shift in the price is determined by the factor
-$p\frac{b}{b_0}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
+$p\frac{b}{b_0 + b}$, so the adversary aims for a large $b$. But because $b \leq \phi c$
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 %
@@ -114,14 +113,30 @@ the resulting equation for $\frac{\phi}{q}$ yields
 % (1/(b0*γ)) * (f*p*u + f*u - b0*β*γ - 2*u*sqrt(fp*(f-1)) - u)
 %\begin{gather*}
 %  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}\,. \label{eq:phi-choice} \tag{$\ast$}
-%\end{gather*}
+%
+
 
 Plugging the appropriate values
 into $p$, $b_0$ and $u$
 designating the conditions the protocol
-operates under, the protocol designers can calculate a secure value
+operates under, we can calculate a secure value
 $\frac{\phi}{q}$ for a given adversarial market domination $\frac{u}{b_0}$.
 %TODO: mention relative to the adversary's initial capital
+In Figure~\ref{fig:contour-plotu}, we show the adversarial profit for
+different values of the parameter $\frac{\phi}{q}$ and adversarial market
+domination $\frac{u}{b_0}$.
+For this figure we consider a blockchain with slashing rate $p = 0.5$.
+
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./plots/plotu.pdf}
+  \caption{Profitability based on market domination
+            $\frac{u}{b_0}$ and parameter $\frac{\phi}{q}$.}
+  \label{fig:contour-plotu}
+\end{figure}
+
+
 A higher exempt delegation slashing rate $q$ makes the attack more expensive. This
 is because a larger portion of the exempt delegation $c$, holding the adversary accountable,
 is slashed. A lower exempt delegation factor $\phi$ also makes the attack more expensive
@@ -131,27 +146,38 @@ We recommend always setting $q = 1$ if possible, as this allows for
 larger values of $\phi$, increasing liquidity, without any harm to anyone
 besides the adversary.
 
-The cost of borrowing money increases when the collateral ratio
-$\gammastasset$, the flash loan cost factor $\betaasset$ or the loan cost factor $f$
-increase. While the cost of borrowing money goes up, the attack becomes less profitable
-for the adversary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
-and still remain secure. This is illustrated in
-Figure~\ref{fig:plotf} for an adversary with $30\%$ market domination $\frac{u}{b0}$,
-and an adversary with $50\%$ market domination $\frac{u}{b0}$.
-While $f$ increases, the safe parameter $\frac{\phi}{q}$ can increase with it.
-The black line indicates where the attack becomes unprofitable for the adversary ($\alpha = 0$).
-The white area under the black line represents the configuration in which
-the protocol is secure in the rational model.
 
-As an illustration,
-we consider a blockchain with slashing percentage
-$p = 0.5$ and market conditions\footnote{Lido stETH borrowing rates
-on Aave~\cite{aave} as of 27 Jan, 2023.}
-with \asset flash loan cost factor $\betaasset = 0.0009$ and
-collateral ratio $\gammastasset = 146\%$.
-In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
-profit. At the time of writing, if the attack duration is $20$ sec, we have
-$f = 1 + 10^{-8}$.
+\noindent
+\textbf{Repeating the attack.} If the adversary finds herself in a situation
+where the attack is profitable, the attack can be repeated in quick succession
+to siphon off almost all of the money in the liquid staking protocol.
+This corresponds to moving across the $x$ axis in Figure~\ref{fig:contour-plotu}.
+As the attack repeats, $b_0$ decreases and $u$ increases as money moves from
+the reserves of the staking protocol to the hands of the adversary.
+We conclude that the protocol must be configured with enough margin
+such that the conditions for the attack never emerge.
+
+% The cost of borrowing money increases when the collateral ratio
+% $\gammastasset$, the flash loan cost factor $\betaasset$ or the loan cost factor $f$
+% increase. While the cost of borrowing money goes up, the attack becomes less profitable
+% for the adversary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
+% and still remain secure. This is illustrated in
+% Figure~\ref{fig:plotf} for an adversary with $30\%$ market domination $\frac{u}{b0}$,
+% and an adversary with $50\%$ market domination $\frac{u}{b0}$.
+% While $f$ increases, the safe parameter $\frac{\phi}{q}$ can increase with it.
+% The black line indicates where the attack becomes unprofitable for the adversary ($\alpha = 0$).
+% The white area under the black line represents the configuration in which
+% the protocol is secure in the rational model.
+
+% As an illustration,
+% we consider a blockchain with slashing percentage
+% $p = 0.5$ and market conditions\footnote{Lido stETH borrowing rates
+% on Aave~\cite{aave} as of 27 Jan, 2023.}
+% with \asset flash loan cost factor $\betaasset = 0.0009$ and
+% collateral ratio $\gammastasset = 146\%$.
+% In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
+% profit. At the time of writing, if the attack duration is $20$ sec, we have
+% $f = 1 + 10^{-8}$.
 
 %TODO: Raname plot files
 \begin{figure}[htb]
@@ -172,18 +198,18 @@ $f = 1 + 10^{-8}$.
 \end{figure}
 
 
-\noindent
-\textbf{Free money borrowing.}
-We saw that, in practice, $f \simeq 1$, and money borrowing is almost free
-for short durations. Free money borrowing makes the adversary more powerful
-and her attack more profitable.
-Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
-borrowing is free ($f = 1$, $\betaasset = 0$, $\gammastasset = 1$),
-the same parameter $\frac{\phi}{q}$ keeps the protocol secure even when
-money borrowing is not free. This is illustrated in
-Figure~\ref{fig:compare-f-plotu}. Safe values of parameter $\frac{\phi}{q}$
-for $f = 1$, indicated by the black line, are also safe for $f > 1$
-under any adversarial market domination $\frac{u}{b_0}$.
+% \noindent
+% \textbf{Free money borrowing.}
+% We saw that, in practice, $f \simeq 1$, and money borrowing is almost free
+% for short durations. Free money borrowing makes the adversary more powerful
+% and her attack more profitable.
+% Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
+% borrowing is free ($f = 1$, $\betaasset = 0$, $\gammastasset = 1$),
+% the same parameter $\frac{\phi}{q}$ keeps the protocol secure even when
+% money borrowing is not free. This is illustrated in
+% Figure~\ref{fig:compare-f-plotu}. Safe values of parameter $\frac{\phi}{q}$
+% for $f = 1$, indicated by the black line, are also safe for $f > 1$
+% under any adversarial market domination $\frac{u}{b_0}$.
 
 %TODO (tzinas): check if the same happens for β and γ
 % updated: happens for β, γ needs to be checked as well
@@ -191,14 +217,6 @@ under any adversarial market domination $\frac{u}{b_0}$.
 
 \begin{figure}[htb]
   \centering
-  \begin{subfigure}{0.48\textwidth}
-    \raisebox{3.7mm}{
-    \includegraphics[width=\textwidth]{./plots/plotu.pdf}
-    }
-    \caption{Adversarial market domination and attack profitability
-             for varying $\frac{\phi}{q}$.}
-    \label{fig:contour-plotu}
-  \end{subfigure}
   \hfill
   \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
@@ -211,41 +229,23 @@ under any adversarial market domination $\frac{u}{b_0}$.
   \label{fig:plotu}
 \end{figure}
 
-Hence, we can greatly simplify the above calculations by assuming that money borrowing is free.
-Concretely if flash loans are free ($\betaasset = 0$), interest rates are zero ($f = 1$),
-and the collateral ratio is $\gammastasset = 100\%$, equation~\eqref{eq:phi-choice} simplifies to:
-
-\begin{gather*}
-  \frac{\phi}{q} \leq \frac{b_0}{pu} \label{eq:phi-choice-simple}
-\end{gather*}
-
-This equation can be used in practice to calculate the appropriate value
-of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$
-(due to the very short duration of the attack, the cost of money borrowing does not alter
-the final result by much). Note that, even though the attack might be profitable for a
-large $p$, a lower value of $p$ may make the attack unprofitable.
-Additionally, protocols with more liquidity $b_0$ are less prone to attack,
-because a larger capital $u$ is required to achieve the required market domination
-$\frac{u}{b_0}$.
-For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
-and the adversary can use a capital of $u = 100$ \asset to attack the protocol
-($\frac{u}{b_0} = 10\%$ market domination),
-if $p = q = 100\%$ is the slashing rate, then $\phi \leq \frac{b_0}{u} = 10$
-is a safe protocol parametrization. Attack profitability for different adversarial
-market dominations $\frac{u}{b_0}$, assuming free money borrowing and $p = 50\%$,
-are illustrated in Figure~\ref{fig:contour-plotu}.
-The white area under the black line ($\alpha = 0$) consists of safe values
-of the parameter $\frac{\phi}{q}$.
-
-\noindent
-\textbf{Repeating the attack.} If the adversary finds herself in a situation
-where the attack is profitable, the attack can be repeated in quick succession
-to siphon off almost all of the money in the liquid staking protocol.
-This corresponds to moving across the $x$ axis in Figure~\ref{fig:contour-plotu}.
-As the attack repeats, $b_0$ decreases and $u$ increases as money moves from
-the reserves of the staking protocol to the hands of the adversary.
-We conclude that the protocol must be configured with enough margin
-such that the conditions for the attack never emerge.
+% This equation can be used in practice to calculate the appropriate value
+% of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$
+% (due to the very short duration of the attack, the cost of money borrowing does not alter
+% the final result by much). Note that, even though the attack might be profitable for a
+% large $p$, a lower value of $p$ may make the attack unprofitable.
+% Additionally, protocols with more liquidity $b_0$ are less prone to attack,
+% because a larger capital $u$ is required to achieve the required market domination
+% $\frac{u}{b_0}$.
+% For example, if the liquid staking protocol has $b_0 = 1000$ \asset in deposits,
+% and the adversary can use a capital of $u = 100$ \asset to attack the protocol
+% ($\frac{u}{b_0} = 10\%$ market domination),
+% if $p = q = 100\%$ is the slashing rate, then $\phi \leq \frac{b_0}{u} = 10$
+% is a safe protocol parametrization. Attack profitability for different adversarial
+% market dominations $\frac{u}{b_0}$, assuming free money borrowing and $p = 50\%$,
+% are illustrated in Figure~\ref{fig:contour-plotu}.
+% The white area under the black line ($\alpha = 0$) consists of safe values
+% of the parameter $\frac{\phi}{q}$.
 
 \noindent
 \textbf{Proportional representation VS fair punishment.}
@@ -259,7 +259,7 @@ However, with the introduction of exempt delegations, if we make
 $\frac{\phi}{q}$ smaller, the pool of available agents to choose from is reduced to
 only the wealthy amongst them, so proportional representation
 becomes limited. For a sufficiently small $\frac{\phi}{q}$,
-unfair punishment is no longer a rational outcome.
+unfair punishment is no longer the outcome of a rational adversarial strategy.
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\
