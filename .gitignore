@@ -64,3 +64,4 @@ env/
 experiments/*.pdf
 __pycache__/
 *.synctex*
+venv/
