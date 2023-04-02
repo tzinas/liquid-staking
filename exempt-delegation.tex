@@ -3,16 +3,16 @@
 
 Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
 are a mechanism to alleviate the Principal--Agent problem in liquid staking.
-In this mechanism, an exempt delegation amount $c$, measured in \asset, is associated
+In this mechanism, an exempt delegation amount $c$ \asset is associated
 with each validator. It is a measure of the validator's trustworthiness.
 The liquid staking protocol is now redesigned to impose restrictions
 on how much of the protocol's pooled moneys can be delegated to a particular
 validator based on the validator's exempt delegation.
 The restriction is
 parameterized by a factor $\phi$ (in practice, $\phi > 1$)
-and is given by the inequality $b \leq \phi c$: Only up to $b$ \assets
+and is given by the inequality $b \leq \phi c$: Only up to $\phi c$ \assets
 are allowed to be delegated in aggregate by the liquid staking protocol
-to a validator with $c$ \assets in exempt delegations.
+to a validator with a reserve of $c$ \asset in exempt delegations.
 
 A new validator begins its lifecycle with $c = 0$. They can then
 raise their own exempt delegation amount by locking aside a
@@ -25,8 +25,7 @@ these specially marked delegations are slashed\footnote{We abstract some
 of the irrelevant implementation details here. See Appendix~\ref{sec:lsm}
 for how the real protocol works in the context of Cosmos.}
 at a potentially higher rate $q \geq p$. Exempt delegated assets cannot
-be undelegated in a way that would cause a violation of the inequality
-$b \leq \phi c$.
+be undelegated in a way that causes a violation of $b \leq \phi c$.
 
 Principals, whether wise or unwise, are not expected to participate in exempt
 delegations; instead, it is the validator who exempt delegates to
@@ -46,7 +45,7 @@ separate the agent from the principal, the $c$ amount remains with the
 agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
 of the attack, the adversary undelegates the unslashed $(1 - q)c$ \asset exempt delegation.
-The timeline of the attack is illustrated in Figure~\ref{fig:exempt-timeline}.
+The timeline of the refined attack is illustrated in Figure~\ref{fig:exempt-timeline}.
 
 The attack may remain profitable despite exempt delegations.
 To maximize her shorting leverage, the adversary wants to use all
@@ -59,9 +58,9 @@ cannot be more than her initial capital $u$ \asset,
 it must always hold that $b \leq u\phi$.
 
 The profit of the attack now becomes $\alpha = b^* - b' - qc$.
-Solving for $\frac{d\alpha}{db} = 0$ gives the optimal $b = \sqrt{u p b_0 \frac{\phi}{q}} - b_0$,
+Solving for $\frac{d\alpha}{db} = 0$ yields the optimal $b = \sqrt{u p b_0 \frac{\phi}{q}} - b_0$,
 which maximizes
-the adversary's profit, subject to the constraints
+the adversary's profit, subject to the constraint
 $0 \leq b \leq u\phi$.
 
 
@@ -97,13 +96,10 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 %$b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
 %%TODO(w/ dionyziz, probably e-print): This is probably true, maybe present plot with optimal b values
 
-What would it take to disincentivize the adversary from attacking the protocol?
-As protocol designers, we need to carefully parametrize the liquid staking protocol
-to ensure the adversarial profit is not positive. This will render the attack irrational
-and the protocol secure in the rational model. To achieve this, we must select
-the parameter $\frac{\phi}{q}$ in a way that $\alpha \leq 0$.
-Plugging in the optimal value for $b$ in the inequality $\alpha \leq 0$ and solving
-the resulting equation for $\frac{\phi}{q}$ yields
+To make the attack irrational, we select
+the parameter $\frac{\phi}{q}$ such that $\alpha \leq 0$.
+Plugging in the adversarially optimal value for $b$ in the inequality $\alpha \leq 0$ and solving
+for $\frac{\phi}{q}$ yields
 
 \begin{gather*}
   \frac{\phi}{q} \leq \frac{b_0}{p u}\,. \label{eq:phi-choice} \tag{$\ast$}
@@ -116,23 +112,22 @@ the resulting equation for $\frac{\phi}{q}$ yields
 %
 
 
-Plugging the appropriate values
-into $p$, $b_0$ and $u$
-designating the conditions the protocol
-operates under, we can calculate a secure value
-$\frac{\phi}{q}$ for a given adversarial market domination $\frac{u}{b_0}$.
+
+Plugging the values we believe the protocol to operate under into
+$p$, $b_0$ and $u$, we calculate a secure
+$\frac{\phi}{q}$ for an estimated maximum adversarial market domination $\frac{u}{b_0}$.
 %TODO: mention relative to the adversary's initial capital
 In Figure~\ref{fig:contour-plotu}, we show the adversarial profit for
-different values of the parameter $\frac{\phi}{q}$ and adversarial market
-domination $\frac{u}{b_0}$.
-For this figure we consider a blockchain with slashing rate $p = 0.5$.
+different values of $\frac{\phi}{q}$ and $\frac{u}{b_0}$.
+For the figure, we used a slashing rate $p = 0.5$.
 
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth]{./plots/plotu.pdf}
-  \caption{Profitability based on market domination
-            $\frac{u}{b_0}$ and parameter $\frac{\phi}{q}$.}
+  \caption{Adversarial profitability based on market domination
+            $\frac{u}{b_0}$ and parameter $\frac{\phi}{q}$.
+            The white area indicates secure parametrizations.}
   \label{fig:contour-plotu}
 \end{figure}
 
@@ -180,22 +175,22 @@ such that the conditions for the attack never emerge.
 % $f = 1 + 10^{-8}$.
 
 %TODO: Raname plot files
-\begin{figure}[htb]
-  \centering
-  \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
-    \caption{Collateral $u$ is $30\%$ of $b_0$.}
-    \label{fig:plotf30}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
-    \caption{Collateral $u$ is $50\%$ of $b_0$.}
-    \label{fig:plotf50}
-  \end{subfigure}
-  \caption{Cost of borrowing and attack profitability.}
-  \label{fig:plotf}
-\end{figure}
+% \begin{figure}[htb]
+%   \centering
+%   \begin{subfigure}{0.49\textwidth}
+%     \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
+%     \caption{Collateral $u$ is $30\%$ of $b_0$.}
+%     \label{fig:plotf30}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}{0.49\textwidth}
+%     \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
+%     \caption{Collateral $u$ is $50\%$ of $b_0$.}
+%     \label{fig:plotf50}
+%   \end{subfigure}
+%   \caption{Cost of borrowing and attack profitability.}
+%   \label{fig:plotf}
+% \end{figure}
 
 
 % \noindent
@@ -215,19 +210,19 @@ such that the conditions for the attack never emerge.
 % updated: happens for β, γ needs to be checked as well
 %TODO (w/ dionyziz e-print): where should we include the plots?
 
-\begin{figure}[htb]
-  \centering
-  \hfill
-  \begin{subfigure}{0.5\textwidth}
-    \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
-    \caption{Optimal $\frac{\phi}{q}$ system parametrizations
-             for different adversarial market dominations $\frac{u}{b_0}$
-             and market conditions $f$.}
-    \label{fig:compare-f-plotu}
-  \end{subfigure}
-  \caption{Adversarial market domination and attack profitability.}
-  \label{fig:plotu}
-\end{figure}
+% \begin{figure}[htb]
+%   \centering
+%   \hfill
+%   \begin{subfigure}{0.5\textwidth}
+%     \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
+%     \caption{Optimal $\frac{\phi}{q}$ system parametrizations
+%              for different adversarial market dominations $\frac{u}{b_0}$
+%              and market conditions $f$.}
+%     \label{fig:compare-f-plotu}
+%   \end{subfigure}
+%   \caption{Adversarial market domination and attack profitability.}
+%   \label{fig:plotu}
+% \end{figure}
 
 % This equation can be used in practice to calculate the appropriate value
 % of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$
@@ -251,7 +246,7 @@ such that the conditions for the attack never emerge.
 \textbf{Proportional representation VS fair punishment.}
 Proportional representation and fair punishment, as indicated in
 Section~\ref{sec:attack}, are conflicting properties in liquid
-staking. Without exempt delegations ($\frac{\phi}{q} = \infty$),
+staking. Without exempt delegations ($\phi = \infty$),
 the protocol has full proportional representation, as the principal can
 signal delegation to any agent of their choice without restriction. There,
 an adversary can always cause unfair punishment of principals.
@@ -259,7 +254,7 @@ However, with the introduction of exempt delegations, if we make
 $\frac{\phi}{q}$ smaller, the pool of available agents to choose from is reduced to
 only the wealthy amongst them, so proportional representation
 becomes limited. For a sufficiently small $\frac{\phi}{q}$,
-unfair punishment is no longer the outcome of a rational adversarial strategy.
+the protocol has fair punishment in the rational model.
 
 %\begin{align*}
 %  &a = b^* - b' - qc - \betaasset b\\

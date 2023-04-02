@@ -3,7 +3,7 @@
 
 We now describe an attack an adversary can conduct which leverages the
 Principal--Agent problem of liquid staking. First, we observe that
-fair punishment in the class of liquid staking protocols we are concerned
+fair punishment in the class of protocols we are concerned
 about is impossible.
 
 \begin{claim}
@@ -42,6 +42,7 @@ $\frac{b_0 + b}{s_0 + s} = \frac{b_0}{s_0}$.
 Lastly, at time $t_4 > t_2$, validator
 $\mathcal{V}$ equivocates. This causes a proportion $p$ of
 the capital $b$ to be slashed.
+The rest $(1 - p)b$ \asset is returned back to the protocol.
 However the amount of \stasset circulating in the
 market remains $s_0 + s = s_0 + b\frac{s_0}{b_0}$.
 The new quoted price is now
