@@ -45,7 +45,8 @@ separate the agent from the principal, the $c$ amount remains with the
 agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
 of the attack, the adversary undelegates the unslashed $(1 - q)c$ \asset exempt delegation.
-The timeline of the refined attack is illustrated in Figure~\ref{fig:exempt-timeline}.
+The timeline of the refined attack is illustrated in Figure~\ref{fig:exempt-timeline}
+and the respective sequence diagram in Figure~\ref{fig:exempt-sequence}.
 
 The attack may remain profitable despite exempt delegations.
 To maximize her shorting leverage, the adversary wants to use all
@@ -71,13 +72,11 @@ $p\frac{b}{b_0 + b}$, so the adversary aims for a large $b$. But because $b \leq
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 
-\begin{figure}[htb]
+\begin{figure}[htb!]
   \centering
   \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
-  \caption{Adversarial profitability based on market domination
-            $\frac{u}{b_0}$ and parameter $\frac{\phi}{q}$.
-            The white area indicates secure parametrizations.}
-  \label{fig:contour-plotu}
+  \caption{Sequence diagram of the attack with exempt deletations.}
+  \label{fig:exempt-sequence}
 \end{figure}
 
 
@@ -163,77 +162,8 @@ the reserves of the staking protocol to the hands of the adversary.
 We conclude that the protocol must be configured with enough margin
 such that the conditions for the attack never emerge.
 
-% The cost of borrowing money increases when the collateral ratio
-% $\gammastasset$, the flash loan cost factor $\betaasset$ or the loan cost factor $f$
-% increase. While the cost of borrowing money goes up, the attack becomes less profitable
-% for the adversary. Thus, the protocol can afford to increase $\frac{\phi}{q}$
-% and still remain secure. This is illustrated in
-% Figure~\ref{fig:plotf} for an adversary with $30\%$ market domination $\frac{u}{b0}$,
-% and an adversary with $50\%$ market domination $\frac{u}{b0}$.
-% While $f$ increases, the safe parameter $\frac{\phi}{q}$ can increase with it.
-% The black line indicates where the attack becomes unprofitable for the adversary ($\alpha = 0$).
-% The white area under the black line represents the configuration in which
-% the protocol is secure in the rational model.
-
-% As an illustration,
-% we consider a blockchain with slashing percentage
-% $p = 0.5$ and market conditions\footnote{Lido stETH borrowing rates
-% on Aave~\cite{aave} as of 27 Jan, 2023.}
-% with \asset flash loan cost factor $\betaasset = 0.0009$ and
-% collateral ratio $\gammastasset = 146\%$.
-% In Figure~\ref{fig:plotf} we plot the dependencies between $f$ and adversarial
-% profit. At the time of writing, if the attack duration is $20$ sec, we have
-% $f = 1 + 10^{-8}$.
-
-%TODO: Raname plot files
-% \begin{figure}[htb]
-%   \centering
-%   \begin{subfigure}{0.49\textwidth}
-%     \includegraphics[width=\textwidth]{./plots/plotf30.pdf}
-%     \caption{Collateral $u$ is $30\%$ of $b_0$.}
-%     \label{fig:plotf30}
-%   \end{subfigure}
-%   \hfill
-%   \begin{subfigure}{0.49\textwidth}
-%     \includegraphics[width=\textwidth]{./plots/plotf50.pdf}
-%     \caption{Collateral $u$ is $50\%$ of $b_0$.}
-%     \label{fig:plotf50}
-%   \end{subfigure}
-%   \caption{Cost of borrowing and attack profitability.}
-%   \label{fig:plotf}
-% \end{figure}
 
 
-% \noindent
-% \textbf{Free money borrowing.}
-% We saw that, in practice, $f \simeq 1$, and money borrowing is almost free
-% for short durations. Free money borrowing makes the adversary more powerful
-% and her attack more profitable.
-% Hence, if a parameter $\frac{\phi}{q}$ keeps the protocol secure when money
-% borrowing is free ($f = 1$, $\betaasset = 0$, $\gammastasset = 1$),
-% the same parameter $\frac{\phi}{q}$ keeps the protocol secure even when
-% money borrowing is not free. This is illustrated in
-% Figure~\ref{fig:compare-f-plotu}. Safe values of parameter $\frac{\phi}{q}$
-% for $f = 1$, indicated by the black line, are also safe for $f > 1$
-% under any adversarial market domination $\frac{u}{b_0}$.
-
-%TODO (tzinas): check if the same happens for β and γ
-% updated: happens for β, γ needs to be checked as well
-%TODO (w/ dionyziz e-print): where should we include the plots?
-
-% \begin{figure}[htb]
-%   \centering
-%   \hfill
-%   \begin{subfigure}{0.5\textwidth}
-%     \includegraphics[width=\textwidth]{./plots/multiplef_plotu.pdf}
-%     \caption{Optimal $\frac{\phi}{q}$ system parametrizations
-%              for different adversarial market dominations $\frac{u}{b_0}$
-%              and market conditions $f$.}
-%     \label{fig:compare-f-plotu}
-%   \end{subfigure}
-%   \caption{Adversarial market domination and attack profitability.}
-%   \label{fig:plotu}
-% \end{figure}
 
 % This equation can be used in practice to calculate the appropriate value
 % of $\frac{\phi}{q}$ that can withstand an adversary with a market presence of $\frac{u}{b_0}$
