@@ -80,20 +80,6 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 \end{figure}
 
 
-%
-%\noindent
-%\textbf{The cost of borrowing.}
-%So far, we have allowed the adversary to take a loan indiscriminately without
-%any concern for collateral. In practice, loan platforms
-%require a collateral, so the attack impact will be limited by the adversary's
-%initial capital. Let $u$ \asset be the initial capital of the adversary, and
-%let $\gammastasset$ be the collateral ratio of a standard \stasset
-%loan. The adversary uses the whole initial capital of $u$ \asset as
-%collateral to obtain a loan of $z = \frac{u}{\gammastasset} \frac{s_0}{b_0}$ \stasset.
-%The loaned $z$ \stasset are converted to $b^*=\frac{u}{\gammastasset}$ \asset
-%and utilized by the adversary in the next steps of the attack.
-
-
 %Taking into consideration the flash loan cost as well, the final profit of the attack is now
 %$\alpha = b^* - b' - qc - \betaasset b$.
 %Solving for $\frac{d\alpha}{db} = 0$ gives the optimal $b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$,
@@ -104,7 +90,6 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 %$b \leq \frac{u}{(\frac{1}{\phi} + \betaasset)\gammastasset}$ will not be reached,
 %and the adversary will use the value
 %$b = \sqrt{\frac{u f p b_0}{(\betaasset + \frac{q}{\phi})\gammastasset}} - b_0$.
-%%TODO(w/ dionyziz, probably e-print): This is probably true, maybe present plot with optimal b values
 
 To make the attack irrational, we select
 the parameter $\frac{\phi}{q}$ such that $\alpha \leq 0$.
@@ -120,8 +105,6 @@ for $\frac{\phi}{q}$ yields
 %\begin{gather*}
 %  \frac{\phi}{q} \leq \frac{b_0 \gammastasset}{f p u + f u - b_0 \betaasset \gammastasset - 2 u \sqrt{fp (f-1)} - u}\,. \label{eq:phi-choice} \tag{$\ast$}
 %
-
-
 
 Plugging the values we believe the protocol to operate under into
 $p$, $b_0$ and $u$, we calculate a secure
