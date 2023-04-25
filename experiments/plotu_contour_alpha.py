@@ -3,6 +3,7 @@ from matplotlib.ticker import MaxNLocator
 import numpy as np
 import matplotlib.pyplot as plt
 from simple import *
+from matplotlib.ticker import FuncFormatter
 plt.rcParams['text.latex.preamble'] = r"\usepackage{lmodern}"
 
 rc('text', usetex=True)
@@ -17,6 +18,9 @@ rc(
 
 B0_VALUE = 10000
 
+def percentage_formatter(x, pos):
+    return f'{x * 100 :.0f}\%'
+
 def replace_all_values(ex):
   return ex.subs(b0, B0_VALUE).subs(p, 0.5)
 
@@ -29,6 +33,7 @@ def u_plot():
   ax1.xaxis.set_major_locator(MaxNLocator(nbins=5))
   ax1.yaxis.set_major_locator(MaxNLocator(nbins=5, prune='lower'))
   ax1.axis([0, 1, 0, 100])
+  ax1.xaxis.set_major_formatter(FuncFormatter(percentage_formatter))
 
   b_with_values = replace_all_values(b_expression)
 
@@ -58,7 +63,7 @@ def u_plot():
       alpha_list[len(alpha_list) - 1].append(100 * corrected_alpha / 10000)
 
   alpha_list = np.array(alpha_list, dtype=float)
-  plt.contourf(list(map(lambda a: a/10000, u_list)), w_list, alpha_list, levels=np.linspace(0, 40, 11), cmap='RdYlBu')
+  plt.contourf(list(map(lambda a: a/10000, u_list)), w_list, alpha_list, levels=np.linspace(0, 40, 11), cmap='RdYlBu_r')
   cbar = plt.colorbar()
   cbar.ax.tick_params(labelsize=18)
   cbar.ax.set_title(r"\begin{center}profit\\$\frac{\alpha}{b_0}$\end{center}", fontsize=18, pad=32, ha='center', va='center')
