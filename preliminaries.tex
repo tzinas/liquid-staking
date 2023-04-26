@@ -12,7 +12,7 @@ a loan of duration $\Delta t$ for capital $u$ has an \emph{upfront} cost factor 
 an \emph{interest rate} $r$ and the amount to be repaid, including both the principal and interest, is
 $((1 + r)^{\Delta t} + \beta) u$. The term $\beta$ models the cost factor of a flash loan,
 which has duration $0$.
-In order to take a loan, a collateral in different currency must be deposited for the duration
+In order to take a non-flash loan, a collateral in different currency must be deposited for the duration
 of the loan. DeFi protocols typically require overcollateralization. We denote by
 $\gamma \geq 1$ the collateral ratio required by the loan provider.
 To take a loan of $z$ in one currency, one must deposit the equivalent
@@ -51,14 +51,14 @@ for a period of $\delta$.} for an \emph{unbonding period} $\delta$.
 
 \noindent
 \textbf{Liquid Staking.} Delegated stake earns rewards, but remains locked and
-is illiquid. Principals often wish to rehypothecate their delegated stake as collateral,
+is illiquid. Principals often wish to rehypothecate their delegated stake,
 for example to take loans~\cite{gudgeon2020defi} or to, more broadly, participate in the
 DeFi~\cite{defi-sok} economy. Protocols that enable this ability are known as
 \emph{liquid staking protocols}~\cite{liquid-staking-report}.
 Some such protocols~\cite{lido,stride} operate
 in the form of smart contracts (\eg Lido and Rocket Pool in Ethereum) or separate
 appchains\footnote{An appchain is a separate Cosmos zone, connected with other
-Cosmos zones using IBC/ICA~\cite{ibc-ica} and functions similar to a smart contract.}
+Cosmos zones using IBC/ICA~\cite{ibc-ica} and functions similarly to a smart contract.}
 (\eg Stride, pStake, and Quicksilver in Cosmos).
 Stakeholders \emph{deposit} their funds into the liquid staking protocol.
 Upon deposit, these contracts act as
