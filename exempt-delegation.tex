@@ -54,7 +54,7 @@ of her initial capital $u$ \asset to obtain the $z$ \stasset loan.
 Upon swapping $z$ for $b^*$ \asset, the adversary can then use part of it as $c$.
 The rational adversary should not waste any unnecessary resources on
 $c$; therefore, after choosing $b$ she can set $c = \frac{b}{\phi}$.
-Since the maximum amount that the adversary exempt delegates
+Since the maximum amount the adversary exempt delegates
 cannot be more than her initial capital $u$ \asset,
 it must always hold that $b \leq u\phi$.
 
@@ -75,7 +75,7 @@ must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
-  \caption{Sequence diagram of the attack with exempt deletations.}
+  \caption{Sequence diagram of the attack with exempt delegations.}
   \label{fig:exempt-sequence}
 \end{figure}
 
@@ -108,8 +108,7 @@ for $\frac{\phi}{q}$ yields
 
 Plugging the values we believe the protocol to operate under into
 $p$, $b_0$ and $u$, we calculate a secure
-$\frac{\phi}{q}$ for an estimated maximum adversarial market domination $\frac{u}{b_0}$.
-%TODO: mention relative to the adversary's initial capital
+$\frac{\phi}{q}$ for an assumed maximum adversarial market domination $\frac{u}{b_0}$.
 In Figure~\ref{fig:contour-plotu}, we show the adversarial profit for
 different values of $\frac{\phi}{q}$ and $\frac{u}{b_0}$.
 For the figure, we used a slashing rate $p = 0.5$.

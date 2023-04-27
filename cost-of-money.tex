@@ -22,7 +22,7 @@ instead of the previous $u \frac{s_0}{b_0}$ \stasset.
 The loaned $z$ \stasset are then converted to $b^*=\frac{u}{\gammastasset}$ \asset.
 To perform the attack, part of the $b^*$ \asset is used to exempt delegate $c$ like
 before, but another part is now used to pay $\betaasset b$ for the flash loan cost.
-Hence $c + \betaasset b \leq b^*$ and the adversary may now use up to
+Hence $c + \betaasset b \leq b^*$ and the adversary may only use up to
 $b \leq \frac{u}{(\frac{1}{\phi} + \betaasset) \gammastasset}$ to move the price
 of \stasset.
 
@@ -55,13 +55,13 @@ the protocol is secure in the rational model.
   \centering
   \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{./figures/plotf30.pdf}
-    \caption{Collateral $u$ is $30\%$ of $b_0$.}
+    \caption{Initial capital $u$ is $30\%$ of $b_0$.}
     \label{fig:plotf30}
   \end{subfigure}
   \hfill
   \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{./figures/plotf50.pdf}
-    \caption{Collateral $u$ is $50\%$ of $b_0$.}
+    \caption{Initial capital $u$ is $50\%$ of $b_0$.}
     \label{fig:plotf50}
   \end{subfigure}
   \caption{Cost of borrowing and attack profitability.}
@@ -84,7 +84,7 @@ for short durations.
 Free money borrowing makes the adversary more powerful
 and her attack more profitable.
 Hence, a safe $\frac{\phi}{q}$ under free
-borrowing ($f = 1$, $\betaasset = 0$, $\gammastasset = 1$)
+borrowing ($f = 100\%$, $\betaasset = 0$, $\gammastasset = 100\%$)
 is also safe when borrowing is not free.
 This is illustrated in
 Figure~\ref{fig:plotu}. Safe values of parameter $\frac{\phi}{q}$
@@ -117,12 +117,12 @@ safe protocol parameters.
 
 \noindent
 \textbf{Bookkeeping in USD.}
-If the attacker wants to do bookkeeping in a more stable reference currency,
-such as USD, the attack is still profitable. The attacker begins by buying
-\asset for USD. At the end of the attack, the attacker sells \asset for USD.
+If the attacker does bookkeeping in a different currency,
+such as USD, the attack remains profitable. She begins by buying
+\asset for USD. At the end of the attack, she sells \asset for USD.
 Because the attack concerns a particular liquid staking protocol, and
 not the whole \asset network, the price of \asset will likely not
-be significantly affected by the attack at all.
+be significantly affected.
 This attack decreases the market confidence in \stasset,
 but not in \asset.
 In fact, because
@@ -135,12 +135,15 @@ minor, as the attack has a short duration of a couple of seconds.
 \noindent
 \textbf{The Market price of \stasset.}\label{sec:stasset-price}
 Let us consider the price $v$ of \stasset denominated in \asset in the market.
+
+\emph{Upper bound.}
 Because the option always exists to mint at a rate of $\frac{s_0}{b_0}$ by
 depositing, the price of \stasset denominated in \asset in a perfectly
 efficient market is $\frac{b_0}{s_0}$ at maximum. Otherwise, no
 rational buyer would use the market. Hence, the market rate is
 $v \leq \frac{b_0}{s_0}$.
 
+\emph{Lower bound.}
 There are two options to convert $s$ \stasset to \asset: either sell
 at the market rate to obtain $b = v s$ \asset, or use the redemption mechanism.
 Using the redemption mechanism, the \assets become available after
@@ -148,13 +151,14 @@ time $\delta$.
 Initially, using $s$ \stasset, a redemption is made of $b' = s \frac{b_0}{s_0}$
 delegated assets. To get $b$ \asset immediately (and avoid having to wait
 for the unbonding period), a loan of $b$ \asset is taken~\cite[p.~13]{liquid-staking-report} and
-repayed after duration $\delta$.
+repaid after duration $\delta$.
 The amount of \asset that needs to be paid back,
 including principal and interest, is $((1 + \rasset)^\delta + \betaasset)b$ \asset.
 We set this amount to be equal to $b'$, the amount of \assets that will be
 unbonded after $\delta$ time. Solving for $b$, we get
 $b = s \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
 Therefore, in an efficient market $v \geq \frac{b_0}{s_0 ((1 + \rasset)^\delta + \betaasset)}$.
+
 We deduce that the bounds for an efficient market of \asset and \stasset are
 
 \[
@@ -167,9 +171,9 @@ The longer the duration $\delta$, the larger the potential price deviation
 Such loans are available in practice and some
 protocols~\cite[\S5]{parallel}\cite{marinade-matching} even automate this process.
 
-It is also possible to use the principle of \emph{remittances}
+It is also possible for the protocol to use the principle of \emph{remittances}
 (matching)~\cite[\S5]{parallel}\cite{marinade-matching} to match depositing and
 redeeming parties, so that the redeeming party does not have to incur any unbonding delay.
 If the redeemed amounts exceed the deposited amounts, some amounts will necessarily incur
-a delay. However, the above bounds may effectively be tighter than $\delta$ due to
-a shorter effective unbonding duration.
+a delay. The above bounds may be tighter due to
+a shorter effective unbonding delay.

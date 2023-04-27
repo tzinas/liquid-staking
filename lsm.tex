@@ -9,7 +9,9 @@ In the case of non-exempt delegated assets, these are then
 \emph{tokenized} into \emph{LSM shares}, representations of delegated assets that
 are minimally fungible (fungible among the other tokens that were delegated in the
 same batch to the same validator). These tokenized
-shares are subject to the exempt delegation constraint $b \leq \phi c$. The tokenized shares
+shares are subject to the exempt delegation constraint $b \leq \phi c$.
+
+The tokenized shares
 can then be \emph{deposited} into the liquid staking protocol, which issues liquid staking
 tokens (\stassets), as usual, in a process termed \emph{refungibilization}.
 The protocol does not need to delegate further, as it can readily start reaping the
@@ -22,6 +24,7 @@ When the user \emph{redeems} \stassets, the protocol may elect to give
 back tokenized shares instead of \assets. Those can then be unwrapped into delegated assets,
 that can afterwards be undelegated into \assets after the relevant unbonding
 period expires.
+
 Through this mechanism, the exempt delegation $c$ of a validator is
 a \emph{shared} amount across potentially multiple liquid staking
 protocols that opt to accept tokenized shares
