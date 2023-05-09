@@ -1,6 +1,6 @@
 \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
 
-\begin{figure}[htb]
+\begin{figure*}[htb]
 \centering
 \begin{tikzpicture}[very thick, black]
 
@@ -21,11 +21,11 @@
 \coordinate[above=12pt] (M3) at (F);
 
 \draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white] {$\frac{b_0}{s_0}$};
-\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white] {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
+\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white] {$\frac{\textcolor{myred}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
 
 \draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
 \draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
-\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white] {$\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
+\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white] {$\frac{\textcolor{mygreen}{\blacktriangle} b_0 + b}{\textcolor{mygreen}{\blacktriangle} s_0 + s}$};
 
 
 %% Timeline
@@ -58,13 +58,13 @@
 \coordinate[above=25pt] (R5) at (P3);
 
 
-\draw[color=BrickRed] ($(R0) + (0,3pt)$) -- ($(R0) + (0,-3pt)$);
-\draw[color=BrickRed] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
-\draw[color=BrickRed] (R0) -- (R5) node[color=black,midway, above=3pt](L) {$b$ {\tiny \asset}};
-\node[text=BrickRed,above=3pt] at (L) {flash loan};
+\draw[color=myred] ($(R0) + (0,3pt)$) -- ($(R0) + (0,-3pt)$);
+\draw[color=myred] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
+\draw[color=myred] (R0) -- (R5) node[color=black,midway, above=3pt](L) {$b$ {\tiny \asset}};
+\node[text=myred,above=3pt] at (L) {flash loan};
 
 \end{tikzpicture}
 
 \caption{Timeline of the attack with no initial capital.}
 \label{fig:free-timeline}
-\end{figure}
+\end{figure*}

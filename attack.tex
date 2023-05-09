@@ -1,6 +1,5 @@
 \pdfbookmark[section]{Attack}{Attack}
 \section{Attack}\label{sec:attack}
-
 We now describe an attack an adversary can conduct which leverages the
 Principal--Agent problem of liquid staking. First, we observe that
 fair punishment in the class of protocols we are concerned
@@ -48,8 +47,9 @@ market remains $s_0 + s = s_0 + b\frac{s_0}{b_0}$.
 The new quoted price is now
 $\frac{b_0 + (1 - p)b}{s_0 + s} = \frac{b_0}{s_0}(1 - p\frac{b}{b_0 + b}) < \frac{b_0}{s_0}$.
 
-\import{./}{simple-attack-diagram.tex}
-
+\iflncs
+  \import{./}{simple-attack-diagram.tex}
+\fi
 % \begin{align*}
 %  &\frac{b_0 + (1 - p)b}{s_0 + s}\\
 % =&\frac{b_0 + (1 - p)b}{s_0}\frac{1}{1 + \frac{b}{b_0}}\\
@@ -97,7 +97,9 @@ The acts of taking the flash loan,
 depositing, swapping, and returning the flash loan,
 can all be performed in a single transaction.
 
-\import{./}{free-attack-diagram.tex}
+\iflncs
+  \import{./}{free-attack-diagram.tex}
+\fi
 
 The adversary has now managed to add $b$ \asset delegated to validator $\mathcal{V}$
 in the protocol's delegation pool while not currently holding
@@ -108,6 +110,7 @@ its \assets instantly due to $\delta > 0$.
 The adversary can now equivocate at time $t_4$ and, as before, cause the
 price of \stasset to drop.
 
+\import{./}{profitable-attack-diagram.tex}
 
 \noindent
 \textbf{Making the attack profitable.}
@@ -116,7 +119,6 @@ attack, but with some extra steps. As before, the adversary begins by spawning t
 colluding validator $\mathcal{V}$, deposits $b$ \asset, obtained by a flash loan, at time $t_2$,
 sells the acquired $s$ \stasset to repay the flash loan at time $t_3$, and equivocates at time $t_4$.
 
-\import{./}{profitable-attack-diagram.tex}
 
 A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_0 < t_4$

@@ -1,6 +1,6 @@
 \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \begin{tikzpicture}[very thick, black]
 
@@ -63,18 +63,18 @@
 \coordinate[above=30pt] (R5) at (P5);
 
 
-\draw[color=BrickRed] ($(R1) + (0,3pt)$) -- ($(R1) + (0,-3pt)$);
-\draw[color=BrickRed] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
-\draw[color=BrickRed] (R1) -- (R2) node[color=black,midway, above=3pt](L1) {$b$ {\tiny \asset}};
+\draw[color=myred] ($(R1) + (0,3pt)$) -- ($(R1) + (0,-3pt)$);
+\draw[color=myred] ($(R2) + (0,3pt)$) -- ($(R2) + (0,-3pt)$);
+\draw[color=myred] (R1) -- (R2) node[color=black,midway, above=3pt](L1) {$b$ {\tiny \asset}};
 
-\node[text=BrickRed,xshift=-48pt,yshift=-8pt] at (L1) {flash loan};
+\node[text=myred,xshift=-48pt,yshift=-8pt] at (L1) {flash loan};
 
-\draw[color=MidnightBlue] ($(R3) + (0,3pt)$) -- ($(R3) + (0,-3pt)$);
-\draw[color=MidnightBlue] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
-\draw[color=MidnightBlue] (R3) -- (R5) node[color=black,midway, above=3pt](L2) {$z$ {\tiny \stasset}};
-\node[text=MidnightBlue,above=3pt] at (L2) {loan};
+\draw[color=myblue] ($(R3) + (0,3pt)$) -- ($(R3) + (0,-3pt)$);
+\draw[color=myblue] ($(R5) + (0,3pt)$) -- ($(R5) + (0,-3pt)$);
+\draw[color=myblue] (R3) -- (R5) node[color=black,midway, above=3pt](L2) {$z$ {\tiny \stasset}};
+\node[text=myblue,above=3pt] at (L2) {loan};
 \end{tikzpicture}
 
 \caption{Timeline of the exempt delegation attack.}
 \label{fig:exempt-timeline}
-\end{figure}
+\end{figure*}

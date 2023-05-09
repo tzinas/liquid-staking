@@ -1,6 +1,6 @@
 \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
 
-\begin{figure}[htb]
+\begin{figure*}[htb]
 \centering
 \begin{tikzpicture}[very thick, black]
 
@@ -23,11 +23,11 @@
 \coordinate[above=12pt] (M3) at (F);
 
 \draw[line width=0.8pt] (M0) -- (M1) node[color=black,midway,fill=white](L0) {$\frac{b_0}{s_0}$};
-\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white](L2) {$\frac{\textcolor{BrickRed}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
+\draw[line width=0.8pt] (M2) -- (M3) node[color=black,midway,fill=white](L2) {$\frac{\textcolor{myred}{\blacktriangledown} b_0 + (1 - p) b}{s_0 + s}$};
 
 \draw[line width=0.8pt] ($(M1) + (0,2pt)$) -- ($(M1) + (0,-2pt)$);
 \draw[line width=0.8pt] ($(M2) + (0,2pt)$) -- ($(M2) + (0,-2pt)$);
-\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {$\frac{\textcolor{PineGreen}{\blacktriangle} b_0 + b}{\textcolor{PineGreen}{\blacktriangle} s_0 + s}$};
+\draw[line width=0.8pt] (M1) -- (M2) node[color=black,midway, fill=white](L1) {$\frac{\textcolor{mygreen}{\blacktriangle} b_0 + b}{\textcolor{mygreen}{\blacktriangle} s_0 + s}$};
 
 
 %% Timeline
@@ -53,4 +53,4 @@
 
 \caption{Timeline of the simplistic attack.}
 \label{fig:simple-timeline}
-\end{figure}
+\end{figure*}

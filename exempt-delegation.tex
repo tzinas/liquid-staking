@@ -1,6 +1,19 @@
 \pdfbookmark[section]{Exempt Delegations}{Exempt Delegations}
 \section{Exempt Delegations}
 
+\ifccs
+  \import{./}{exempt-delegation-attack-diagram.tex}
+\fi
+
+\ifccs
+  \begin{figure*}[b]
+    \centering
+    \includegraphics[width=0.65\textwidth]{./figures/sequence-diagram.pdf}
+    \caption{Sequence diagram of the attack with exempt delegations.}
+    \label{fig:exempt-sequence}
+  \end{figure*}
+\fi
+
 Exempt delegations (proposed in LSM~\cite{liquidity-staking-module})
 are a mechanism to alleviate the Principal--Agent problem in liquid staking.
 In this mechanism, an exempt delegation amount $c$ \asset is associated
@@ -33,8 +46,6 @@ themselves (or someone who trusts the validator for extrinsic reasons).
 This means that, in case of validator misbehavior, the exempt delegation
 slashing $qc$ is a penalty that only affects the validator.
 
-\import{./}{exempt-delegation-attack-diagram.tex}
-
 This raises
 the cost of the attack described in the previous section. The
 adversary must first, at time $t_1$ (where $t_0 < t_1 < t_2$), exempt delegate a sufficient amount
@@ -64,6 +75,9 @@ which maximizes
 the adversary's profit, subject to the constraint
 $0 \leq b \leq u\phi$.
 
+\iflncs
+  \import{./}{exempt-delegation-attack-diagram.tex}
+\fi
 
 The intuition for why exempt delegations protect the system is that,
 for the adversary to profit from the short, she must cause a significant
@@ -72,12 +86,14 @@ $p\frac{b}{b_0 + b}$, so the adversary aims for a large $b$. But because $b \leq
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 
-\begin{figure}[htb!]
-  \centering
-  \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
-  \caption{Sequence diagram of the attack with exempt delegations.}
-  \label{fig:exempt-sequence}
-\end{figure}
+\iflncs
+  \begin{figure*}[htb]
+    \centering
+    \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
+    \caption{Sequence diagram of the attack with exempt delegations.}
+    \label{fig:exempt-sequence}
+  \end{figure*}
+\fi
 
 
 %Taking into consideration the flash loan cost as well, the final profit of the attack is now
@@ -116,7 +132,12 @@ For the figure, we used a slashing rate $p = 0.5$.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{./figures/plotu.pdf}
+  \iflncs
+    \includegraphics[width=0.7\textwidth]{./figures/plotu.pdf}
+  \fi
+  \ifccs
+    \includegraphics[width=0.49\textwidth]{./figures/plotu.pdf}
+  \fi
   \caption{Adversarial profitability based on market domination
             $\frac{u}{b_0}$ and parameter $\frac{\phi}{q}$.
             The white area indicates secure parametrizations.}
