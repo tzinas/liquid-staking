@@ -1,11 +1,22 @@
 \fancyhf{} % Remove fancy page headers
-\fancyhead[C]{SBC 2023} % TODO: replace 9999 with your paper number
+\fancyhead[C]{SBC '23} % TODO: replace 9999 with your paper number
 \fancyfoot[C]{\thepage}
 
-\setcopyright{none} % No copyright notice required for submissions
-\acmConference[SBC 2023]{SBC 2023}{Aug 28 - 30, 2023 }{Arrillaga Alumni Center, Stanford University}
-\acmYear{2023}
+\acmConference[SBC]{SBC}{Aug 28 - 30, 2023}{Arrillaga Alumni Center, Stanford University}
+\acmYear{}
 
-\settopmatter{printacmref=false, printccs=true, printfolios=true} % We want page numbers on submissions
+\acmPrice{}
+\acmDOI{}
+\acmISBN{}
+
+\fancypagestyle{firstpage}{
+  \fancyhf{}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[C]{\vspace*{-3.5\baselineskip}\thepage}
+}
+
+\settopmatter{printacmref=false, printccs=false, printfolios=false}
+\setcopyright{none}
+\renewcommand\footnotetextcopyrightpermission[1]{}
 
 %%\ccsPaper{9999} % TODO: replace with your paper number once obtained
