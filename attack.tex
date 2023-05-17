@@ -110,7 +110,9 @@ its \assets instantly due to $\delta > 0$.
 The adversary can now equivocate at time $t_4$ and, as before, cause the
 price of \stasset to drop.
 
-\import{./}{profitable-attack-diagram.tex}
+\ifccs
+  \import{./}{profitable-attack-diagram.tex}
+\fi
 
 \noindent
 \textbf{Making the attack profitable.}
@@ -119,6 +121,9 @@ attack, but with some extra steps. As before, the adversary begins by spawning t
 colluding validator $\mathcal{V}$, deposits $b$ \asset, obtained by a flash loan, at time $t_2$,
 sells the acquired $s$ \stasset to repay the flash loan at time $t_3$, and equivocates at time $t_4$.
 
+\iflncs
+  \import{./}{profitable-attack-diagram.tex}
+\fi
 
 A small extra trick will allow her to profit.
 Before forcing the price of \stasset to drop, at time $t_0 < t_4$
