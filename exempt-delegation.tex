@@ -46,6 +46,10 @@ themselves (or someone who trusts the validator for extrinsic reasons).
 This means that, in case of validator misbehavior, the exempt delegation
 slashing $qc$ is a penalty that only affects the validator.
 
+\iflncs
+  \import{./}{exempt-delegation-attack-diagram.tex}
+\fi
+
 This raises
 the cost of the attack described in the previous section. The
 adversary must first, at time $t_1$ (where $t_0 < t_1 < t_2$), exempt delegate a sufficient amount
@@ -74,10 +78,6 @@ Solving for $\frac{d\alpha}{db} = 0$ yields the optimal $b = \sqrt{u p b_0 \frac
 which maximizes
 the adversary's profit, subject to the constraint
 $0 \leq b \leq u\phi$.
-
-\iflncs
-  \import{./}{exempt-delegation-attack-diagram.tex}
-\fi
 
 The intuition for why exempt delegations protect the system is that,
 for the adversary to profit from the short, she must cause a significant
