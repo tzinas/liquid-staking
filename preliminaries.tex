@@ -78,7 +78,12 @@ can \emph{redeem} their derivative asset.
 During redemption, the contract burns
 the holder's derivative assets and returns the respective assets to the holder.
 For completeness, we illustrate the basic deposit and withdrawal
-functionalities of any liquid staking protocol in Appendix~\ref{app:contract}.
+functionalities of any liquid staking protocol in
+\ifproceedings
+  the full version of this paper~\cite{liquid-staking-eprint}.
+\else
+  Appendix~\ref{app:contract}.
+\fi
 In our treatment, we consider a generic asset that we denominate in \asset
 and the respective derivative token, that we denominate in \stasset,
 issued by an arbitrary liquid staking protocol.
@@ -102,7 +107,11 @@ delegated \asset to the user. These delegated \asset can be unbonded to convert 
 to \asset. Because the user can always go back to the protocol and exchange $b$ for $s$ or
 vice versa, we assume that the price of \stasset denominated in \asset in the
 market is the same as the quoted protocol price. We refine this assumption in
-Section~\ref{sec:stasset-price}.
+\ifproceedings
+  the full version of this paper~\cite{liquid-staking-eprint}.
+\else
+  Section~\ref{sec:stasset-price}.
+\fi
 Users can buy and sell \stassets by \emph{swapping} them on-chain~\cite{angeris2021analysis}.
 
 \noindent

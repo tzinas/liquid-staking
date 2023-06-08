@@ -2,11 +2,13 @@
 \newif\ifonecolumn
 \newif\iflncs
 \newif\ifccs
+\newif\ifproceedings
 \newif\ifanonymous
 \newif\iftoday
 \todaytrue
 %\ccstrue % pick one: LNCS or CCS (and `make clean`)
 \lncstrue
+\proceedingstrue
 %\anonymoustrue
 
 \ifccs
@@ -31,7 +33,10 @@
 
 \import{./}{body.tex}
 
-\vfill
+\ifproceedings
+\else
+  \vfill
+\fi
 \iflncs
 \thispagestyle{plain}
 \fi
@@ -47,18 +52,25 @@
 
 
 \ifanonymous\else
-\pagebreak
+  \ifproceedings
+  \else
+    \pagebreak
+  \fi
 \import{./}{acknowledgements.tex}
 \fi
 
+\ifproceedings
 \pdfbookmark[section]{Appendix}{appendix}
 \iflncs
   \pagebreak
 \fi
-\section*{Appendix}
-\appendix
-\import{./}{lsm.tex}
-%\import{./}{comparison.tex}
-\import{./}{contract.tex}
+
+\else
+  \section*{Appendix}
+  \appendix
+  \import{./}{lsm.tex}
+  %\import{./}{comparison.tex}
+  \import{./}{contract.tex}
+\fi
 
 \end{document}

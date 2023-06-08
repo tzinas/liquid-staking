@@ -2,7 +2,10 @@
 \section{Exempt Delegations}
 
 \ifccs
-  \import{./}{exempt-delegation-attack-diagram.tex}
+  \ifproceedings
+  \else
+    \import{./}{exempt-delegation-attack-diagram.tex}
+  \fi
 \fi
 
 \ifccs
@@ -35,7 +38,12 @@ the \emph{exempt}
 marking means that those delegated assets cannot be part of the liquid
 staking protocol pool, but must remain locked aside. Additionally,
 these specially marked delegations are slashed\footnote{We abstract some
-of the irrelevant implementation details here. See Appendix~\ref{sec:lsm}
+of the irrelevant implementation details here. See
+\ifproceedings
+  the full version of this paper~\cite{liquid-staking-eprint}
+\else
+  Appendix~\ref{sec:lsm}
+\fi
 for how the real protocol works in the context of Cosmos.}
 at a potentially higher rate $q \geq p$. Exempt delegated assets cannot
 be undelegated in a way that causes a violation of $b \leq \phi c$.
@@ -47,7 +55,10 @@ This means that, in case of validator misbehavior, the exempt delegation
 slashing $qc$ is a penalty that only affects the validator.
 
 \iflncs
-  \import{./}{exempt-delegation-attack-diagram.tex}
+  \ifproceedings
+  \else
+    \import{./}{exempt-delegation-attack-diagram.tex}
+  \fi
 \fi
 
 This raises
@@ -60,8 +71,12 @@ separate the agent from the principal, the $c$ amount remains with the
 agent, holding her financially liable to misbehavior. After equivocation at $t_4$,
 in addition to any other costs, the adversary loses $qc$ \asset. At the conclusion
 of the attack, the adversary undelegates the unslashed $(1 - q)c$ \asset exempt delegation.
-The timeline of the refined attack is illustrated in Figure~\ref{fig:exempt-timeline}
-and the respective sequence diagram in Figure~\ref{fig:exempt-sequence}.
+\ifproceedings
+  The sequence diagram of the refined attack is illustrated in Figure~\ref{fig:exempt-sequence}.
+\else
+  The timeline of the refined attack is illustrated in Figure~\ref{fig:exempt-timeline}
+  and the respective sequence diagram in Figure~\ref{fig:exempt-sequence}.
+\fi
 
 The attack may remain profitable despite exempt delegations.
 To maximize her shorting leverage, the adversary wants to use all
@@ -200,8 +215,11 @@ only the wealthy amongst them, so proportional representation
 becomes limited. For a sufficiently small $\frac{\phi}{q}$,
 the protocol has fair punishment in the rational model.
 
-This concludes the main contribution of our paper. The next
-sections make some of the financial arguments slightly more precise.
+\ifproceedings
+\else
+  This concludes the main contribution of our paper. The next
+  sections make some of the financial arguments slightly more precise.
+\fi
 
 
 %\begin{align*}

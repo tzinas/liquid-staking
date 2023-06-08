@@ -82,15 +82,27 @@ adversary acquires a flash loan of $b$ \asset. At time $t_2$ she deposits \emph{
 borrowed funds instead of her own.
 For now, we assume that the borrowing of money is free
 and there is no cost for the flash loan
-(we revisit this assumption in Section~\ref{sec:cost-of-money}).
+(we revisit this assumption in
+\ifproceedings
+  the full version of this paper~\cite{liquid-staking-eprint}).
+\else
+  Section~\ref{sec:cost-of-money}).
+\fi
 During equivocation, the adversary does not want to be holding any
 \stasset of her own, as the price of \stasset is about to drop. She also
 needs to repay the acquired flash loan.
 Therefore, after the adversary obtains $s = \frac{s_0}{b_0} b$ \stasset
 from the deposit, she immediately sells\footnote{Instead of \emph{selling}, the
 adversary can \emph{redeem}, but this may incur an unbonding delay, which can
-be rectified by taking a loan.  See Section~\ref{sec:stasset-price}.} them
-for $b = \frac{b_0}{s_0} s$ \asset in the open market, at time $t_3$.
+be rectified by taking a loan. See
+\ifproceedings
+  the full version of this paper~\cite{liquid-staking-eprint} for more details.
+\else
+  Section~\ref{sec:stasset-price}.
+  Section~\ref{sec:stasset-price}.
+\fi
+}
+them for $b = \frac{b_0}{s_0} s$ \asset in the open market, at time $t_3$.
 She uses the obtained $b$ \asset to
 repay the flash loan.
 The acts of taking the flash loan,

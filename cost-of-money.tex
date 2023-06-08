@@ -136,23 +136,25 @@ safe protocol parameters.
 \end{figure*}
 
 
-
-\noindent
-\textbf{Bookkeeping in USD.}
-If the attacker does bookkeeping in a different currency,
-such as USD, the attack remains profitable. She begins by buying
-\asset for USD. At the end of the attack, she sells \asset for USD.
-Because the attack concerns a particular liquid staking protocol, and
-not the whole \asset network, the price of \asset will likely not
-be significantly affected.
-This attack decreases the market confidence in \stasset,
-but not in \asset.
-In fact, because
-the attack causes slashing of \asset, the supply of \asset is decreased
-and the price of \asset with respect to the reference currency may
-even increase.
-Lastly, any price fluctuations of \asset with respect to USD will likely be
-minor, as the attack has a short duration of a couple of seconds.
+\ifproceedings
+\else
+  \noindent
+  \textbf{Bookkeeping in USD.}
+  If the attacker does bookkeeping in a different currency,
+  such as USD, the attack remains profitable. She begins by buying
+  \asset for USD. At the end of the attack, she sells \asset for USD.
+  Because the attack concerns a particular liquid staking protocol, and
+  not the whole \asset network, the price of \asset will likely not
+  be significantly affected.
+  This attack decreases the market confidence in \stasset,
+  but not in \asset.
+  In fact, because
+  the attack causes slashing of \asset, the supply of \asset is decreased
+  and the price of \asset with respect to the reference currency may
+  even increase.
+  Lastly, any price fluctuations of \asset with respect to USD will likely be
+  minor, as the attack has a short duration of a couple of seconds.
+\fi
 
 \noindent
 \textbf{The Market price of \stasset.}\label{sec:stasset-price}
