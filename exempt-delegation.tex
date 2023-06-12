@@ -61,6 +61,18 @@ slashing $qc$ is a penalty that only affects the validator.
   \fi
 \fi
 
+\ifproceedings
+  \iflncs
+    \begin{figure*}[htb]
+      \centering
+      \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
+      \caption{Sequence diagram of the attack with exempt delegations.}
+      \label{fig:exempt-sequence}
+    \end{figure*}
+  \fi
+\else
+\fi
+
 This raises
 the cost of the attack described in the previous section. The
 adversary must first, at time $t_1$ (where $t_0 < t_1 < t_2$), exempt delegate a sufficient amount
@@ -101,13 +113,16 @@ $p\frac{b}{b_0 + b}$, so the adversary aims for a large $b$. But because $b \leq
 must be respected, this incurs a large penalty $qc = \frac{q}{\phi}b$.
 
 
-\iflncs
-  \begin{figure*}[htb]
-    \centering
-    \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
-    \caption{Sequence diagram of the attack with exempt delegations.}
-    \label{fig:exempt-sequence}
-  \end{figure*}
+\ifproceedings
+\else
+  \iflncs
+    \begin{figure*}[htb]
+      \centering
+      \includegraphics[width=1\textwidth]{./figures/sequence-diagram.pdf}
+      \caption{Sequence diagram of the attack with exempt delegations.}
+      \label{fig:exempt-sequence}
+    \end{figure*}
+  \fi
 \fi
 
 
